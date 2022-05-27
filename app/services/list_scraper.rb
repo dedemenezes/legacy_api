@@ -1,5 +1,3 @@
-require_relative "doc_builder"
-
 class ListScraper
   def initialize(attributes = {})
     @doc = attributes[:doc]
