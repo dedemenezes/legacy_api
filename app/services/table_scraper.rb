@@ -26,7 +26,7 @@ class TableScraper
     return if nokogiri_a_tag.text.match? /index/
 
     if nokogiri_a_tag.attr('href')
-      { data: nokogiri_a_tag.attr('title'), path: nokogiri_a_tag.attr('href') }
+      { title: nokogiri_a_tag.attr('title'), path: nokogiri_a_tag.attr('href') }
     # else
     #   a = { data: a_tag.text }
     end
