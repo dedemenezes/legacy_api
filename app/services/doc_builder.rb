@@ -1,0 +1,2 @@
+class DocBuilder
+end
