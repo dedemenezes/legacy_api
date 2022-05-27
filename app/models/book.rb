@@ -5,13 +5,12 @@ class Book < ApplicationRecord
     @next_attribute = prepare_attribute_name(key)
     define_instance_variables(values)
     # define_attribute_readers
-    binding.pry
-    save
+    save if changed?
   end
 
   def add_attribute(name, value)
     define_instance_variables(value, name)
-    define_attribute_readers(name)
+    # define_attribute_readers(name)
   end
 
   def prepare_attribute_name(string)
