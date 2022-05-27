@@ -13,9 +13,7 @@ namespace :scraper do
       infos = InformationsScraper.new(doc: doc_builder.html_doc).scrape_information_box
       infos.each do |key, values|
         book.add_new_information(key, values)
-        binding.pry
-
-        p book
+        book
       end
     end
   end

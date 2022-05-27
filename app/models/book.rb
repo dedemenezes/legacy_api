@@ -6,6 +6,7 @@ class Book < ApplicationRecord
     define_instance_variables(values)
     # define_attribute_readers
     save if changed?
+    self
   end
 
   def add_attribute(name, value)
