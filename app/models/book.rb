@@ -18,7 +18,6 @@ class Book < ApplicationRecord
 
   def self.new_book(hash)
     new_book = new(hash)
-    binding.pry
     doc_builder = DocBuilder.new path: hash[:path]
     # doc_builder.build_nokogiri_doc_from_url
     infos = InformationsScraper.new(doc: doc_builder.html_doc).scrape_information_box
