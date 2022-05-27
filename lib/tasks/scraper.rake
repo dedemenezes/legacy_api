@@ -8,13 +8,15 @@ namespace :scraper do
     infos = []
     books_hashes.first(2).each do |hash|
       book = Book.new(hash)
-      binding.pry
       doc_builder.path = hash[:path]
       doc_builder.build_nokogiri_doc_from_url
       infos = InformationsScraper.new(doc: doc_builder.html_doc).scrape_information_box
-    end
-    infos.each do |info_hash|
+      infos.each do |key, values|
+        book.add_new_information(key, values)
+        binding.pry
 
+        p book
+      end
     end
   end
 end

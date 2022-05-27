@@ -10,12 +10,12 @@ RSpec.describe Book, type: :model do
     end
   end
 
-  describe '#build' do
+  describe '#add_new_information' do
     key = 'banner'
     url = 'https://banner.com'
     values = [{ data: key, url: url }]
     book = Book.new
-    book.build(key, values)
+    book.add_new_information(key, values)
 
     it 'add new instance variable' do
       variables = book.instance_variables
@@ -24,7 +24,7 @@ RSpec.describe Book, type: :model do
     end
 
     it 'add new instance variable with url sufix' do
-      book.build(key, values)
+      book.add_new_information(key, values)
       expect { book.banner_url }.not_to raise_error
       expect(book.banner_url).to be_a(String)
       expect(book.banner_url).to eq(url)
