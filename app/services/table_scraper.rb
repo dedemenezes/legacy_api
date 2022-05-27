@@ -1,4 +1,3 @@
-require "pry-byebug"
 class TableScraper
   def initialize(attributes = {})
     @path = attributes[:path]
@@ -15,7 +14,6 @@ class TableScraper
 
   def from_table(table)
     table.search("tr").each do |element|
-      # binding.pry
       a_tag = element.first_element_child.children.first
       @character_indexes << HashBuilder.from_link(a_tag)
     end
@@ -28,6 +26,6 @@ class TableScraper
   private
 
   def get_doc
-    @html_doc = DocBuilder.new(url: @path).build_nokogiri_doc_from_url
+    @html_doc = DocBuilder.new(path: @path).html_doc
   end
 end

@@ -10,9 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_27_171119) do
+ActiveRecord::Schema.define(version: 2022_05_27_171518) do
 
-  create_table "wikis", force: :cascade do |t|
+  create_table "books", force: :cascade do |t|
     t.string "info"
     t.string "url"
     t.datetime "created_at", precision: 6, null: false
