@@ -1,11 +1,9 @@
 class Book < ApplicationRecord
-  attr_accessor :path
-
   def add_new_information(key, values)
     @next_attribute = prepare_attribute_name(key)
     define_instance_variables(values)
     # define_attribute_readers
-    save if changed?
+    persist_if_changed
     self
   end
 
@@ -18,8 +16,23 @@ class Book < ApplicationRecord
     string.gsub(' ', '_')
   end
 
+  def self.new_book(hash)
+    new_book = new(hash)
+    binding.pry
+    doc_builder = DocBuilder.new path: hash[:path]
+    # doc_builder.build_nokogiri_doc_from_url
+    infos = InformationsScraper.new(doc: doc_builder.html_doc).scrape_information_box
+    infos.each do |key, values|
+      new_book.add_new_information(key, values)
+    end
+    new_book
+  end
+
   private
 
+  def persist_if_changed
+    save if changed?
+  end
   # def define_attribute_readers(name = nil)
   #   self.class.define_method("#{name || @next_attribute}_url") do
   #     instance_variable_get "@#{name || @next_attribute}_url"
