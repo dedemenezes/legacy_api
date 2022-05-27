@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_27_180406) do
+ActiveRecord::Schema.define(version: 2022_05_27_182152) do
 
   create_table "books", force: :cascade do |t|
     t.string "title"
@@ -23,8 +23,8 @@ ActiveRecord::Schema.define(version: 2022_05_27_180406) do
     t.string "image_url"
     t.string "cover_artist"
     t.string "cover_artist_url"
-    t.string "interior_artist"
-    t.string "interior_artist_url"
+    t.string "interior"
+    t.string "interior_url"
     t.string "narrator"
     t.string "narrator_url"
     t.string "publisher"
@@ -37,6 +37,8 @@ ActiveRecord::Schema.define(version: 2022_05_27_180406) do
     t.string "followed_by_url"
     t.string "preceded_by"
     t.string "preceded_by_url"
+    t.string "author"
+    t.string "author_url"
   end
 
 end

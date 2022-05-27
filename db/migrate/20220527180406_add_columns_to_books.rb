@@ -6,8 +6,8 @@ class AddColumnsToBooks < ActiveRecord::Migration[6.1]
     add_column :books, :image_url, :string
     add_column :books, :cover_artist, :string
     add_column :books, :cover_artist_url, :string
-    add_column :books, :interior_artist, :string
-    add_column :books, :interior_artist_url, :string
+    add_column :books, :interior, :string
+    add_column :books, :interior_url, :string
     add_column :books, :narrator, :string
     add_column :books, :narrator_url, :string
     add_column :books, :publisher, :string
