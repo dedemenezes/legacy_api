@@ -1,6 +1,7 @@
 class DocBuilder
   BASE_URL = "https://harrypotter.fandom.com"
   attr_reader :html_doc
+  attr_writer :path
 
   def initialize(attributes = {})
     @path = attributes[:path]
