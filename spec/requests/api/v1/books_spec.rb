@@ -12,11 +12,11 @@ RSpec.describe "Api::V1::Books", type: :request do
       expect(response).to have_http_status(:success)
     end
 
-    it "JSON body response contains expected recipe attributes" do
-      json_response = JSON.parse(response.body).first
-      expect(json_response.keys).to include("title")
-      expect(json_response.keys).to include("image_url")
-      expect(json_response.keys).to include("author")
+    it "JSON body response contains all books attributes" do
+      json_response = JSON.parse(response.body)
+      expect(json_response).to be_an(Array)
+      keys = json_response.first.keys
+      expect(keys).to include("title").and include("image_url").and include("author")
     end
   end
 end
