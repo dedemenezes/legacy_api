@@ -1,6 +1,5 @@
-require 'pry-byebug'
+require "pry-byebug"
 class TableScraper
-
   def initialize(attributes = {})
     @path = attributes[:path]
     @html_doc = attributes[:doc] || get_doc
@@ -8,14 +7,14 @@ class TableScraper
   end
 
   def all_urls_and_names
-    @html_doc.search('.article-table').each do |table|
+    @html_doc.search(".article-table").each do |table|
       from_table(table)
     end
     @character_indexes.compact!
   end
 
   def from_table(table)
-    table.search('tr').each do |element|
+    table.search("tr").each do |element|
       # binding.pry
       a_tag = element.first_element_child.children.first
       @character_indexes << HashBuilder.from_link(a_tag)

@@ -1,5 +1,5 @@
 class DocBuilder
-  BASE_URL = 'https://harrypotter.fandom.com'
+  BASE_URL = "https://harrypotter.fandom.com"
   attr_reader :html_doc
 
   def initialize(attributes = {})
@@ -16,7 +16,7 @@ class DocBuilder
   end
 
   def build_nokogiri_doc_from_file
-    html_file = File.open(@file_path).read
+    html_file = File.read(@file_path)
     @html_doc = Nokogiri::HTML(html_file)
   end
 end
