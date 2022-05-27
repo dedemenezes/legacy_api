@@ -18,17 +18,7 @@ class TableScraper
     table.search('tr').each do |element|
       # binding.pry
       a_tag = element.first_element_child.children.first
-      @character_indexes << a_tag_doc_to_hash(a_tag)
-    end
-  end
-
-  def a_tag_doc_to_hash(nokogiri_a_tag)
-    return if nokogiri_a_tag.text.match? /index/
-
-    if nokogiri_a_tag.attr('href')
-      { title: nokogiri_a_tag.attr('title'), path: nokogiri_a_tag.attr('href') }
-    # else
-    #   a = { data: a_tag.text }
+      @character_indexes << HashBuilder.from_link(a_tag)
     end
   end
 
