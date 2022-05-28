@@ -14,7 +14,6 @@ namespace :scraper do
       doc_builder = DocBuilder.new path: path
       list_scraper = ListScraper.new(doc: doc_builder.html_doc)
       books_hashes = list_scraper.ordered_list_i_link
-      infos = []
       books_hashes.each do |hash|
         puts "Building book #{hash[:title]}"
         book = Book.new_book(hash)

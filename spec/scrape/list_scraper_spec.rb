@@ -1,7 +1,7 @@
 require "rails_helper"
 # require 'nokogiri'
 
-RSpec.describe "ListkScraper", type: :service do
+RSpec.describe "ListScraper", type: :service do
   describe "#ordered_list_i_link" do
     # doc = WikiScraper.new(url: '/wiki/Harry_Potter_(book_series)').build_nokogiri_doc_from_url
     doc = Nokogiri::HTML(Faraday.get("https://harrypotter.fandom.com/wiki/Harry_Potter_(book_series)").body)
