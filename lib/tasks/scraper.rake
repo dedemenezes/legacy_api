@@ -81,6 +81,42 @@ namespace :scraper do
     end
   end
 
+  desc "Seed Wands"
+  task wands: :environment do
+    Wand.destroy_all
+    wands =  Character.pluck(:wand, :wand_url).uniq.reject { |wand| wand.include? nil }
+    wands.each do |name, url|
+      puts "seeding #{name}"
+      doc = DocBuilder.new(path: url).html_doc
+      infos = InformationsScraper.new(doc: doc).scrape_information_box
+      attributes = Wand.generate_attribute_hash(infos)
+      attributes[:path] = url
+      wand = Wand.create!(attributes)
+
+      if infos['masters']
+        master = Character.find_by(name_url: infos['masters'].first[:path])
+        WandMaster.create(wand: wand, character: master)
+        masters_names = infos['masters'].map { _1[:title] }
+      end
+      if infos['owners']
+        owners = infos['owners']
+        owners = infos['owners'].reject { |h| masters_names.include? h[:title] } if infos['masters']
+        ## OWNERS
+        # 1. cant be master
+        # 2. iterate over owners
+        owner_counter = 0
+        owners.each do |owner|
+          # 3. new wand owner
+          owner = Character.find_by(name_url: owner[:path])
+          WandOwner.create wand: wand, character: owner if owner
+          owner_counter += 1 if owner
+        end
+        pluralize = owner_counter > 1 ? "#{owner_counter} owners." : "#{owner_counter} owner."
+      end
+      puts "#{wand.path} seeded"
+    end
+  end
+
   desc "Scraper default"
   task seed: :environment do
     Rake::Task["scraper:clean_db"].execute

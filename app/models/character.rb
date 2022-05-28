@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 class Character < ApplicationRecord
-
-  has_many :wand_masters
+  has_many :wand_masters, dependent: :destroy
+  has_many :wand_owners, dependent: :destroy
 
   def self.generate_attribute_hash(infos)
     infos.map do |k, v|
