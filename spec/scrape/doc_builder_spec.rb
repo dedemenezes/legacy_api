@@ -9,4 +9,17 @@ RSpec.describe DocBuilder, type: :service do
       end
     end
   end
+
+  describe '#doc_has_table?' do
+    it 'returns true when wanted information organized as table' do
+      builder = DocBuilder.new(path: '/wiki/Harry_Potter_and_the_Deathly_Hallows_(character_index)')
+      actual = builder.doc_has_table?
+      expect(actual).to be_truthy
+    end
+    it 'returns false when wanted information organized as list' do
+      builder = DocBuilder.new(path: "/wiki/Harry_Potter_and_the_Philosopher%27s_Stone_(character_index)")
+      actual = builder.doc_has_table?
+      expect(actual).to be_falsey
+    end
+  end
 end

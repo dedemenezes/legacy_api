@@ -20,4 +20,8 @@ class DocBuilder
     html_file = File.read(@file_path)
     @html_doc = Nokogiri::HTML(html_file)
   end
+
+  def doc_has_table?
+    !@html_doc.search('.article-table').empty?
+  end
 end
