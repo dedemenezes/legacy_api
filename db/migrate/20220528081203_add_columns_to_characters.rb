@@ -2,12 +2,11 @@ class AddColumnsToCharacters < ActiveRecord::Migration[6.1]
   def change
     add_column :characters, :image_url, :string
     add_column :characters, :name_url, :string
-    add_column :characters, :born, :string
-    add_column :characters, :blood, :string
-    add_column :characters, :_url, :string
+    add_column :characters, :born_url, :string
+    add_column :characters, :blood_url, :string
     add_column :characters, :marital_url, :string
     add_column :characters, :nationality_url, :string
-    add_column :characters, :alias_url, :string
+    add_column :characters, :nickname_url, :string
     add_column :characters, :specsie_url, :string
     add_column :characters, :gender_url, :string
     add_column :characters, :weight_urlhair_url, :string
@@ -18,3 +17,4 @@ class AddColumnsToCharacters < ActiveRecord::Migration[6.1]
     add_column :characters, :base_type_url, :string
   end
 end
+

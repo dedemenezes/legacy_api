@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_28_072436) do
+ActiveRecord::Schema.define(version: 2022_05_28_084204) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,6 +45,44 @@ ActiveRecord::Schema.define(version: 2022_05_28_072436) do
     t.string "character_index_url"
     t.string "base_type"
     t.string "base_type_url"
+  end
+
+  create_table "characters", force: :cascade do |t|
+    t.string "image"
+    t.string "name"
+    t.string "born"
+    t.string "blood"
+    t.string "marital"
+    t.string "nationality"
+    t.string "nickname"
+    t.string "species"
+    t.string "gender"
+    t.string "weight"
+    t.string "hair"
+    t.string "eyes"
+    t.string "skin"
+    t.string "family"
+    t.string "loyalty"
+    t.string "base_type"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "image_url"
+    t.string "name_url"
+    t.string "born_url"
+    t.string "blood_url"
+    t.string "marital_url"
+    t.string "nationality_url"
+    t.string "nickname_url"
+    t.string "species_url"
+    t.string "gender_url"
+    t.string "weight_urlhair_url"
+    t.string "eyes_url"
+    t.string "skin_url"
+    t.string "family_url"
+    t.string "loyalty_url"
+    t.string "base_type_url"
+    t.string "died"
+    t.string "died_url"
   end
 
   create_table "wikis", force: :cascade do |t|

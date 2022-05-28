@@ -7,7 +7,7 @@ class CreateCharacters < ActiveRecord::Migration[6.1]
       t.string :blood
       t.string :marital
       t.string :nationality
-      t.string :alias
+      t.string :nickname
       t.string :species
       t.string :gender
       t.string :weight
