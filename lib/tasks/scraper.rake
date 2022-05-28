@@ -44,6 +44,11 @@ namespace :scraper do
     end
   end
 
+  
+
+
+
+
   desc 'Scraper default'
   task default: :environment do
     Rake::Task['scraper:clean_db'].execute
