@@ -11,4 +11,14 @@ class ListScraper
     end
     @urls
   end
+
+  def unordered_list_from_parent_node
+    @urls = []
+    @doc.search('.mw-headline').each do |span|
+      span.parent.next_element.search('li > a').each do |link|
+        @urls << HashBuilder.from_link(link)
+      end
+    end
+    @urls
+  end
 end
