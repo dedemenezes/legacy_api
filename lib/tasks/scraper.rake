@@ -44,7 +44,15 @@ namespace :scraper do
     end
   end
 
-  
+  desc "Assign base type to all wikis"
+  task base_types: :environment do
+    Wiki.where.not(path: nil).each do |wiki|
+      doc = DocBuilder.new(path: wiki.path).html_doc
+      puts InformationsScraper.new(doc: doc).scrape_information_type
+      binding.pry
+      wiki
+    end
+  end
 
 
 
