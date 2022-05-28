@@ -27,5 +27,9 @@ RSpec.describe InformationsScraper, type: :service do
     it "returns all hash values as array" do
       expect(result["image"]).to be_an(Array)
     end
+
+    it 'returns correct information type name' do
+      expect(result[:object_type]).to eq("Biographical information")
+    end
   end
 end

@@ -25,6 +25,14 @@ class InformationsScraper
       information_name = information.attr("data-source")
       @informations[information_name] = values
     end
+    informations[:object_type] = scrape_information_type
+    p informations[:object_type]
     informations
+  end
+
+  def scrape_information_type
+    aside_section = "aside.portable-infobox.pi-background.pi-border-color > section"
+    h2 = "h2.pi-item.pi-header.pi-secondary-font.pi-item-spacing.pi-secondary-background"
+    @doc.search("#{aside_section} > #{h2}").first.text.strip
   end
 end

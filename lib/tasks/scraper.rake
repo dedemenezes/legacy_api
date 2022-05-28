@@ -38,7 +38,7 @@ namespace :scraper do
         chars = ListScraper.new(doc: doc_builder.html_doc).unordered_list_from_parent_node
       end
       binding.pry
-
+      
     end
   end
 
