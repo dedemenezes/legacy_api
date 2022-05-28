@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class DocBuilder
   BASE_URL = "https://harrypotter.fandom.com"
   attr_reader :html_doc
@@ -22,6 +24,6 @@ class DocBuilder
   end
 
   def doc_has_table?
-    !@html_doc.search('.article-table').empty?
+    !@html_doc.search(".article-table").empty?
   end
 end

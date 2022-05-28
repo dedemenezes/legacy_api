@@ -1,18 +1,20 @@
-require 'rails_helper'
+# frozen_string_literal: true
+
+require "rails_helper"
 
 RSpec.describe "Api::V1::Books", type: :request do
   describe "GET #index" do
     context "when database is empty" do
-      it 'returns http status no content when no book in the db' do
-        get '/api/v1/books'
+      it "returns http status no content when no book in the db" do
+        get "/api/v1/books"
         expect(response).to have_http_status(:no_content)
       end
     end
 
-    context 'when datbase has records' do
+    context "when datbase has records" do
       before do
         create(:book)
-        get '/api/v1/books'
+        get "/api/v1/books"
       end
 
       it "returns http success" do
@@ -30,13 +32,13 @@ RSpec.describe "Api::V1::Books", type: :request do
 
   describe "GET #show" do
     context "when database is empty" do
-      it 'returns http status no content when no book in the db' do
-        get '/api/v1/books/1'
+      it "returns http status no content when no book in the db" do
+        get "/api/v1/books/1"
         expect(response).to have_http_status(:not_found)
       end
     end
 
-    context 'when datbase has records' do
+    context "when datbase has records" do
       before do
         create(:book)
         get "/api/v1/books/1"

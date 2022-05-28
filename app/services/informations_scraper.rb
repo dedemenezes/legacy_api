@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative "information_scraper"
 
 class InformationsScraper
@@ -26,16 +28,15 @@ class InformationsScraper
       @informations[information_name] = values
     end
     # "pages"=>[{:title=>"223 ", :path=>nil}, {:title=>"309 ", :path=>nil}],
-    informations["base_type"] = [ { title: scrape_information_type, path: nil } ]
+    informations["base_type"] = [{title: scrape_information_type, path: nil}]
     informations
   end
 
   def scrape_information_type
     aside_section = "aside.portable-infobox.pi-background.pi-border-color > section"
     h2 = "h2.pi-item.pi-header.pi-secondary-font.pi-item-spacing.pi-secondary-background"
-    return "" if (@doc.search(aside_section)&.search(h2)).empty?
+    return "" if @doc.search(aside_section)&.search(h2)&.empty?
 
-    # binding.pry
     @doc.search("#{aside_section} > #{h2}").first.text.strip
   end
 end

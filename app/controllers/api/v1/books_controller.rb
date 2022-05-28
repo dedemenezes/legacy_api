@@ -1,15 +1,21 @@
-class Api::V1::BooksController < ApplicationController
-  def index
-    @books = Book.all
-    return render json: { message: 'Still no books to display' }, status: 204 if @books.empty?
+# frozen_string_literal: true
 
-    render json: @books.to_json, status: 200
-  end
+module Api
+  module V1
+    class BooksController < ApplicationController
+      def index
+        @books = Book.all
+        return render json: {message: "Still no books to display"}, status: 204 if @books.empty?
 
-  def show
-    @book = Book.find(params[:id])
-    return render json: { message: 'Still no books to display' }, status: 204 if @book.nil?
+        render json: @books.to_json, status: 200
+      end
 
-    render json: @book.to_json, status: 200
+      def show
+        @book = Book.find(params[:id])
+        return render json: {message: "Still no books to display"}, status: 204 if @book.nil?
+
+        render json: @book.to_json, status: 200
+      end
+    end
   end
 end

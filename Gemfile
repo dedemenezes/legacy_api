@@ -9,7 +9,7 @@ ruby "3.0.3"
 gem "rails", "~> 6.1.5"
 # Use sqlite3 as the database for Active Record
 # gem "sqlite3", "~> 1.4"
-gem 'pg'
+gem "pg"
 # Use Puma as the app server
 gem "puma", "~> 5.0"
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
@@ -32,10 +32,10 @@ gem "faraday", "~> 2.3"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem "standard"
+  gem "factory_bot_rails"
   gem "pry-byebug"
   gem "rspec-rails"
-  gem 'factory_bot_rails'
+  gem "standard"
 end
 
 group :development do

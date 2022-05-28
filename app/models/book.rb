@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Book < ApplicationRecord
   def add_new_information(key, values)
     @next_attribute = prepare_attribute_name(key)
@@ -13,7 +15,7 @@ class Book < ApplicationRecord
   end
 
   def prepare_attribute_name(string)
-    string.gsub(' ', '_')
+    string.tr(" ", "_")
   end
 
   def self.new_book(hash)
@@ -43,10 +45,14 @@ class Book < ApplicationRecord
   # end
 
   def define_instance_variables(values, name = nil)
-    # binding.pry
-    instance_variable_set "@#{name || @next_attribute}_url", values.first[:path] unless values.first[:path].nil?
-    instance_variable_set "@#{name || @next_attribute}", values.first[:title] unless values.first[:title].nil?
-    send("#{name || @next_attribute}=", instance_variable_get("@#{name || @next_attribute}"))
-    send("#{name || @next_attribute}_url=", instance_variable_get("@#{name || @next_attribute}_url"))
+    attribute_name = name || @next_attribute
+    instance_variable_set "@#{attribute_name}_url", values.first[:path] unless values.first[:path].nil?
+    instance_variable_set "@#{attribute_name}", values.first[:title] unless values.first[:title].nil?
+    define_attr_writer(attribute_name)
+  end
+
+  def define_attr_writer(attribute_name)
+    send("#{attribute_name}=", instance_variable_get("@#{attribute_name}"))
+    send("#{attribute_name}_url=", instance_variable_get("@#{attribute_name}_url"))
   end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "rails_helper"
 # require 'nokogiri'
 
@@ -13,9 +15,9 @@ RSpec.describe "ListScraper", type: :service do
 
     it "build a hash for each result with keys title and path" do
       result = results.first
-      expect(result.keys).to eq([:title, :path])
+      expect(result.keys).to eq(%i[title path])
       result = results.last
-      expect(result.keys).to eq([:title, :path])
+      expect(result.keys).to eq(%i[title path])
     end
 
     it "returns all urls" do
@@ -35,7 +37,7 @@ RSpec.describe "ListScraper", type: :service do
     end
   end
 
-  describe '#unordered_list_from_parent_node' do
+  describe "#unordered_list_from_parent_node" do
     chars = [
       {title: "Albino peacock", path: "/wiki/Albino_peacock"},
       {title: "Pius Thicknesse", path: "/wiki/Pius_Thicknesse"},

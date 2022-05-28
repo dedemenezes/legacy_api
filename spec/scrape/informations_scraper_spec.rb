@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "rails_helper"
 
 RSpec.describe InformationsScraper, type: :service do
@@ -28,7 +30,7 @@ RSpec.describe InformationsScraper, type: :service do
       expect(result["image"]).to be_an(Array)
     end
 
-    it 'returns correct information type name' do
+    it "returns correct information type name" do
       expect(result[:base_type]).to eq("Biographical information")
     end
   end

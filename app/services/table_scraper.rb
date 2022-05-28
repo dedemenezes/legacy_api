@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TableScraper
   def initialize(attributes = {})
     @path = attributes[:path]

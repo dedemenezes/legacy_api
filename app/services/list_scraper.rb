@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ListScraper
   def initialize(attributes = {})
     @doc = attributes[:doc]
@@ -14,8 +16,8 @@ class ListScraper
 
   def unordered_list_from_parent_node
     @urls = []
-    @doc.search('.mw-headline').each do |span|
-      span.parent.next_element.search('li > a').each do |link|
+    @doc.search(".mw-headline").each do |span|
+      span.parent.next_element.search("li > a").each do |link|
         @urls << HashBuilder.from_link(link)
       end
     end

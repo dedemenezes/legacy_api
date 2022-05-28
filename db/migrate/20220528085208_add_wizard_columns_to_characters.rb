@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddWizardColumnsToCharacters < ActiveRecord::Migration[6.1]
   def change
     add_column :characters, :title, :string
