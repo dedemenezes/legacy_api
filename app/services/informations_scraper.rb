@@ -33,7 +33,7 @@ class InformationsScraper
   def scrape_information_type
     aside_section = "aside.portable-infobox.pi-background.pi-border-color > section"
     h2 = "h2.pi-item.pi-header.pi-secondary-font.pi-item-spacing.pi-secondary-background"
-    return "" unless @doc.search(aside_section)&.search(h2)
+    return "" if (@doc.search(aside_section)&.search(h2)).empty?
 
     # binding.pry
     @doc.search("#{aside_section} > #{h2}").first.text.strip

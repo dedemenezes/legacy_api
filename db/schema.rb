@@ -52,7 +52,7 @@ ActiveRecord::Schema.define(version: 2022_05_28_072436) do
     t.string "path"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "base_ype"
+    t.string "base_type"
   end
 
 end

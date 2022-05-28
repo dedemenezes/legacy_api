@@ -39,18 +39,21 @@ namespace :scraper do
               else
                 ListScraper.new(doc: doc_builder.html_doc).unordered_list_from_parent_node
               end
-      amount = chars.map { |char| Wiki.create char }.compact.count
+      amount = chars.map { |char| Wiki.create! char }.compact.count
       puts "created #{amount} wikis for #{book.title}"
     end
   end
 
   desc "Assign base type to all wikis"
   task base_types: :environment do
+    puts "Assigning base types"
     Wiki.where.not(path: nil).each do |wiki|
+      next unless wiki.base_type.nil?
       doc = DocBuilder.new(path: wiki.path).html_doc
-      puts InformationsScraper.new(doc: doc).scrape_information_type
-      binding.pry
-      wiki
+      base_type = InformationsScraper.new(doc: doc).scrape_information_type
+      wiki.base_type = base_type
+      wiki.save!
+      puts wiki.title
     end
   end
 
