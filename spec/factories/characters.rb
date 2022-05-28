@@ -8,7 +8,7 @@ FactoryBot.define do
     blood { "MyString" }
     marital { "MyString" }
     nationality { "MyString" }
-    # alia  s { "MyString" }
+    nickname { "MyString" }
     species { "MyString" }
     gender { "MyString" }
     weight { "MyString" }
