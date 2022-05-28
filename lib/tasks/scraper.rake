@@ -44,7 +44,7 @@ namespace :scraper do
     end
   end
 
-  desc "Assign base type to all wikis"
+  desc "Seed base type to all wikis"
   task base_types: :environment do
     puts "Assigning base types"
     Wiki.where.not(path: nil).each do |wiki|
@@ -54,6 +54,20 @@ namespace :scraper do
       wiki.base_type = base_type
       wiki.save!
       puts wiki.title
+    end
+  end
+
+  desc 'Seed Biographical informations'
+  task bio_info: :environment do
+    Wiki.where(base_type: "Biographical information").each do |wiki|
+      doc = DocBuilder.new(path: wiki.path).html_doc
+      infos = InformationsScraper.new(doc: doc).scrape_information_box
+      attributes = {}
+      infos.map do |key, values|
+        binding.pry
+        attributes[key.to_sym] = values.first[:title]
+      end
+      infos
     end
   end
 
