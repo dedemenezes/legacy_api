@@ -3,8 +3,11 @@
 namespace :scraper do
   desc "Clean database before seed [DROP CREATE MIGRATE]"
   task clean_db: :environment do
-    puts "dropping db"
-    sh "rails db:drop db:create db:migrate"
+    puts "Cleaning Database"
+    Book.destroy_all
+    Wiki.destroy_all
+    Character.destroy_all
+    puts "DB Clean"
   end
 
   desc "Seed books"
@@ -58,19 +61,19 @@ namespace :scraper do
       wiki.save!
       puts wiki.title
     end
+    puts "Done"
   end
 
   desc "Seed Biographical informations"
   task bio_info: :environment do
     # Character.destroy_all
     Wiki.where(base_type: "Biographical information").each do |wiki|
+      puts "Building character #{wiki.title}"
+
       doc = DocBuilder.new(path: wiki.path).html_doc
       infos = InformationsScraper.new(doc: doc).scrape_information_box
       attributes = Character.generate_attribute_hash(infos)
-      attributes[:path] = wiki.path
-      puts "*" * 24
-      p attributes
-      puts "*" * 24
+      attributes[:name_url] = wiki.path
       char = Character.create!(attributes)
       puts char.inspect
       puts "*" * 24
