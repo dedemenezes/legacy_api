@@ -13,7 +13,9 @@ class DocBuilder
   end
 
   def build_nokogiri_doc_from_url
-    html_file = Faraday.get("#{BASE_URL}#{@path}").body
+    response = Faraday.get("#{BASE_URL}#{@path}")
+    response = Faraday.get(response['location']) if response.status == 301
+    html_file = response.body
     @html_doc = Nokogiri::HTML(html_file)
     @html_doc
   end
