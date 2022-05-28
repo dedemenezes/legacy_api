@@ -1,6 +1,8 @@
 # frozen_string_literal: true
-
 class Character < ApplicationRecord
+
+  has_many :wand_masters
+
   def self.generate_attribute_hash(infos)
     infos.map do |k, v|
       [[attribute_name(k).to_sym, v.first[:title]], ["#{attribute_name(k)}_url".to_sym, v.first[:path]]]

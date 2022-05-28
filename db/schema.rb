@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_28_085804) do
+ActiveRecord::Schema.define(version: 2022_05_28_215552) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -107,6 +107,38 @@ ActiveRecord::Schema.define(version: 2022_05_28_085804) do
     t.string "hair_url"
   end
 
+  create_table "wand_masters", force: :cascade do |t|
+    t.bigint "wand_id", null: false
+    t.bigint "character_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["character_id"], name: "index_wand_masters_on_character_id"
+    t.index ["wand_id"], name: "index_wand_masters_on_wand_id"
+  end
+
+  create_table "wand_owners", force: :cascade do |t|
+    t.bigint "wand_id", null: false
+    t.bigint "character_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["character_id"], name: "index_wand_owners_on_character_id"
+    t.index ["wand_id"], name: "index_wand_owners_on_wand_id"
+  end
+
+  create_table "wands", force: :cascade do |t|
+    t.string "manufacturer"
+    t.string "made"
+    t.string "wood"
+    t.string "core"
+    t.string "length"
+    t.string "characteristcs"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "path"
+    t.string "image"
+    t.string "image_url"
+  end
+
   create_table "wikis", force: :cascade do |t|
     t.string "title"
     t.string "path"
@@ -115,4 +147,8 @@ ActiveRecord::Schema.define(version: 2022_05_28_085804) do
     t.string "base_type"
   end
 
+  add_foreign_key "wand_masters", "characters"
+  add_foreign_key "wand_masters", "wands"
+  add_foreign_key "wand_owners", "characters"
+  add_foreign_key "wand_owners", "wands"
 end
