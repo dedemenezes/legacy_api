@@ -43,8 +43,9 @@ class Book < ApplicationRecord
   # end
 
   def define_instance_variables(values, name = nil)
-    instance_variable_set "@#{name || @next_attribute}_url", values.first[:url] unless values.first[:url].nil?
-    instance_variable_set "@#{name || @next_attribute}", values.first[:data] unless values.first[:data].nil?
+    # binding.pry
+    instance_variable_set "@#{name || @next_attribute}_url", values.first[:path] unless values.first[:path].nil?
+    instance_variable_set "@#{name || @next_attribute}", values.first[:title] unless values.first[:title].nil?
     send("#{name || @next_attribute}=", instance_variable_get("@#{name || @next_attribute}"))
     send("#{name || @next_attribute}_url=", instance_variable_get("@#{name || @next_attribute}_url"))
   end

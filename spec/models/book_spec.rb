@@ -13,7 +13,7 @@ RSpec.describe Book, type: :model do
   describe '#add_new_information' do
     key = 'image'
     url = 'https://image.com'
-    values = [{ data: key, url: url }]
+    values = [{ data: key, path: url }]
     book = Book.new
     book.add_new_information(key, values)
 

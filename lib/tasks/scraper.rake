@@ -26,20 +26,21 @@ namespace :scraper do
 
   desc "Seed Characters Names and Urls"
   task wikis: :environment do
+    return sh "Sorry, I can't do this!\nYou should clean your DB first\nzo/" if Wiki.count.positive?
     # iterate over books
     Book.all.each do |book|
+      puts "Scraping chars urls from #{book.title}"
       # parse chars_index_url
       doc_builder = DocBuilder.new(path: book.character_index_url)
       # Check if organized as list or table
       # scrape using correct methods
-      if doc_builder.doc_has_table?
-        chars = TableScraper.new(doc: doc_builder.html_doc).all_urls_and_names
-      else
-        chars = ListScraper.new(doc: doc_builder.html_doc).unordered_list_from_parent_node
-      end
-      wikis = chars.map { |char| Wiki.create char }
-      # binding.pry
-      Wiki.remove_duplicates
+      chars = if doc_builder.doc_has_table?
+                TableScraper.new(doc: doc_builder.html_doc).all_urls_and_names
+              else
+                ListScraper.new(doc: doc_builder.html_doc).unordered_list_from_parent_node
+              end
+      amount = chars.map { |char| Wiki.create char }.compact.count
+      puts "created #{amount} wikis for #{book.title}"
     end
   end
 
@@ -47,6 +48,6 @@ namespace :scraper do
   task default: :environment do
     Rake::Task['scraper:clean_db'].execute
     Rake::Task['scraper:books'].execute
-    Rake::Task['scraper:books'].execute
+    Rake::Task['scraper:wikis'].execute
   end
 end

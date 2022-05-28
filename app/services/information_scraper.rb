@@ -6,7 +6,7 @@ class InformationScraper
   def build_information_hash
     data = information_content
     url = information_href
-    {data: remove_unecessary_text(data), url: url}
+    {title: remove_unecessary_text(data), path: url}
   end
 
   def information_content

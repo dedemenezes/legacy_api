@@ -29,7 +29,7 @@ RSpec.describe InformationsScraper, type: :service do
     end
 
     it 'returns correct information type name' do
-      expect(result[:object_type]).to eq("Biographical information")
+      expect(result[:base_type]).to eq("Biographical information")
     end
   end
 end
