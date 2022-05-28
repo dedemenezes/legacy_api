@@ -25,7 +25,7 @@ namespace :scraper do
   end
 
   desc "Seed Characters Names and Urls"
-  task characters_urls: :environment do
+  task wikis: :environment do
     # iterate over books
     Book.all.each do |book|
       # parse chars_index_url
@@ -37,14 +37,16 @@ namespace :scraper do
       else
         chars = ListScraper.new(doc: doc_builder.html_doc).unordered_list_from_parent_node
       end
-      binding.pry
-      
+      wikis = chars.map { |char| Wiki.create char }
+      # binding.pry
+      Wiki.remove_duplicates
     end
   end
 
   desc 'Scraper default'
   task default: :environment do
     Rake::Task['scraper:clean_db'].execute
+    Rake::Task['scraper:books'].execute
     Rake::Task['scraper:books'].execute
   end
 end
