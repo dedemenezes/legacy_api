@@ -24,6 +24,24 @@ namespace :scraper do
     end
   end
 
+  desc "Seed Characters Names and Urls"
+  task characters_urls: :environment do
+    # iterate over books
+    Book.all.each do |book|
+      # parse chars_index_url
+      doc_builder = DocBuilder.new(path: book.character_index_url)
+      # Check if organized as list or table
+      # scrape using correct methods
+      if doc_builder.doc_has_table?
+        chars = TableScraper.new(doc: doc_builder.html_doc).all_urls_and_names
+      else
+        chars = ListScraper.new(doc: doc_builder.html_doc).unordered_list_from_parent_node
+      end
+      binding.pry
+
+    end
+  end
+
   desc 'Scraper default'
   task default: :environment do
     Rake::Task['scraper:clean_db'].execute
