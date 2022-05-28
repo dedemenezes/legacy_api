@@ -12,19 +12,17 @@ namespace :scraper do
 
   desc "Seed books"
   task books: :environment do
-    if Book.count.zero?
-      puts "seeding books"
-      path = "/wiki/Harry_Potter_(book_series)"
-      doc_builder = DocBuilder.new path: path
-      list_scraper = ListScraper.new(doc: doc_builder.html_doc)
-      books_hashes = list_scraper.ordered_list_i_link
-      books_hashes.each do |hash|
-        puts "Building book #{hash[:title]}"
-        book = Book.new_book(hash)
-        puts "#{book.title} ready!"
-      end
-    else
-      puts "Sorry, I can't do this!\nYou should clean your DB first\nzo/"
+    return sh "Sorry, I can't do this!\nYou should clean your DB first\nzo/" if Book.count.positive?
+
+    puts "seeding books"
+    path = "/wiki/Harry_Potter_(book_series)"
+    doc_builder = DocBuilder.new path: path
+    list_scraper = ListScraper.new(doc: doc_builder.html_doc)
+    books_hashes = list_scraper.ordered_list_i_link
+    books_hashes.each do |hash|
+      puts "Building book #{hash[:title]}"
+      book = Book.new_book(hash)
+      puts "#{book.title} ready!"
     end
   end
 
@@ -32,19 +30,17 @@ namespace :scraper do
   task wikis: :environment do
     return sh "Sorry, I can't do this!\nYou should clean your DB first\nzo/" if Wiki.count.positive?
 
-    # iterate over books
     Book.all.each do |book|
       puts "Scraping chars urls from #{book.title}"
-      # parse chars_index_url
       doc_builder = DocBuilder.new(path: book.character_index_url)
-      # Check if organized as list or table
-      # scrape using correct methods
-      chars = if doc_builder.doc_has_table?
-        TableScraper.new(doc: doc_builder.html_doc).all_urls_and_names
-      else
-        ListScraper.new(doc: doc_builder.html_doc).unordered_list_from_parent_node
-      end
-      amount = chars.map { |char| Wiki.create char }.compact.count
+
+      chars       = if doc_builder.doc_has_table?
+                      TableScraper.new(doc: doc_builder.html_doc).all_urls_and_names
+                    else
+                      ListScraper.new(doc: doc_builder.html_doc).unordered_list_from_parent_node
+                    end
+
+      amount      = chars.map { |char| Wiki.create char }.compact.count
       puts "created #{amount} wikis for #{book.title}"
     end
   end
@@ -55,26 +51,29 @@ namespace :scraper do
     Wiki.where.not(path: nil).each do |wiki|
       next unless wiki.base_type.nil?
 
-      doc = DocBuilder.new(path: wiki.path).html_doc
-      base_type = InformationsScraper.new(doc: doc).scrape_information_type
+      doc            = DocBuilder.new(path: wiki.path).html_doc
+      base_type      = InformationsScraper.new(doc: doc).scrape_information_type
       wiki.base_type = base_type
       wiki.save!
+
       puts wiki.title
     end
     puts "Done"
   end
 
-  desc "Seed Biographical informations"
-  task bio_info: :environment do
-    # Character.destroy_all
+  desc "Seed Characters by Biographical informations"
+  task characters: :environment do
+    return sh "Sorry, I can't do this!\nYou should clean your DB first\nzo/" if Character.count.positive?
+
     Wiki.where(base_type: "Biographical information").each do |wiki|
       puts "Building character #{wiki.title}"
 
-      doc = DocBuilder.new(path: wiki.path).html_doc
-      infos = InformationsScraper.new(doc: doc).scrape_information_box
-      attributes = Character.generate_attribute_hash(infos)
+      doc                   = DocBuilder.new(path: wiki.path).html_doc
+      infos                 = InformationsScraper.new(doc: doc).scrape_information_box
+      attributes            = Character.generate_attribute_hash(infos)
       attributes[:name_url] = wiki.path
-      char = Character.create!(attributes)
+      char                  = Character.create!(attributes)
+      
       puts char.inspect
       puts "*" * 24
       puts "*" * 24
@@ -83,7 +82,8 @@ namespace :scraper do
 
   desc "Seed Wands"
   task wands: :environment do
-    Wand.destroy_all
+    return sh "Sorry, I can't do this!\nYou should clean your DB first\nzo/" if Wand.count.positive?
+
     wands =  Character.pluck(:wand, :wand_url).uniq.reject { |wand| wand.include? nil }
     wands.each do |name, url|
       puts "seeding #{name}"
