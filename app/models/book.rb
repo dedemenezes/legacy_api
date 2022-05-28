@@ -20,6 +20,7 @@ class Book < ApplicationRecord
     new_book = new(hash)
     doc_builder = DocBuilder.new path: hash[:path]
     # doc_builder.build_nokogiri_doc_from_url
+    new_book.character_index_url = CharacterIndexUrlScraper.new(doc: doc_builder.html_doc).scrape
     infos = InformationsScraper.new(doc: doc_builder.html_doc).scrape_information_box
     infos.each do |key, values|
       new_book.add_new_information(key, values)

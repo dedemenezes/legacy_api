@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_27_182152) do
+ActiveRecord::Schema.define(version: 2022_05_28_043830) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,6 +42,7 @@ ActiveRecord::Schema.define(version: 2022_05_27_182152) do
     t.string "preceded_by_url"
     t.string "author"
     t.string "author_url"
+    t.string "character_index_url"
   end
 
 end
