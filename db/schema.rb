@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_28_084204) do
+ActiveRecord::Schema.define(version: 2022_05_28_085804) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -83,6 +83,28 @@ ActiveRecord::Schema.define(version: 2022_05_28_084204) do
     t.string "base_type_url"
     t.string "died"
     t.string "died_url"
+    t.string "title"
+    t.string "title_url"
+    t.string "signature"
+    t.string "signature_url"
+    t.string "romances"
+    t.string "romances_url"
+    t.string "boggart"
+    t.string "boggart_url"
+    t.string "wand"
+    t.string "wand_url"
+    t.string "patronus"
+    t.string "patronus_url"
+    t.string "job"
+    t.string "job_url"
+    t.string "house"
+    t.string "house_url"
+    t.string "height"
+    t.string "animagus"
+    t.string "animagus_url"
+    t.string "feathers"
+    t.string "feathers_url"
+    t.string "hair_url"
   end
 
   create_table "wikis", force: :cascade do |t|

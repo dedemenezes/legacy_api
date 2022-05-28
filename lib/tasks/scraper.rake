@@ -39,7 +39,7 @@ namespace :scraper do
               else
                 ListScraper.new(doc: doc_builder.html_doc).unordered_list_from_parent_node
               end
-      amount = chars.map { |char| Wiki.create! char }.compact.count
+      amount = chars.map { |char| Wiki.create char }.compact.count
       puts "created #{amount} wikis for #{book.title}"
     end
   end
@@ -59,15 +59,27 @@ namespace :scraper do
 
   desc 'Seed Biographical informations'
   task bio_info: :environment do
+    # Character.destroy_all
     Wiki.where(base_type: "Biographical information").each do |wiki|
+      # next if Character.find_by(name: wiki.title)
+      binding.pry
+
       doc = DocBuilder.new(path: wiki.path).html_doc
       infos = InformationsScraper.new(doc: doc).scrape_information_box
-      attributes = {}
-      infos.map do |key, values|
-        binding.pry
-        attributes[key.to_sym] = values.first[:title]
-      end
-      infos
+      attributes = Character.generate_attribute_hash(infos)
+      puts "*" * 24
+      # binding.pry
+      p attributes
+      puts "*" * 24
+      # sleep(1)
+      char = Character.create!(attributes)
+      puts char.inspect
+      puts "*" * 24
+      puts "*" * 24
+      # infos.map do |key, values|
+      #   attributes[key.to_sym] = values.first[:title]
+      # end
+      # infos
     end
   end
 
@@ -75,9 +87,11 @@ namespace :scraper do
 
 
   desc 'Scraper default'
-  task default: :environment do
+  task seed: :environment do
     Rake::Task['scraper:clean_db'].execute
     Rake::Task['scraper:books'].execute
     Rake::Task['scraper:wikis'].execute
+    Rake::Task['scraper:base_types'].execute
+    Rake::Task['scraper:bio_info'].execute
   end
 end
