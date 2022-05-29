@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Book < ApplicationRecord
+  validates :title, uniqueness: { scope: :path, message: 'combination title and url already exist' }
+
   def add_new_information(key, values)
     @next_attribute = prepare_attribute_name(key)
     define_instance_variables(values)
@@ -15,7 +17,7 @@ class Book < ApplicationRecord
   end
 
   def prepare_attribute_name(string)
-    string.tr(" ", "_")
+    string.tr(' ', '_')
   end
 
   def self.new_book(hash)

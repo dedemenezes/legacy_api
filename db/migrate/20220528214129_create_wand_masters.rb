@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateWandMasters < ActiveRecord::Migration[6.1]
   def change
     create_table :wand_masters do |t|

@@ -8,8 +8,8 @@ class TableScraper
   end
 
   def all_urls_and_names
-    @html_doc.search(".article-table").each do |table|
-      table.search("tr").each do |element|
+    @html_doc.search('.article-table').each do |table|
+      table.search('tr').each do |element|
         a_tag = element.first_element_child.children.first
         @character_indexes << HashBuilder.from_link(a_tag)
       end

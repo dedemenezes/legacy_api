@@ -1,15 +1,20 @@
-class Api::V1::CharactersController < ApplicationController
+# frozen_string_literal: true
 
-  def index
-    @characters = Character.all
+module Api
+  module V1
+    class CharactersController < ApplicationController
+      def index
+        @characters = Character.all
 
-    render json: { message: "Sorry, there's nothing for your" }, status: 204 if @characters.empty?
-    render json: @characters.to_json, status: 200
-  end
+        render json: { message: "Sorry, there's nothing for your" }, status: 204 if @characters.empty?
+        render json: @characters.to_json, status: 200
+      end
 
-  def show
-    @character = Character.find(params[:id])
+      def show
+        @character = Character.find(params[:id])
 
-    render json: @character.to_json, status: 200
+        render json: @character.to_json, status: 200
+      end
+    end
   end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Wand < ApplicationRecord
   has_many :wand_masters, dependent: :destroy
   has_many :wand_owners, dependent: :destroy
@@ -11,7 +13,7 @@ class Wand < ApplicationRecord
     hsh.map(&:to_h)
        .reduce(:merge)
        .compact
-       .reject { _2.include? "#" }
+       .reject { _2.include? '#' }
        .select { |key, _v| Wand.new.attributes.keys.include? key.to_s }
        .reject { |key, _| has_association? key }
   end

@@ -1,13 +1,19 @@
-class Api::V1::WandsController < ApplicationController
-  def index
-    @wands = Wand.all
+# frozen_string_literal: true
 
-    render json: @wands.to_json, status: 200
-  end
+module Api
+  module V1
+    class WandsController < ApplicationController
+      def index
+        @wands = Wand.all
 
-  def show
-    @wand = Wand.find(params[:id])
+        render json: @wands.to_json, status: 200
+      end
 
-    render json: @wand.to_json, status: 200
+      def show
+        @wand = Wand.find(params[:id])
+
+        render json: @wand.to_json, status: 200
+      end
+    end
   end
 end

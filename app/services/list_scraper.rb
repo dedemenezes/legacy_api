@@ -8,7 +8,7 @@ class ListScraper
 
   def ordered_list_i_link
     @urls = []
-    @doc.search("ol > li > i > a").each do |a_tag|
+    @doc.search('ol > li > i > a').each do |a_tag|
       @urls << HashBuilder.from_link(a_tag)
     end
     @urls
@@ -16,8 +16,8 @@ class ListScraper
 
   def unordered_list_from_parent_node
     @urls = []
-    @doc.search(".mw-headline").each do |span|
-      span.parent.next_element.search("li > a").each do |link|
+    @doc.search('.mw-headline').each do |span|
+      span.parent.next_element.search('li > a').each do |link|
         @urls << HashBuilder.from_link(link)
       end
     end
