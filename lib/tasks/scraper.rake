@@ -73,7 +73,7 @@ namespace :scraper do
       attributes            = Character.generate_attribute_hash(infos)
       attributes[:name_url] = wiki.path
       char                  = Character.create!(attributes)
-      
+
       puts char.inspect
       puts "*" * 24
       puts "*" * 24
@@ -123,6 +123,7 @@ namespace :scraper do
     Rake::Task["scraper:books"].execute
     Rake::Task["scraper:wikis"].execute
     Rake::Task["scraper:base_types"].execute
-    Rake::Task["scraper:bio_info"].execute
+    Rake::Task["scraper:characters"].execute
+    Rake::Task["scraper:wands"].execute
   end
 end

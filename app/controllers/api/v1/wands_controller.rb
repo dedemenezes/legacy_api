@@ -6,7 +6,7 @@ class Api::V1::WandsController < ApplicationController
   end
 
   def show
-    @wand = Wand.joins(:characters).find(params[:id])
+    @wand = Wand.find(params[:id])
 
     render json: @wand.to_json, status: 200
   end
