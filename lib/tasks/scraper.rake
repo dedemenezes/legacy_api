@@ -96,7 +96,8 @@ namespace :scraper do
       wand = Wand.create!(attributes)
 
       if infos['masters']
-        master = Character.find_by(name_url: infos['masters'].first[:path])
+        # binding.pry
+        master = Character.find_by(path: infos['masters'].first[:path])
         WandMaster.create(wand: wand, character: master)
         masters_names = infos['masters'].map { _1[:title] }
       end
@@ -105,7 +106,7 @@ namespace :scraper do
         owners = infos['owners'].reject { |h| masters_names.include? h[:title] } if infos['masters']
         owner_counter = 0
         owners.each do |owner|
-          owner = Character.find_by(name_url: owner[:path])
+          owner = Character.find_by(path: owner[:path])
           WandOwner.create wand: wand, character: owner if owner
           owner_counter += 1 if owner
         end
