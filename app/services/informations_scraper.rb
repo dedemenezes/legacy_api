@@ -17,13 +17,12 @@ class InformationsScraper
       else
         list_items = parser.information_list.search('li')
         list_items.each do |element|
-          item_parser = InformationScraper.new(element)
-          values << item_parser.build_information_hash
+          values << InformationScraper.new(element).build_information_hash
         end
       end
 
-      information_name = information.attr('data-source')
-      @informations[information_name] = values
+      attribute = information.attr('data-source')
+      @informations[attribute] = values
     end
     # "pages"=>[{:title=>"223 ", :path=>nil}, {:title=>"309 ", :path=>nil}],
     informations['base_type'] = [{ title: scrape_information_type, path: nil }]
