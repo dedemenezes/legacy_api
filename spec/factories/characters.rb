@@ -1,22 +1,8 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
-  factory :character do
-    image { 'MyString' }
-    name { 'MyString' }
-    born { 'MyString' }
-    blood { 'MyString' }
-    marital { 'MyString' }
-    nationality { 'MyString' }
-    nickname { 'MyString' }
-    species { 'MyString' }
-    gender { 'MyString' }
-    weight { 'MyString' }
-    hair { 'MyString' }
-    eyes { 'MyString' }
-    skin { 'MyString' }
-    family { 'MyString' }
-    loyalty { 'MyString' }
-    base_type { 'MyString' }
+  factory :harry do
+    name { 'Harry Potter' }
+    path { '/wiki/harry_potter' }
   end
 end
