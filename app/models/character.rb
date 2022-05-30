@@ -4,6 +4,10 @@ class Character < ApplicationRecord
   has_many :wand_masters, dependent: :destroy
   has_many :wand_owners, dependent: :destroy
 
+  def wand
+    wand_masters.first.wand
+  end
+
   def self.generate_attribute_hash(infos)
     infos.map do |k, v|
       [[attribute_name(k).to_sym, v.first[:title]], ["#{attribute_name(k)}_url".to_sym, v.first[:path]]]
