@@ -87,29 +87,33 @@ namespace :scraper do
     wands = Character.pluck(:wand, :wand_url).uniq.reject { |wand| wand.include? nil }
     wands.each do |name, url|
       puts "seeding #{name}"
-      next unless AlreadyExist.instance?(Wand, url)
+      # next unless AlreadyExist.instance?(Wand, url)
 
       doc = DocBuilder.new(path: url).html_doc
       infos = InformationsScraper.new(doc: doc).scrape_information_box
       attributes = Wand.generate_attribute_hash(infos)
       attributes[:path] = url
       wand = Wand.create!(attributes)
+      puts "#{wand.name} created"
 
-      if infos['masters']
-        # binding.pry
-        master = Character.find_by(path: infos['masters'].first[:path])
-        WandMaster.create(wand: wand, character: master)
-        masters_names = infos['masters'].map { _1[:title] }
-      end
+      puts 'assigning master'
+      wand_master = WandMaster.new
+      wand_master.assign_master(infos)
+      wand_master.assign_wand(wand) if wand_master.changed?
+      wand_master.save
+      puts "Master: #{wand_master.character.name}" if wand_master.persisted?
+
+      masters_names = infos['masters']&.map { _1[:title] }
+
       if infos['owners']
+        puts 'Assigning owners'
         owners = infos['owners']
-        owners = infos['owners'].reject { |h| masters_names.include? h[:title] } if infos['masters']
-        owner_counter = 0
+        owners = owners.reject { |h| masters_names.include? h[:title] } if infos['masters']
         owners.each do |owner|
           owner = Character.find_by(path: owner[:path])
-          WandOwner.create wand: wand, character: owner if owner
-          owner_counter += 1 if owner
+          WandOwner.create! wand: wand, character: owner if owner
         end
+        puts "#{owners.count} owners assigned"
       end
       puts "#{wand.path} seeded"
     end
