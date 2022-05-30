@@ -1,6 +1,5 @@
 module Seeds
   module Wands
-    include Masters
     def self.run
       wands = Character.pluck(:wand, :wand_url).uniq.reject { |wand| wand.include? nil }
       wands.each do |name, url|
@@ -15,7 +14,7 @@ module Seeds
         puts "#{wand.name} created"
 
         Masters.run(infos, wand)
-        Owners.run(info, wand)
+        Owners.run(infos, wand)
         puts "#{wand.name} seeded with information from #{wand.path}"
       end
     end

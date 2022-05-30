@@ -1,7 +1,7 @@
 module Seeds
   module Wands
     module Owners
-      def run(infos, wand)
+      def self.run(infos, wand)
         masters_names = infos['masters']&.map { _1[:title] }
 
         if infos['owners']
