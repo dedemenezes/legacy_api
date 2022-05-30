@@ -8,6 +8,8 @@ namespace :scraper do
     Wiki.destroy_all
     Character.destroy_all
     Wand.destroy_all
+    WandMaster.destroy_all
+    WandOwner.destroy_all
     puts 'DB Clean'
   end
 
@@ -87,7 +89,7 @@ namespace :scraper do
     wands = Character.pluck(:wand, :wand_url).uniq.reject { |wand| wand.include? nil }
     wands.each do |name, url|
       puts "seeding #{name}"
-      # next unless AlreadyExist.instance?(Wand, url)
+      next unless AlreadyExist.instance?(Wand, url)
 
       doc = DocBuilder.new(path: url).html_doc
       infos = InformationsScraper.new(doc: doc).scrape_information_box
@@ -115,12 +117,12 @@ namespace :scraper do
         end
         puts "#{owners.count} owners assigned"
       end
-      puts "#{wand.path} seeded"
+      puts "#{wand.name} seeded with information from #{wand.path}"
     end
   end
 
   desc 'Scraper default'
-  task seed: :environment do
+  task clean_seed: :environment do
     Rake::Task['scraper:clean_db'].execute
     Rake::Task['scraper:books'].execute
     Rake::Task['scraper:wikis'].execute
