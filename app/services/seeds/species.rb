@@ -2,11 +2,13 @@ module Seeds
   module Species
     def self.run
       CreatureType.destroy_all
-
-      species_urls = (WikiSpecies.run.push CharacterSpecies.run).flatten.uniq
+      chars = CharacterSpecies.run
+      wikis = WikiSpecies.run
+      species_urls = wikis.push(chars).flatten.uniq
       (Seeds::Species::WikiSpecies.run.push Seeds::Species::CharacterSpecies.run).flatten.uniq
       species_urls.each do |url|
         puts "$" * 13
+        puts "HUMAN" if url == '/wiki/Human'
         puts url
         next if url.include? "http"
 
