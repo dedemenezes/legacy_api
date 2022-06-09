@@ -38,6 +38,8 @@ namespace :scraper do
     Seeds::Wands.run
   end
 
+  
+
   desc 'Scraper default'
   task clean_seed: :environment do
     Rake::Task['scraper:clean_db'].execute
