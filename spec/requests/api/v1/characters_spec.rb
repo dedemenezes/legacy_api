@@ -6,7 +6,8 @@ RSpec.describe 'Api::V1::Characters', type: :request do
   describe 'GET /index' do
     context 'when datbase has records' do
       before do
-        create(:character)
+        create(:harry)
+        create(:wand_master)
         get '/api/v1/characters'
       end
 

@@ -5,8 +5,7 @@ class Book < ApplicationRecord
 
   def add_new_information(key, values)
     @next_attribute = prepare_attribute_name(key)
-    define_instance_variables(values)
-    # define_attribute_readers
+    values.first[:path].nil? ? title_instance_variables(values) : path_instance_variables(values)
     persist_if_changed
     self
   end
@@ -37,24 +36,28 @@ class Book < ApplicationRecord
   def persist_if_changed
     save if changed?
   end
-  # def define_attribute_readers(name = nil)
-  #   self.class.define_method("#{name || @next_attribute}_url") do
-  #     instance_variable_get "@#{name || @next_attribute}_url"
-  #   end
-  #   self.class.define_method("#{name || @next_attribute}") do
-  #     instance_variable_get "@#{name || @next_attribute}"
-  #   end
-  # end
 
-  def define_instance_variables(values, name = nil)
+  def title_instance_variables(values, name=nil)
     attribute_name = name || @next_attribute
-    instance_variable_set "@#{attribute_name}_url", values.first[:path] unless values.first[:path].nil?
-    instance_variable_set "@#{attribute_name}", values.first[:title] unless values.first[:title].nil?
-    define_attr_writer(attribute_name)
+    instance_variable_set "@#{attribute_name}", values.first[:title]
+    send("#{attribute_name}=", instance_variable_get("@#{attribute_name}"))
   end
 
-  def define_attr_writer(attribute_name)
-    send("#{attribute_name}=", instance_variable_get("@#{attribute_name}"))
+  def path_instance_variables(values, name=nil)
+    attribute_name = name || @next_attribute
+    instance_variable_set "@#{attribute_name}_url", values.first[:path]
     send("#{attribute_name}_url=", instance_variable_get("@#{attribute_name}_url"))
   end
+
+  # def define_instance_variables(values, name = nil)
+  #   attribute_name = name || @next_attribute
+  #   instance_variable_set "@#{attribute_name}_url", values.first[:path] unless values.first[:path].nil?
+  #   instance_variable_set "@#{attribute_name}", values.first[:title] unless values.first[:title].nil?
+  #   define_attr_writer(attribute_name)
+  # end
+
+  # def define_attr_writer(attribute_name)
+  #   send("#{attribute_name}=", instance_variable_get("@#{attribute_name}"))
+  #   send("#{attribute_name}_url=", instance_variable_get("@#{attribute_name}_url"))
+  # end
 end

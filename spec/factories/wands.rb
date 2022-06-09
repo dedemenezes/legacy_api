@@ -7,6 +7,6 @@ FactoryBot.define do
     wood { 'MyString' }
     core { 'MyString' }
     length { 'MyString' }
-    characteristcs { 'MyString' }
+    characteristics { 'MyString' }
   end
 end

@@ -6,6 +6,7 @@ RSpec.describe 'Api::V1::Books', type: :request do
   describe 'GET #index' do
     context 'when database is empty' do
       it 'returns http status no content when no book in the db' do
+        Book.destroy_all
         get '/api/v1/books'
         expect(response).to have_http_status(:no_content)
       end
@@ -13,7 +14,7 @@ RSpec.describe 'Api::V1::Books', type: :request do
 
     context 'when datbase has records' do
       before do
-        create(:book)
+        create(:book_one)
         get '/api/v1/books'
       end
 
@@ -32,7 +33,8 @@ RSpec.describe 'Api::V1::Books', type: :request do
 
   describe 'GET #show' do
     context 'when database is empty' do
-      it 'returns http status no content when no book in the db' do
+      it 'returns http status not found when no book in the db' do
+        Book.destroy_all
         get '/api/v1/books/1'
         expect(response).to have_http_status(:not_found)
       end
@@ -40,7 +42,7 @@ RSpec.describe 'Api::V1::Books', type: :request do
 
     context 'when datbase has records' do
       before do
-        create(:book)
+        create(:book_one)
         get '/api/v1/books/1'
       end
 

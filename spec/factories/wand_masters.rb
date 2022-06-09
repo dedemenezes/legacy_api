@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :wand_master do
-    wand { nil }
-    character { nil }
+    wand { Wand.first || create(:wand) }
+    character { Character.first || create(:harry) }
   end
 end

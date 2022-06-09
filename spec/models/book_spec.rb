@@ -14,18 +14,20 @@ RSpec.describe Book, type: :model do
 
   describe '#add_new_information' do
     key = 'image'
+    title = 'image title'
     url = 'https://image.com'
-    values = [{ data: key, path: url }]
     book = Book.new
-    book.add_new_information(key, values)
 
     it 'add new value instance variable' do
+      values = [{ data: key, title: title }]
+      book.add_new_information(key, values)
       variables = book.instance_variables
       actual = variables.include? "@#{key}".to_sym
       expect(actual).to be_truthy
     end
 
     it 'add new value to instance variable with url sufix' do
+      values = [{ data: key, path: url }]
       book.add_new_information(key, values)
       expect { book.image_url }.not_to raise_error
       expect(book.image_url).to be_a(String)

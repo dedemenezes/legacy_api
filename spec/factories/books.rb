@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
-  factory :book do
+  factory :book_one, class: 'Book' do
     title { "Harry Potter and the Philosopher's Stone" }
     path { '/wiki/Harry_Potter_and_the_Philosopher%27s_Stone' }
     created_at { 'Fri, 27 May 2022 18:59:56.448787000 UTC +00:00' }

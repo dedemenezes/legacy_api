@@ -6,8 +6,11 @@ module Api
       def index
         @characters = Character.all
 
-        render json: { message: "Sorry, there's nothing for your" }, status: 204 if @characters.empty?
-        render json: @characters.to_json, status: 200
+        if @characters.empty?
+          render json: { message: "Sorry, there's nothing for your" }, status: 204
+        else
+          render json: @characters.to_json, status: 200
+        end
       end
 
       def show
