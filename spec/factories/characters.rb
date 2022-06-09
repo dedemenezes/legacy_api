@@ -45,7 +45,7 @@ FactoryBot.define do
     romances_url { "/wiki/Cho_Chang" }
     boggart { "Dementor" }
     boggart_url { "/wiki/Dementor" }
-    wand { "11\", Holly, phoenix feather" }
+    wand { Wand.first || create(:wand) }
     wand_url { "/wiki/Harry_Potter%27s_wand" }
     patronus { "Stag" }
     patronus_url { "/wiki/Deer" }

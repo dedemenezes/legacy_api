@@ -3,6 +3,6 @@
 FactoryBot.define do
   factory :wand_master do
     wand { Wand.first || create(:wand) }
-    character { Character.first || create(:harry) }
+    character { Character.find_by_name('Harry James Potter') || create(:harry) }
   end
 end
