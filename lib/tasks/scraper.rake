@@ -37,8 +37,12 @@ namespace :scraper do
   task wands: :environment do
     Seeds::Wands.run
   end
+  desc 'Seed Creature Types'
+  task species: :environment do
+    Seeds::Species.run
+  end
 
-  
+
 
   desc 'Scraper default'
   task clean_seed: :environment do
@@ -48,5 +52,6 @@ namespace :scraper do
     Rake::Task['scraper:base_types'].execute
     Rake::Task['scraper:characters'].execute
     Rake::Task['scraper:wands'].execute
+    Rake::Task['scraper:species'].execute
   end
 end

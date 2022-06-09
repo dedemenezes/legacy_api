@@ -7,9 +7,6 @@ module Seeds
       species_urls = wikis.push(chars).flatten.uniq
       (Seeds::Species::WikiSpecies.run.push Seeds::Species::CharacterSpecies.run).flatten.uniq
       species_urls.each do |url|
-        puts "$" * 13
-        puts "HUMAN" if url == '/wiki/Human'
-        puts url
         next if url.include? "http"
 
         @url = url
@@ -17,6 +14,7 @@ module Seeds
 
         puts "Starting #{@url}..."
         information_scraper, creature_type = building_creature_type
+        next unless creature_type
 
         if (information_scraper.informations.keys.include? "image") && information_scraper.informations['image'].first[:path].present?
           assign_creature_type_image(creature_type, information_scraper)
@@ -25,8 +23,8 @@ module Seeds
         if information_scraper.informations.keys.include? 'related'
           assign_related_types(information_scraper.informations['related'], creature_type)
         end
-        puts '#' * 13
       end
+      puts 'Done zo/'
     end
 
     def self.building_creature_type
@@ -49,7 +47,7 @@ module Seeds
       species = CreatureType.find_by(name: creature_type_attributes[:name])
       species ||= CreatureType.new(creature_type_attributes)
       species.path ||= @url
-      species.save!
+      species.save
       species
     end
 
@@ -62,7 +60,7 @@ module Seeds
 
     def self.assign_related_types(array, creature_type)
       array.each_with_index do |hash, index|
-        sleep 5 if ((index + 1) % 5).zero?
+        # sleep 5 if ((index + 1) % 5).zero?
 
         puts "Starting related #{hash}..."
         related_types = RelatedCreatureType.new
@@ -76,11 +74,12 @@ module Seeds
           next if hash[:path].include? "http"
 
           @url = hash[:path]
-          sleep(index / 5)
+          # sleep(1)
           information_scraper, related_type = building_creature_type
         end
         related_types.related = related_type
-        related_types.save!
+        next unless related_types.save
+
         puts '#' * 13
       end
     end
