@@ -1,7 +1,10 @@
 module Seeds
   module Species
     def self.run
+      puts 'Cleaning...'
       CreatureType.destroy_all
+      puts "Start!"
+      start_time = Time.now
       chars = CharacterSpecies.run
       wikis = WikiSpecies.run
       species_urls = wikis.push(chars).flatten.uniq
@@ -24,7 +27,9 @@ module Seeds
           assign_related_types(information_scraper.informations['related'], creature_type)
         end
       end
+      elapsed_time = Time.now - start_time
       puts 'Done zo/'
+      puts elapsed_time / 60
     end
 
     def self.building_creature_type

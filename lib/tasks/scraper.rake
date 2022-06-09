@@ -37,6 +37,7 @@ namespace :scraper do
   task wands: :environment do
     Seeds::Wands.run
   end
+  
   desc 'Seed Creature Types'
   task species: :environment do
     Seeds::Species.run
