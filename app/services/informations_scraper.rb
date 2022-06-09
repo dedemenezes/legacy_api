@@ -29,6 +29,10 @@ class InformationsScraper
     informations
   end
 
+  def infos_titles_only
+    @informations.map { |info, values| [info, values.map { |value| value[:title] }]  }.to_h
+  end
+
   def scrape_information_type
     aside_section = 'aside.portable-infobox.pi-background.pi-border-color > section'
     h2 = 'h2.pi-item.pi-header.pi-secondary-font.pi-item-spacing.pi-secondary-background'

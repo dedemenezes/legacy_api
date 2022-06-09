@@ -4,4 +4,6 @@ class CreatureType < ApplicationRecord
   has_many :pictures, as: :imageable
   # CreatureType.third.related_creature_types.map { _1.related }
   has_many :distinctions
+
+  validates :name, :path, uniqueness: true
 end
