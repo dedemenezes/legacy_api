@@ -7,7 +7,7 @@ module Api
         @books = Book.all
         # return render json: { message: 'Still no books to display' }, status: 204 if @books.empty?
         if @books.empty?
-          render json: @books.to_json, status: :no_content
+          render json: { message: "Sorry, there's nothing for your" }, status: 204
         else
           render json: @books.to_json, status: 200
         end
