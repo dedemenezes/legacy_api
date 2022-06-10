@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_09_055523) do
+ActiveRecord::Schema.define(version: 2022_06_10_193059) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,6 +45,15 @@ ActiveRecord::Schema.define(version: 2022_06_09_055523) do
     t.string "character_index_url"
     t.string "base_type"
     t.string "base_type_url"
+  end
+
+  create_table "character_types", force: :cascade do |t|
+    t.bigint "character_id", null: false
+    t.bigint "creature_type_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["character_id"], name: "index_character_types_on_character_id"
+    t.index ["creature_type_id"], name: "index_character_types_on_creature_type_id"
   end
 
   create_table "characters", force: :cascade do |t|
@@ -195,6 +204,8 @@ ActiveRecord::Schema.define(version: 2022_06_09_055523) do
     t.string "base_type"
   end
 
+  add_foreign_key "character_types", "characters"
+  add_foreign_key "character_types", "creature_types"
   add_foreign_key "distinctions", "creature_types"
   add_foreign_key "distinctions", "creature_types", column: "related_id"
   add_foreign_key "related_creature_types", "creature_types", column: "main_id"

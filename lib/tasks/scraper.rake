@@ -10,6 +10,7 @@ namespace :scraper do
     Wand.destroy_all
     WandMaster.destroy_all
     WandOwner.destroy_all
+    CreatureType.destroy_all
     puts 'DB Clean'
   end
 
@@ -37,13 +38,16 @@ namespace :scraper do
   task wands: :environment do
     Seeds::Wands.run
   end
-  
+
   desc 'Seed Creature Types'
-  task species: :environment do
+  task creature_types: :environment do
     Seeds::Species.run
   end
 
-
+  desc 'Seed Character Types'
+  task character_types: :environment do
+    Seeds::CharacterTypes.run
+  end
 
   desc 'Scraper default'
   task clean_seed: :environment do
@@ -53,6 +57,7 @@ namespace :scraper do
     Rake::Task['scraper:base_types'].execute
     Rake::Task['scraper:characters'].execute
     Rake::Task['scraper:wands'].execute
-    Rake::Task['scraper:species'].execute
+    Rake::Task['scraper:creature_types'].execute
+    Rake::Task['scraper:character_types'].execute
   end
 end

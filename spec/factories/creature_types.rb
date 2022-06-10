@@ -1,12 +1,12 @@
 FactoryBot.define do
-  factory :creature_type do
-    name { "MyString" }
-    path { "MyString" }
-    eyes { "MyString" }
-    hair { "MyString" }
-    native { "MyString" }
-    height { "MyString" }
-    length { "MyString" }
-    mortality { "MyString" }
+  factory :human, class: 'CreatureType' do
+    name { "Human" }
+    path { "/wiki/Human" }
+    eyes { "Varies" }
+    hair { "Varies" }
+    native { "Whole World" }
+    height { "Approx. 1.50 to 2.10 meters" }
+    length { nil }
+    mortality { "Mortal" }
   end
 end

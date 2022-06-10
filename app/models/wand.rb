@@ -1,10 +1,8 @@
 # frozen_string_literal: true
 
 class Wand < ApplicationRecord
-  has_many :wand_masters, dependent: :destroy
+  has_one :wand_master, dependent: :destroy
   has_many :wand_owners, dependent: :destroy
-  has_many :characters, through: :wand_masters
-  has_many :characters, through: :wand_owners
 
   def self.generate_attribute_hash(infos)
     hsh = infos.map do |key, values|
@@ -23,7 +21,7 @@ class Wand < ApplicationRecord
   end
 
   def master
-    wand_masters.map(&:character).first
+    wand_masters.character
   end
 
   def owners
