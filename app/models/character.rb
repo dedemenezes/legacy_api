@@ -4,7 +4,8 @@ class Character < ApplicationRecord
   has_one :wand_master, dependent: :destroy
   has_many :wand_owners, dependent: :destroy
   has_one :wand, through: :wand_master
-
+  has_many :character_types
+  has_many :creature_types, through: :character_types
   def self.generate_attribute_hash(infos)
     infos.map do |k, v|
       [[attribute_name(k).to_sym, v.first[:title]], ["#{attribute_name(k)}_url".to_sym, v.first[:path]]]

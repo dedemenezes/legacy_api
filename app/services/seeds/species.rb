@@ -1,25 +1,37 @@
 module Seeds
   module Species
     def self.run
-      puts 'Cleaning...'
+      puts 'Deleting all Creature Type instances'
       CreatureType.destroy_all
-      puts "Start!"
+      puts "Let's GO!"
       start_time = Time.now
       chars = CharacterSpecies.run
       wikis = WikiSpecies.run
       species_urls = wikis.push(chars).flatten.uniq
-      (Seeds::Species::WikiSpecies.run.push Seeds::Species::CharacterSpecies.run).flatten.uniq
       species_urls.each do |url|
-        next if url.include? "http"
+        next if url.include? 'http'
 
         @url = url
         next if CreatureType.find_by(path: @url)
 
-        puts "Starting #{@url}..."
         information_scraper, creature_type = building_creature_type
         next unless creature_type
 
-        if (information_scraper.informations.keys.include? "image") && information_scraper.informations['image'].first[:path].present?
+        information_scraper.informations['distinction']&.each do |distinction|
+          next unless distinction
+
+          Distinction.create content: distinction[:title], creature_type: creature_type
+        end
+
+        if creature_type.distinctions.present?
+          if creature_type.distinctions.count > 1
+            puts "#{creature_type.name} is #{creature_type.distinctions[...-1].map(&:content).join(',')} and #{creature_type.distinctions[-1].content}"
+          else
+            puts "#{creature_type.name} is #{creature_type.distinctions.first.content}"
+          end
+        end
+
+        if (information_scraper.informations.keys.include? 'image') && information_scraper.informations['image'].first[:path].present?
           assign_creature_type_image(creature_type, information_scraper)
         end
 
@@ -47,45 +59,38 @@ module Seeds
 
     def self.create_creature_type(information_scraper)
       # p information_scraper.informations
+      puts "Starting #{@url}..."
       titles_only = information_scraper.infos_titles_only
       creature_type_attributes = titles_only.select { |key, _v| attributes_keys.include? key }.map { [_1, _2.first.strip] }.to_h
       species = CreatureType.find_by(name: creature_type_attributes[:name])
       species ||= CreatureType.new(creature_type_attributes)
       species.path ||= @url
       species.save
+      puts "Created #{species.name}"
       species
     end
 
     def self.assign_creature_type_image(creature_type, information_scraper)
       image_attributes = information_scraper.informations['image'].first
+      puts "Assigning #{image_attributes[:path]} using Picture polymorphic model..."
       pic = Picture.new(image_attributes)
       pic.imageable = creature_type
       pic.save!
+      puts pic.path
     end
 
-    def self.assign_related_types(array, creature_type)
-      array.each_with_index do |hash, index|
-        # sleep 5 if ((index + 1) % 5).zero?
+    def self.assign_related_types(types, creature_type)
+      puts "Assigning related types #{types} to #{creature_type.name}..."
+      types.each do |type|
+        next if type[:path].include? 'http'
 
-        puts "Starting related #{hash}..."
-        related_types = RelatedCreatureType.new
-        related_types.main = creature_type
-        related_type = CreatureType.find_by(path: hash[:path])
+        related_type = CreatureType.find_by(path: type[:path])
         if related_type.nil?
-          # puts 'scraping inside loop'
-          # information_scraper_related = scrape_creature_type_informations(hash[:path])
-          # puts 'creating new type'
-          # related_type = create_creature_type(information_scraper_related, hash[:path])
-          next if hash[:path].include? "http"
-
-          @url = hash[:path]
-          # sleep(1)
-          information_scraper, related_type = building_creature_type
+          @url = type[:path]
+          _information_scraper, related_type = building_creature_type
         end
-        related_types.related = related_type
-        next unless related_types.save
-
-        puts '#' * 13
+        related_types = RelatedCreatureType.create main: creature_type, related: related_type
+        p "#{related_types.main.name} assigned to #{related_types.related.name}"
       end
     end
 

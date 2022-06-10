@@ -1,0 +1,6 @@
+FactoryBot.define do
+  factory :character_type do
+    character { Character.first || create(:harry) }
+    creature_type { CreatureType.first || create(:human) }
+  end
+end
