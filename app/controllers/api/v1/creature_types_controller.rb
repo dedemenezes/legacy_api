@@ -1,6 +1,6 @@
 module Api
   module V1
-    class CreatureTypesController < ActionController::Base
+    class CreatureTypesController < ApplicationController
       append_view_path "#{Rails.root}/app/views"
 
       def index

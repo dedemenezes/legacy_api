@@ -6,8 +6,8 @@ require 'rails_helper'
 RSpec.describe CharacterIndexUrlScraper, type: :service do
   describe '#scrape' do
     it 'returns correct url' do
-      create :book_one
-      doc = DocBuilder.new(path: Book.second.path).html_doc
+      book = create :book_one
+      doc = DocBuilder.new(path: book.path).html_doc
       cius = CharacterIndexUrlScraper.new doc: doc
       actual = cius.scrape
       expect(actual).to eq('/wiki/Harry_Potter_and_the_Philosopher%27s_Stone_(character_index)')
