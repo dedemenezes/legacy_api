@@ -22,11 +22,12 @@ RSpec.describe 'Api::V1::Books', type: :request do
         expect(response).to have_http_status(:success)
       end
 
-      it 'JSON body response contains all books attributes' do
-        json_response = JSON.parse(response.body)
+      it 'returns expected json to all books' do
+        json_response = response.parsed_body
         expect(json_response).to be_an(Array)
-        keys = json_response.first.keys
-        expect(keys).to include('title').and include('image_url').and include('author')
+
+        actual = json_response.first.keys
+        expect(actual).to contain_exactly('title', 'author', 'image_url', 'pages', 'release_date')
       end
     end
   end

@@ -1,4 +1,5 @@
 json.array! @wands do |wand|
+  json.ignore_nil!
   json.id wand.id
   json.name wand.name
   json.path wand.path

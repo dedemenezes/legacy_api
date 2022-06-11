@@ -3,14 +3,13 @@
 module Api
   module V1
     class BooksController < ApplicationController
+
       def index
+        raise NoRecordsFoundError if Book.count.zero?
+
         @books = Book.all
+
         # return render json: { message: 'Still no books to display' }, status: 204 if @books.empty?
-        if @books.empty?
-          render json: { message: "Sorry, there's nothing for your" }, status: 204
-        else
-          render json: @books.to_json, status: 200
-        end
       end
 
       def show
