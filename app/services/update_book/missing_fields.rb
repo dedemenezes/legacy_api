@@ -1,5 +1,9 @@
 module UpdateBook
   module MissingFields
+    def self.script
+      self
+    end
+    
     def self.call(hash, book)
       # check present attributes
       clean_attr = book.attributes.select { |_key, value| value.nil? }
