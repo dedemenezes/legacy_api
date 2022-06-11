@@ -28,7 +28,6 @@ class Character < ApplicationRecord
   end
 
   def self.right_attributes(hash)
-    # binding.pry
     hash.select do |attribute, _|
       attribute = attribute.to_s if attribute.instance_of?(Symbol)
       new.attributes.keys.include? attribute
@@ -36,7 +35,6 @@ class Character < ApplicationRecord
   end
 
   def clean_image_url
-    binding.pry
     self.image_url = image_url.match(/.+\.(jpg|png|bmp|gif)/i)
   end
 end
