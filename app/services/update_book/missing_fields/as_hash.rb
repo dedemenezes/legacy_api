@@ -2,9 +2,9 @@ module UpdateBook
   module MissingFields
     module AsHash
       def self.script
-        proc do
+        proc do |book, hash|
           missing_attributes_hash(book, hash).each do |box_section_name, values|
-            Assign.script.call(book, box_section_name, values.first)
+            UpdateBook::MissingFields::WorkPlease.script.call(book, box_section_name, values.first)
           end
         end
       end

@@ -1,6 +1,6 @@
-module UpdateBooks
+module UpdateBook
   module MissingFields
-    module Assign
+    module WorkPlease
       def self.script
         proc do |book, attribute, value|
           book.send("#{attribute}_url=".to_sym, value[:path]) if book.respond_to? "#{attribute}_url=".to_sym
