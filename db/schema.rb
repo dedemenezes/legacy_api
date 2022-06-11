@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_10_193059) do
+ActiveRecord::Schema.define(version: 2022_06_11_061520) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -100,7 +100,6 @@ ActiveRecord::Schema.define(version: 2022_06_10_193059) do
     t.string "romances_url"
     t.string "boggart"
     t.string "boggart_url"
-    t.string "wand"
     t.string "wand_url"
     t.string "patronus"
     t.string "patronus_url"
