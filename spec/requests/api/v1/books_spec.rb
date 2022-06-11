@@ -57,9 +57,9 @@ RSpec.describe 'Api::V1::Books', type: :request do
         expect(subject).to be_an(Hash)
         expect(subject.empty?).to be_falsey
 
-        attributes = Book.new.attributes
-        subject.keys.each do |response_key|
-          expect(attributes.keys).to include(response_key)
+        book = Book.new
+        subject.each_key do |response_key|
+          expect(book).to respond_to(response_key)
         end
         # subject.keys.each { |key| expect(attributes.include?(key)).to be_truthy }
       end
