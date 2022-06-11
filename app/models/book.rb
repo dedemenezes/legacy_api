@@ -9,4 +9,8 @@ class Book < ApplicationRecord
   def author
     Artist.joins(:book_artists).find_by(book_artists: { book: self, role: :author })
   end
+
+  def cover_artists
+    Artist.joins(:book_artists).where(book_artists: { book: self, role: :cover_artist })
+  end
 end

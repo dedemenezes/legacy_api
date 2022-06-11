@@ -5,6 +5,7 @@ namespace :scraper do
   task clean_db: :environment do
     puts 'Cleaning Database'
     Book.destroy_all
+    Artist.destroy_all
     Wiki.destroy_all
     Character.destroy_all
     Wand.destroy_all

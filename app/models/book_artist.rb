@@ -6,5 +6,4 @@ class BookArtist < ApplicationRecord
 
   # enum status: { draft: 0, published: 1, archived: 2 }
   enum role: { cover_artist: 0, interior: 1, author: 2, narrator: 3 }
-
 end
