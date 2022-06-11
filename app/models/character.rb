@@ -23,4 +23,12 @@ class Character < ApplicationRecord
   def self.attribute_name(key)
     key == 'alias' ? 'nickname' : key
   end
+
+  def self.right_attributes(hash)
+    # binding.pry
+    hash.select do |attribute, _|
+      attribute = attribute.to_s if attribute.instance_of?(Symbol)
+      new.attributes.keys.include? attribute
+    end
+  end
 end
