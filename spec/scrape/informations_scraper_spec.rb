@@ -31,9 +31,9 @@ RSpec.describe InformationsScraper, type: :service do
     end
 
     it 'returns correct information type name' do
-      expect(result['base_type']).to be_an(Array)
-      expect(result['base_type'].first).to be_a(Hash)
-      expect(result['base_type'].first[:title]).to eq('Biographical information')
+      expect(result['base type']).to be_an(Array)
+      expect(result['base type'].first).to be_a(Hash)
+      expect(result['base type'].first[:title]).to eq('Biographical information')
     end
   end
 end

@@ -25,7 +25,7 @@ class InformationsScraper
       @informations[attribute] = values
     end
     # "pages"=>[{:title=>"223 ", :path=>nil}, {:title=>"309 ", :path=>nil}],
-    informations['base_type'] = [{ title: scrape_information_type, path: nil }]
+    informations['base type'] = [{ title: scrape_information_type, path: nil }]
     informations
   end
 
