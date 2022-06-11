@@ -1,4 +1,4 @@
-module UpdateBooks
+module UpdateBook
   module MissingFields
     def self.call(hash, book)
       # check present attributes
@@ -10,7 +10,7 @@ module UpdateBooks
       puts "#" * 13
       missing_attributes_hash.each do |attribute, values|
         attribute = attribute.gsub(' ', '_') if attribute.include? ' '
-        book.send("#{attribute}_url=".to_sym, values.first[:path])
+        book.send("#{attribute}_url=".to_sym, values.first[:path]) if book.respond_to? "#{attribute}_url=".to_sym
         book.send("#{attribute}=".to_sym, values.first[:title])
       end
       book.save!

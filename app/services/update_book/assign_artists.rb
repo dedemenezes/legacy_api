@@ -1,4 +1,4 @@
-module UpdateBooks
+module UpdateBook
   AssignArtists = proc do |infos, type, book|
       @book = book
     @type_key = type.to_s.gsub('_', ' ')
