@@ -3,4 +3,5 @@
 class WandOwner < ApplicationRecord
   belongs_to :wand
   belongs_to :character
+  validates :wand, uniqueness: { scope: :character }
 end

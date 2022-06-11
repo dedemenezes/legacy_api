@@ -3,6 +3,7 @@
 class WandMaster < ApplicationRecord
   belongs_to :wand
   belongs_to :character
+  validates :wand, uniqueness: { scope: :character }
 
   def assign_master(hash)
     return unless hash.key?('masters')

@@ -6,7 +6,8 @@ class CreatureType < ApplicationRecord
   has_many :character_types, dependent: :destroy
   has_many :characters, through: :character_types
 
-  validates :name, :path, presence: true, uniqueness: true
+  validates :name, :path, presence: true
+  validates :name, uniqueness: { case_sensitive: false, scope: :path }
 
   def self.find_by_name_or_path(type)
     CreatureType.find_by_name(type[:title]) || CreatureType.find_by_path(type[:path])

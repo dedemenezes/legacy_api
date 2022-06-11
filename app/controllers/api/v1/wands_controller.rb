@@ -2,11 +2,11 @@
 
 module Api
   module V1
-    class WandsController < ApplicationController
+    class WandsController < ActionController::Base
+      # add_views_paths
       def index
-        @wands = Wand.all
-
-        render json: @wands.to_json, status: 200
+        @wands = Wand.joins(:wand_master, :wand_owners).all
+        # render json: @wands.to_json, status: 200
       end
 
       def show

@@ -1,5 +1,5 @@
 # frozen_string_literal: true
 
 class Wiki < ApplicationRecord
-  validates :title, :path, uniqueness: true
+  validates :title, uniqueness: { scope: :path }
 end
