@@ -2,6 +2,8 @@
 
 FactoryBot.define do
   factory :wand do
+    name { "Wand"}
+    path { '/wand'}
     manufacturer { 'MyString' }
     made { 'MyString' }
     wood { 'MyString' }

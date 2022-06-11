@@ -8,8 +8,6 @@ namespace :scraper do
     Wiki.destroy_all
     Character.destroy_all
     Wand.destroy_all
-    WandMaster.destroy_all
-    WandOwner.destroy_all
     CreatureType.destroy_all
     puts 'DB Clean'
   end
