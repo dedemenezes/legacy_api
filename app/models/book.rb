@@ -6,6 +6,7 @@ class Book < ApplicationRecord
 
   validates :title, uniqueness: { scope: :path, message: 'combination title and url already exist' }
 
-  # scope :cover_artists, -> { where(book_artist: { role: 'cover artist' }) }
-  # scope :interior_artists, -> { book_artists.where(role: 'interior artist') }
+  def author
+    Artist.joins(:book_artists).find_by(book_artists: { book: self, role: :author })
+  end
 end
