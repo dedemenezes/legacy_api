@@ -29,7 +29,6 @@ class Character < ApplicationRecord
 
   def self.right_attributes(hash)
     hash.select do |attribute, _|
-      # binding.pry
       attribute = attribute.to_s if attribute.instance_of?(Symbol)
       new.attributes.keys.include? attribute
     end

@@ -9,4 +9,10 @@ FactoryBot.define do
     artist { create(:prada) }
     role { :cover_artist }
   end
+
+  factory :jk_author, class: 'BookArtist' do
+    book { create(:book_one) }
+    artist { create(:jk) }
+    role { :author }
+  end
 end

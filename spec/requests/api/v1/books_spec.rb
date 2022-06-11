@@ -43,8 +43,8 @@ RSpec.describe 'Api::V1::Books', type: :request do
 
     context 'when datbase has records' do
       before do
-        create(:book_one)
-        get "/api/v1/books/#{Book.first.id}"
+        book_artist = create(:jk_author)
+        get "/api/v1/books/#{book_artist.book.id}"
       end
 
       it 'returns http success' do
