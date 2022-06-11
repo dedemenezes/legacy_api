@@ -21,7 +21,6 @@ FactoryBot.define do
     created_at { 'Mon, 30 May 2022 06:16:52.524177000 UTC +00:00' }
     updated_at { 'Mon, 30 May 2022 06:16:52.524177000 UTC +00:00' }
     image_url { "https://static.wikia.nocookie.net/harrypotter/images/9/97/Harry_Potter.jpg/revision/latest?cb=20140603201724" }
-    name_url { nil }
     born_url { "/wiki/31_July" }
     blood_url { "/wiki/Half-blood" }
     marital_url { nil }

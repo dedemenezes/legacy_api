@@ -8,4 +8,5 @@ class HashBuilder
 
     { title: a_tag_doc.attr('title'), path: a_tag_doc.attr('href') }
   end
+
 end

@@ -5,6 +5,7 @@ namespace :scraper do
   task clean_db: :environment do
     puts 'Cleaning Database'
     Book.destroy_all
+    Artist.destroy_all
     Wiki.destroy_all
     Character.destroy_all
     Wand.destroy_all
@@ -47,9 +48,8 @@ namespace :scraper do
     Seeds::CharacterTypes.run
   end
 
-  desc 'Scraper default'
-  task clean_seed: :environment do
-    Rake::Task['scraper:clean_db'].execute
+  desc "Seed everything. Scrape and Create all data available so far"
+  task scrape_and_populate: :environment do
     Rake::Task['scraper:books'].execute
     Rake::Task['scraper:wikis'].execute
     Rake::Task['scraper:base_types'].execute
@@ -57,5 +57,11 @@ namespace :scraper do
     Rake::Task['scraper:wands'].execute
     Rake::Task['scraper:creature_types'].execute
     Rake::Task['scraper:character_types'].execute
+  end
+
+  desc 'Scraper default'
+  task clean_seed: :environment do
+    Rake::Task['scraper:clean_db'].execute
+    Rake::Task['scraper:scrape_and_populate']
   end
 end

@@ -10,10 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_11_061520) do
+ActiveRecord::Schema.define(version: 2022_06_11_112609) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "artists", force: :cascade do |t|
+    t.string "name"
+    t.string "path"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "book_artists", force: :cascade do |t|
+    t.bigint "book_id", null: false
+    t.bigint "artist_id", null: false
+    t.integer "role"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["artist_id"], name: "index_book_artists_on_artist_id"
+    t.index ["book_id"], name: "index_book_artists_on_book_id"
+  end
 
   create_table "books", force: :cascade do |t|
     t.string "title"
@@ -21,30 +38,19 @@ ActiveRecord::Schema.define(version: 2022_06_11_061520) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "name"
-    t.string "name_url"
     t.string "image"
     t.string "image_url"
-    t.string "cover_artist"
-    t.string "cover_artist_url"
-    t.string "interior"
-    t.string "interior_url"
-    t.string "narrator"
-    t.string "narrator_url"
     t.string "publisher"
     t.string "publisher_url"
     t.datetime "release_date"
     t.string "release_date_url"
     t.integer "pages"
-    t.string "pages_url"
     t.string "followed_by"
     t.string "followed_by_url"
     t.string "preceded_by"
     t.string "preceded_by_url"
-    t.string "author"
-    t.string "author_url"
     t.string "character_index_url"
     t.string "base_type"
-    t.string "base_type_url"
   end
 
   create_table "character_types", force: :cascade do |t|
@@ -203,6 +209,8 @@ ActiveRecord::Schema.define(version: 2022_06_11_061520) do
     t.string "base_type"
   end
 
+  add_foreign_key "book_artists", "artists"
+  add_foreign_key "book_artists", "books"
   add_foreign_key "character_types", "characters"
   add_foreign_key "character_types", "creature_types"
   add_foreign_key "distinctions", "creature_types"
