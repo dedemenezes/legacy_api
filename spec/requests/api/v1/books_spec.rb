@@ -52,10 +52,16 @@ RSpec.describe 'Api::V1::Books', type: :request do
       end
 
       it 'JSON body response contains expected book attributes' do
-        json_response = JSON.parse(response.body)
-        expect(json_response).to be_an(Hash)
-        keys = json_response.keys
-        expect(keys).to include('title').and include('image_url').and include('author')
+        # json_response = JSON.parse()
+        subject = response.parsed_body
+        expect(subject).to be_an(Hash)
+        expect(subject.empty?).to be_falsey
+
+        attributes = Book.new.attributes
+        subject.keys.each do |response_key|
+          expect(attributes.keys).to include(response_key)
+        end
+        # subject.keys.each { |key| expect(attributes.include?(key)).to be_truthy }
       end
     end
   end

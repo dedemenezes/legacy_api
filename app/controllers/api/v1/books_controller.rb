@@ -15,7 +15,6 @@ module Api
       def show
         @book = Book.find(params[:id])
 
-        render json: @book.to_json, status: 200
       end
     end
   end
