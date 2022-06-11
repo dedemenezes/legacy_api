@@ -1,9 +1,10 @@
 module Seeds
   module Wands
     def self.run
-      wands = Character.pluck(:wand, :wand_url).uniq.reject { |wand| wand.include? nil }
-      wands.each do |name, url|
-        puts "seeding #{name}"
+      Wand.destroy_all
+      wands = Character.pluck(:wand_url).uniq.compact
+      wands.each do |url|
+        puts "seeding #{url}"
         next unless AlreadyExist.instance?(Wand, url)
 
         doc               = DocBuilder.new(path: url).html_doc
@@ -14,8 +15,8 @@ module Seeds
 
         puts "#{wand.name} created"
 
-        # Masters.run(infos, wand)
-        # Owners.run(infos, wand)
+        Masters.run(infos, wand)
+        Owners.run(infos, wand)
 
         puts "#{wand.name} seeded with information from #{wand.path}"
       end

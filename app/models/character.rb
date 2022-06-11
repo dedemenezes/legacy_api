@@ -29,12 +29,14 @@ class Character < ApplicationRecord
 
   def self.right_attributes(hash)
     hash.select do |attribute, _|
+      # binding.pry
       attribute = attribute.to_s if attribute.instance_of?(Symbol)
       new.attributes.keys.include? attribute
     end
   end
 
   def clean_image_url
-    self.image_url = image_url.match(/.+\.(jpg|png|bmp|gif)/i)
+    match_data = image_url.match(/.+\.(jpg|png|bmp|gif)/i) if image_url
+    self.image_url = match_data[0] if match_data
   end
 end
