@@ -48,7 +48,7 @@ namespace :scraper do
     Seeds::CharacterTypes.run
   end
 
-  desc "Seed everything. Scrape and Create all data available so far"
+  desc 'Seed everything. Scrape and Create all data available so far'
   task scrape_and_populate: :environment do
     Rake::Task['scraper:books'].execute
     Rake::Task['scraper:wikis'].execute
