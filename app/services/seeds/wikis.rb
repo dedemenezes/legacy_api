@@ -3,7 +3,7 @@ module Seeds
     def self.run
       Book.all.each do |book|
         puts "Scraping chars urls from #{book.title}"
-        doc_builder = DocBuilder.new(path: book.character_index_url)
+        doc_builder = Scraper::DocBuilder.new(path: book.character_index_url)
 
         chars = if doc_builder.doc_has_table?
                   TableScraper.new(doc: doc_builder.html_doc).all_urls_and_names

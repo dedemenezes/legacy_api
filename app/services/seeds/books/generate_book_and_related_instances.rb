@@ -3,7 +3,7 @@ module Seeds
     module GenerateBookAndRelatedInstances
       def self.script
         proc do |hash|
-          doc_builder = DocBuilder.new path: hash[:path]
+          doc_builder = Scraper::DocBuilder.new path: hash[:path]
           infos = Scraper::InformationBoxAsHash.script.call(doc_builder.html_doc)
 
           @new_book = Book.find_by(name: hash[:title]) || Book.create(hash)

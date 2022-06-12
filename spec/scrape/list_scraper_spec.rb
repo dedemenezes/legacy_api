@@ -45,7 +45,7 @@ RSpec.describe 'ListScraper', type: :service do
       { title: 'Percival Dumbledore', path: '/wiki/Percival_Dumbledore' },
       { title: 'Unidentified Mould-on-the-Wold boys', path: '/wiki/Unidentified_Mould-on-the-Wold_boys' }
     ]
-    builder = DocBuilder.new(path: '/wiki/Harry_Potter_and_the_Deathly_Hallows_(character_index)')
+    builder = Scraper::DocBuilder.new(path: '/wiki/Harry_Potter_and_the_Deathly_Hallows_(character_index)')
     results = ListScraper.new(doc: builder.html_doc).unordered_list_from_parent_node
     chars.each do |char|
       it "returns correct name and url for #{char[:title]}" do

@@ -1,10 +1,11 @@
 FactoryBot.define do
+  
   factory :fryer_narrator, class: 'BookArtist' do
     book { Book.last || create(:book_one) }
     artist { Artist.last || create(:fryer) }
     role { :narrator }
   end
-  
+
   factory :babi_cover, class: 'BookArtist' do
     book { Book.last || create(:book_one) }
     artist { Artist.last || create(:babi) }

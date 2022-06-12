@@ -14,7 +14,7 @@ RSpec.describe 'Api::V1::Books', type: :request do
 
     context 'when datbase has records' do
       before do
-        create(:book_one)
+        create(:jk_author)
         get '/api/v1/books'
       end
 
@@ -27,7 +27,7 @@ RSpec.describe 'Api::V1::Books', type: :request do
         expect(json_response).to be_an(Array)
 
         actual = json_response.first.keys
-        expect(actual).to contain_exactly('title', 'author', 'image_url', 'pages', 'release_date')
+        expect(actual).to contain_exactly('author', 'id', 'image_url', 'release_date', 'title')
       end
     end
   end

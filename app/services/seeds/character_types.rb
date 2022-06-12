@@ -7,7 +7,7 @@ module Seeds
       puts "Started"
       Character.all.each do |char|
         puts "#{char.name} is..."
-        doc = DocBuilder.new(path: char.path).html_doc
+        doc = Scraper::DocBuilder.new(path: char.path).html_doc
         infos = InformationsScraper.new(doc: doc).scrape_information_box
         infos['species']&.each do |type|
           creature_type = CreatureType.find_by_name_or_path(type)

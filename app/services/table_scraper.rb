@@ -24,6 +24,6 @@ class TableScraper
   private
 
   def get_doc
-    @html_doc = DocBuilder.new(path: @path).html_doc
+    @html_doc = Scraper::DocBuilder.new(path: @path).html_doc
   end
 end

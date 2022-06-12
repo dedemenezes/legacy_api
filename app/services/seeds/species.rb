@@ -51,7 +51,7 @@ module Seeds
     end
 
     def self.scrape_creature_type_informations
-      doc = DocBuilder.new(path: @url).html_doc
+      doc = Scraper::DocBuilder.new(path: @url).html_doc
       information_scraper = InformationsScraper.new(doc: doc)
       information_scraper.scrape_information_box
       information_scraper

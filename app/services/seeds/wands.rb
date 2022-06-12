@@ -7,7 +7,7 @@ module Seeds
         puts "seeding #{url}"
         next unless AlreadyExist.instance?(Wand, url)
 
-        doc               = DocBuilder.new(path: url).html_doc
+        doc               = Scraper::DocBuilder.new(path: url).html_doc
         infos             = InformationsScraper.new(doc: doc).scrape_information_box
         attributes        = Wand.generate_attribute_hash(infos)
         attributes[:path] = url

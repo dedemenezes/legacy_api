@@ -6,7 +6,7 @@ module Seeds
         next unless AlreadyExist.instance?(Character, wiki.path)
 
 
-        doc                   = DocBuilder.new(path: wiki.path).html_doc
+        doc                   = Scraper::DocBuilder.new(path: wiki.path).html_doc
         infos                 = InformationsScraper.new(doc: doc).scrape_information_box
 
         attributes            = Character.generate_attribute_hash(infos)
