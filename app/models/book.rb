@@ -13,4 +13,12 @@ class Book < ApplicationRecord
   def cover_artists
     Artist.joins(:book_artists).where(book_artists: { book: self, role: :cover_artist })
   end
+
+  def interior_artists
+    Artist.joins(:book_artists).where(book_artists: { book: self, role: :interior })
+  end
+
+  def narrators
+    Artist.joins(:book_artists).where(book_artists: { book: self, role: :narrator })
+  end
 end

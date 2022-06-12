@@ -1,5 +1,8 @@
+# frozen_string_literal: true
+
 module UpdateBook
   module MissingFields
+    # service too assign attributes into book
     module WorkPlease
       def self.script
         proc do |book, attribute, value|
