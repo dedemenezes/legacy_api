@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 module Seeds
   module Wands
     def self.run
-      Wand.destroy_all
+      puts 'Seeding wands...'
       wands = Character.pluck(:wand_url).uniq.compact
       wands.each do |url|
-        puts "seeding #{url}"
+        # puts "seeding #{url}"
         next unless AlreadyExist.instance?(Wand, url)
 
         doc               = Scraper::DocBuilder.new(path: url).html_doc
@@ -13,13 +15,14 @@ module Seeds
         attributes[:path] = url
         wand              = Wand.create!(attributes)
 
-        puts "#{wand.name} created"
+        # puts "#{wand.name} created"
 
         Masters.run(infos, wand)
         Owners.run(infos, wand)
 
-        puts "#{wand.name} seeded with information from #{wand.path}"
+        # puts "#{wand.name} seeded with information from #{wand.path}"
       end
+      puts "Done zo/\n"
     end
   end
 end

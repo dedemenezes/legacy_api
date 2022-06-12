@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 json.ignore_nil!
 json.id @book.id
 json.title @book.title
@@ -10,7 +12,7 @@ json.author do
   json.id @book.author.id
   json.name @book.author.name
 end
-json.interior_artists @book.interior_artists do|artist|
+json.interior_artists @book.interior_artists do |artist|
   json.id artist.id
   json.name artist.name
 end

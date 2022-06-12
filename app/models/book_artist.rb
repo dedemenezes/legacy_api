@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class BookArtist < ApplicationRecord
   # ROLE = ['cover artist', 'interior artist']
   belongs_to :book

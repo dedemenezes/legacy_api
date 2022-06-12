@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RemoveArtistsFromBooks < ActiveRecord::Migration[6.1]
   def change
     remove_column :books, :cover_artist, :string

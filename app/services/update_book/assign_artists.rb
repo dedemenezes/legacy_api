@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module UpdateBook
   module AssignArtists
     def self.script

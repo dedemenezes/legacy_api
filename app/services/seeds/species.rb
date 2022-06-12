@@ -1,10 +1,11 @@
+# frozen_string_literal: true
+
 module Seeds
+  # scrape and populate db with creature types, distinctions and related types
   module Species
     def self.run
-      puts 'Deleting all Creature Type instances'
-      CreatureType.destroy_all
-      puts "Let's GO!"
-      start_time = Time.now
+      puts 'Seeding creature types'
+
       chars = CharacterSpecies.run
       wikis = WikiSpecies.run
       species_urls = wikis.push(chars).flatten.uniq
@@ -23,13 +24,7 @@ module Seeds
           Distinction.create content: distinction[:title], creature_type: creature_type
         end
 
-        if creature_type.distinctions.present?
-          if creature_type.distinctions.count > 1
-            puts "#{creature_type.name} is #{creature_type.distinctions[...-1].map(&:content).join(',')} and #{creature_type.distinctions[-1].content}"
-          else
-            puts "#{creature_type.name} is #{creature_type.distinctions.first.content}"
-          end
-        end
+        puts creature_type.description if creature_type.distinctions.present?
 
         if (information_scraper.informations.keys.include? 'image') && information_scraper.informations['image'].first[:path].present?
           assign_creature_type_image(creature_type, information_scraper)
@@ -39,9 +34,7 @@ module Seeds
           assign_related_types(information_scraper.informations['related'], creature_type)
         end
       end
-      elapsed_time = Time.now - start_time
-      puts 'Done zo/'
-      puts elapsed_time / 60
+      puts "Done zo/\n"
     end
 
     def self.building_creature_type
@@ -61,7 +54,9 @@ module Seeds
       # p information_scraper.informations
       puts "Starting #{@url}..."
       titles_only = information_scraper.infos_titles_only
-      creature_type_attributes = titles_only.select { |key, _v| attributes_keys.include? key }.map { [_1, _2.first.strip] }.to_h
+      creature_type_attributes = titles_only.select do |key, _v|
+                                   attributes_keys.include? key
+                                 end.map { [_1, _2.first.strip] }.to_h
       species = CreatureType.find_by(name: creature_type_attributes[:name])
       species ||= CreatureType.new(creature_type_attributes)
       species.path ||= @url
@@ -76,7 +71,7 @@ module Seeds
       pic = Picture.new(image_attributes)
       pic.imageable = creature_type
       pic.save!
-      puts pic.path
+      # puts pic.path
     end
 
     def self.assign_related_types(types, creature_type)

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Artist < ApplicationRecord
   has_many :book_artists, dependent: :destroy
   has_many :books, through: :book_artists

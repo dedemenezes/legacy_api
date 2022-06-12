@@ -62,6 +62,6 @@ namespace :scraper do
   desc 'Scraper default'
   task clean_seed: :environment do
     Rake::Task['scraper:clean_db'].execute
-    Rake::Task['scraper:scrape_and_populate']
+    Rake::Task['scraper:scrape_and_populate'].execute
   end
 end

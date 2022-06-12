@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Scraper
   # helper to access
   module InformationBoxAsHash

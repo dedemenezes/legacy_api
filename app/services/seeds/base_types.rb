@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Seeds
   module BaseTypes
     def self.run
@@ -9,10 +11,8 @@ module Seeds
         base_type      = Scraper::InformationsScraper.new(doc: doc).scrape_information_type
         wiki.base_type = base_type
         wiki.save!
-
-        puts wiki.title
       end
-      puts 'Done'
+      puts "Done zo/\n"
     end
   end
 end

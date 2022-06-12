@@ -40,7 +40,7 @@ module Scraper
     end
 
     def infos_titles_only
-      @informations.map { |info, values| [info, values.map { |value| value[:title] }]  }.to_h
+      @informations.transform_values { |values| values.map { |value| value[:title] } }
     end
 
     def scrape_information_type

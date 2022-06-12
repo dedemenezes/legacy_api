@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Seeds
   module Characters
     def self.run
@@ -5,19 +7,15 @@ module Seeds
         puts "Building character #{wiki.title}"
         next unless AlreadyExist.instance?(Character, wiki.path)
 
-
         doc                   = Scraper::DocBuilder.new(path: wiki.path).html_doc
         infos                 = Scraper::InformationsScraper.new(doc: doc).scrape_information_box
 
         attributes            = Character.generate_attribute_hash(infos)
         attributes[:path]     = wiki.path
 
-        char                  = Character.create!(Character.right_attributes(attributes))
-
-        puts char.inspect
-        puts '*' * 24
-        puts '*' * 24
+        Character.create!(Character.right_attributes(attributes))
       end
+      puts "Done zo/\n"
     end
   end
 end

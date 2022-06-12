@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 json.array! @wands do |wand|
   json.ignore_nil!
   json.id wand.id

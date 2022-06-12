@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 module Seeds
   module Wikis
     def self.run
+      puts 'Scraping chars urls'
       Book.all.each do |book|
-        puts "Scraping chars urls from #{book.title}"
         doc_builder = Scraper::DocBuilder.new(path: book.character_index_url)
 
         chars = if doc_builder.doc_has_table?
@@ -10,14 +12,15 @@ module Seeds
                 else
                   Scraper::ListScraper.new(doc: doc_builder.html_doc).unordered_list_from_parent_node
                 end
-        amount = chars.reject(&:nil?).map do |char|
+        chars.reject(&:nil?).map do |char|
           next unless AlreadyExist.instance?(Wiki, char[:path])
           next unless AlreadyExist.instance?(Wiki, char[:title])
 
           Wiki.create char
         end.compact.count
-        puts "created #{amount} wikis for #{book.title}"
+        # puts "created #{amount} wikis for #{book.title}"
       end
+      puts "Done zo/\n"
     end
   end
 end

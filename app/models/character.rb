@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class Character < ApplicationRecord
-
   has_one :wand_master, dependent: :destroy
   has_many :wand_owners, dependent: :destroy
   has_one :wand, through: :wand_master
@@ -11,18 +10,24 @@ class Character < ApplicationRecord
 
   validates :name, :path, presence: true
   validates :name, uniqueness: { case_sensitive: false, scope: :path }
+
   before_validation do
     CleanImageUrl.script.call(self)
   end
 
+  def wands
+    all_wands = wand_owners&.map(&:wand)
+    all_wands&.push wand || [wand]
+  end
+
   def self.generate_attribute_hash(infos)
-    infos.map do |k, v|
+    array = infos.map do |k, v|
       [[attribute_name(k).to_sym, v.first[:title]], ["#{attribute_name(k)}_url".to_sym, v.first[:path]]]
     end
-         .map(&:to_h)
+    array.map(&:to_h)
          .reduce(:merge)
          .compact
-         .reject { _2.include? '#' }
+         .reject { |e| e.include? '#' }
   end
 
   def self.attribute_name(key)

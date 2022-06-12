@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe Book, type: :model do
-  describe "#cover_artists" do
+  describe '#cover_artists' do
     it 'returns all cover artists for book' do
       create(:babi_cover)
       subject = Book.last.cover_artists
@@ -15,7 +15,7 @@ RSpec.describe Book, type: :model do
     end
   end
 
-  describe "#interior_artists" do
+  describe '#interior_artists' do
     it 'returns all interior artists for book' do
       create(:babi_interior)
       subject = Book.last.interior_artists
@@ -27,7 +27,7 @@ RSpec.describe Book, type: :model do
     end
   end
 
-  describe "#narrators" do
+  describe '#narrators' do
     it 'returns all interior artists for book' do
       create(:fryer_narrator)
       subject = Book.last.narrators
@@ -36,7 +36,7 @@ RSpec.describe Book, type: :model do
     end
   end
 
-  describe "#author" do
+  describe '#author' do
     it 'returns author for book' do
       create(:jk_author)
       subject = Book.last.author

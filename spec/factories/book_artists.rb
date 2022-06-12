@@ -1,5 +1,6 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
-  
   factory :fryer_narrator, class: 'BookArtist' do
     book { Book.last || create(:book_one) }
     artist { Artist.last || create(:fryer) }
