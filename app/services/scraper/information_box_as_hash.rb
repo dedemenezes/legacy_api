@@ -1,4 +1,5 @@
 module Scraper
+  # helper to access
   module InformationBoxAsHash
     def self.script
       proc do |doc|
@@ -7,6 +8,3 @@ module Scraper
     end
   end
 end
-
-
-# script.call(doc)

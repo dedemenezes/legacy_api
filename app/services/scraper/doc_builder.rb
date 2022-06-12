@@ -1,5 +1,7 @@
 # frozen_string_literal: true
+
 module Scraper
+  # service to parse any page from harry potter fandom
   class DocBuilder
     BASE_URL = 'https://harrypotter.fandom.com'
     attr_reader :html_doc
