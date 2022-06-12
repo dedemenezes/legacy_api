@@ -9,6 +9,8 @@ module UpdateBook
         end
       end
 
+      # Look iover book attributes and filter scraped information
+      # return only the book fields that are nil
       def self.missing_attributes_hash(book, hash)
         missing_fields = book.attributes.select { |_key, value| value.nil? }
         missing_fields = missing_fields.transform_keys { |key| key.gsub('_', ' ') }

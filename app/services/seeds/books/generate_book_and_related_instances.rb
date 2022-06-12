@@ -14,7 +14,6 @@ module Seeds
           end
 
           UpdateBook::MissingFields::AsHash.script.call(@new_book, infos)
-
           @new_book
         end
       end
