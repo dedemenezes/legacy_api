@@ -2,7 +2,7 @@ module UpdateBook
   module CharactersIndexUrl
     def self.script
       proc do |book, doc|
-        character_index_url = CharacterIndexUrlScraper.new(doc: doc).scrape
+        character_index_url = Scraper::CharacterIndexUrlScraper.new(doc: doc).scrape
         book.character_index_url = character_index_url
         book
       end

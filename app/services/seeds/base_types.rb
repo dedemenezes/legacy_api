@@ -6,7 +6,7 @@ module Seeds
         next unless wiki.base_type.nil?
 
         doc            = Scraper::DocBuilder.new(path: wiki.path).html_doc
-        base_type      = InformationsScraper.new(doc: doc).scrape_information_type
+        base_type      = Scraper::InformationsScraper.new(doc: doc).scrape_information_type
         wiki.base_type = base_type
         wiki.save!
 

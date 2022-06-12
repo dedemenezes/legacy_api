@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class CharacterIndexUrlScraper
+class Scraper::CharacterIndexUrlScraper
   def initialize(attributes = {})
     @doc = attributes[:doc]
   end

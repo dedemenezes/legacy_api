@@ -8,7 +8,7 @@ module Seeds
         next unless AlreadyExist.instance?(Wand, url)
 
         doc               = Scraper::DocBuilder.new(path: url).html_doc
-        infos             = InformationsScraper.new(doc: doc).scrape_information_box
+        infos             = Scraper::InformationsScraper.new(doc: doc).scrape_information_box
         attributes        = Wand.generate_attribute_hash(infos)
         attributes[:path] = url
         wand              = Wand.create!(attributes)

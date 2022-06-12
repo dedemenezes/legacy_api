@@ -7,7 +7,7 @@ module Seeds
 
 
         doc                   = Scraper::DocBuilder.new(path: wiki.path).html_doc
-        infos                 = InformationsScraper.new(doc: doc).scrape_information_box
+        infos                 = Scraper::InformationsScraper.new(doc: doc).scrape_information_box
 
         attributes            = Character.generate_attribute_hash(infos)
         attributes[:path]     = wiki.path

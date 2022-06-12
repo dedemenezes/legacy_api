@@ -2,13 +2,13 @@
 
 require 'rails_helper'
 
-RSpec.describe InformationsScraper, type: :service do
+RSpec.describe Scraper::InformationsScraper, type: :service do
   url = 'https://harrypotter.fandom.com/wiki/Harry_Potter'
   nokogiri_doc = Nokogiri::HTML(Faraday.get(url).body)
   # nokogiri_doc = 'test'
 
   describe '#initialize' do
-    info_box_scraper = InformationsScraper.new doc: nokogiri_doc
+    info_box_scraper = Scraper::InformationsScraper.new doc: nokogiri_doc
     it 'with an empty informations hash' do
       actual = info_box_scraper.informations
       expect(actual).to be_a(Hash)
@@ -17,7 +17,7 @@ RSpec.describe InformationsScraper, type: :service do
   end
 
   describe '#scrape_information_box' do
-    info_box_scraper = InformationsScraper.new doc: nokogiri_doc
+    info_box_scraper = Scraper::InformationsScraper.new doc: nokogiri_doc
     # {k => [values]}
     result = info_box_scraper.scrape_information_box
     # expected = {"image" => [{title: "Book Name", path: "https://book_name.png"}]}

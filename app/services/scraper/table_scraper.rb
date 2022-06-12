@@ -11,7 +11,7 @@ class Scraper::TableScraper
     @html_doc.search('.article-table').each do |table|
       table.search('tr').each do |element|
         a_tag = element.first_element_child.children.first
-        @character_indexes << HashBuilder.from_link(a_tag)
+        @character_indexes << Scraper::HashBuilder.from_link(a_tag)
       end
     end
     @character_indexes.compact!

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class InformationScraper
+class Scraper::InformationScraper
   def initialize(doc)
     @doc = doc
   end

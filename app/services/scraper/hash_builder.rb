@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class HashBuilder
+class Scraper::HashBuilder
   def self.from_link(a_tag_doc)
     return if a_tag_doc.text.match?(/index/)
 

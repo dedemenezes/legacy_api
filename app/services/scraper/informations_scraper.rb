@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class InformationsScraper
+class Scraper::InformationsScraper
   attr_reader :informations
 
   def initialize(attributes = {})
@@ -11,13 +11,13 @@ class InformationsScraper
   def scrape_information_box
     @doc.search('[data-source]').each do |information|
       values = []
-      parser = InformationScraper.new(information)
+      parser = Scraper::InformationScraper.new(information)
       if parser.information_list.empty?
         values << parser.build_information_hash
       else
         list_items = parser.information_list.search('li')
         list_items.each do |element|
-          values << InformationScraper.new(element).build_information_hash
+          values << Scraper::InformationScraper.new(element).build_information_hash
         end
       end
 
