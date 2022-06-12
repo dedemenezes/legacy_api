@@ -15,8 +15,8 @@ module Seeds
           CharacterType.create(character: char, creature_type: creature_type)
           # puts "#{char.name} is...a #{char_type.creature_type.name.upcase}" if char_type
         end
-        puts "Done zo/\n"
       end
+      puts "Done zo/\n"
     end
   end
 end
