@@ -6,9 +6,9 @@ module Seeds
         doc_builder = Scraper::DocBuilder.new(path: book.character_index_url)
 
         chars = if doc_builder.doc_has_table?
-                  TableScraper.new(doc: doc_builder.html_doc).all_urls_and_names
+                  Scraper::TableScraper.new(doc: doc_builder.html_doc).all_urls_and_names
                 else
-                  ListScraper.new(doc: doc_builder.html_doc).unordered_list_from_parent_node
+                  Scraper::ListScraper.new(doc: doc_builder.html_doc).unordered_list_from_parent_node
                 end
         amount = chars.reject(&:nil?).map do |char|
           next unless AlreadyExist.instance?(Wiki, char[:path])

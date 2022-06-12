@@ -3,11 +3,11 @@
 require 'rails_helper'
 # require 'nokogiri'
 
-RSpec.describe 'ListScraper', type: :service do
+RSpec.describe 'Scraper::ListScraper', type: :service do
   describe '#ordered_list_i_link' do
     # doc = WikiScraper.new(url: '/wiki/Harry_Potter_(book_series)').build_nokogiri_doc_from_url
     doc = Nokogiri::HTML(Faraday.get('https://harrypotter.fandom.com/wiki/Harry_Potter_(book_series)').body)
-    scraper = ListScraper.new(doc: doc)
+    scraper = Scraper::ListScraper.new(doc: doc)
     results = scraper.ordered_list_i_link
     it 'returns an array' do
       expect(results).to be_an(Array)
@@ -46,7 +46,7 @@ RSpec.describe 'ListScraper', type: :service do
       { title: 'Unidentified Mould-on-the-Wold boys', path: '/wiki/Unidentified_Mould-on-the-Wold_boys' }
     ]
     builder = Scraper::DocBuilder.new(path: '/wiki/Harry_Potter_and_the_Deathly_Hallows_(character_index)')
-    results = ListScraper.new(doc: builder.html_doc).unordered_list_from_parent_node
+    results = Scraper::ListScraper.new(doc: builder.html_doc).unordered_list_from_parent_node
     chars.each do |char|
       it "returns correct name and url for #{char[:title]}" do
         expect(char).to be_a(Hash)

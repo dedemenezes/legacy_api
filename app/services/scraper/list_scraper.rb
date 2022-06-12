@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class ListScraper
+class Scraper::ListScraper
   def initialize(attributes = {})
     @doc = attributes[:doc]
     @url = attributes[:url]

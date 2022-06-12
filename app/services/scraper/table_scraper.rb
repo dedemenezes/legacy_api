@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class TableScraper
+class Scraper::TableScraper
   def initialize(attributes = {})
     @path = attributes[:path]
     @html_doc = attributes[:doc] || get_doc

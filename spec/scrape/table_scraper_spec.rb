@@ -2,10 +2,10 @@
 
 require 'rails_helper'
 
-RSpec.describe TableScraper, type: :service do
+RSpec.describe Scraper::TableScraper, type: :service do
   describe '#all_urls_and_names' do
     # doc = Nokogiri::HTML(Faraday.get('https://harrypotter.fandom.com/wiki/Harry_Potter_and_the_Philosopher%27s_Stone').body)
-    table_scraper = TableScraper.new path: '/wiki/Harry_Potter_and_the_Philosopher%27s_Stone_(character_index)'
+    table_scraper = Scraper::TableScraper.new path: '/wiki/Harry_Potter_and_the_Philosopher%27s_Stone_(character_index)'
     chars = %w[/wiki/Norberta /wiki/Charlie_Weasley%27s_colleagues /wiki/Ronan /wiki/Bane /wiki/Firenze /wiki/Unicorn]
     actual = table_scraper.all_urls_and_names
 
