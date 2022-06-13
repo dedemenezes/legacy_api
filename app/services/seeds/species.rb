@@ -6,8 +6,9 @@ module Seeds
     def self.run
       puts 'Seeding creature types'
 
-      chars = CharacterSpecies.run
-      wikis = WikiSpecies.run
+      chars = RetriveUrls.script(:character, :species_url)
+      wikis = Wiki.paths_for('Species information')
+
       species_urls = wikis.push(chars).flatten.uniq
       species_urls.each do |url|
         next if url.include? 'http'

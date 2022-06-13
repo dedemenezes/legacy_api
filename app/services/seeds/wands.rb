@@ -5,6 +5,7 @@ module Seeds
     def self.run
       puts 'Seeding wands...'
       wands = Character.pluck(:wand_url).uniq.compact
+      wands = RetriveUrls.script(:character, :wand_url)
       wands.each do |url|
         # puts "seeding #{url}"
         next unless AlreadyExist.instance?(Wand, url)

@@ -2,4 +2,5 @@
 
 class Wiki < ApplicationRecord
   validates :title, uniqueness: { scope: :path }
+  scope :paths_for, proc { |e| where(base_type: e).pluck(:path) }
 end
