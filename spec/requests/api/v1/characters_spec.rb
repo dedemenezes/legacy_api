@@ -18,7 +18,7 @@ RSpec.describe 'Api::V1::Characters', type: :request do
         json_response = response.parsed_body
         expect(json_response).to be_an(Array)
         keys = json_response.first.keys
-        expect(keys).to include('born').and include('signature').and include('eyes')
+        expect(keys).to include('name').and include('image_url').and include('species')
       end
     end
   end
