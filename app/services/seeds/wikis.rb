@@ -7,12 +7,12 @@ module Seeds
       Book.all.each do |book|
         doc_builder = Scraper::DocBuilder.new(path: book.character_index_url)
 
-        chars = if doc_builder.doc_has_table?
-                  Scraper::TableScraper.new(doc: doc_builder.html_doc).all_urls_and_names
-                else
-                  Scraper::ListScraper.new(doc: doc_builder.html_doc).unordered_list_from_parent_node
-                end
-        chars.reject(&:nil?).map do |char|
+        chars       = if doc_builder.doc_has_table?
+                        Scraper::TableScraper.new(doc: doc_builder.html_doc).all_urls_and_names
+                      else
+                        Scraper::ListScraper.new(doc: doc_builder.html_doc).unordered_list_from_parent_node
+                      end
+        chars.reject.compact.map do |char|
           next unless AlreadyExist.instance?(Wiki, char[:path])
           next unless AlreadyExist.instance?(Wiki, char[:title])
 
