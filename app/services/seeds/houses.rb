@@ -3,15 +3,17 @@ module Seeds
     attr_reader :infos, :paths
 
     def initialize
-      @paths = Character.pluck(:house_url).uniq
+      @paths = Character.houses_urls
     end
 
     def run(filter = nil)
       @paths = paths.first(filter) if filter
       paths.each do |path|
-        @house = House.new path: path
+        @house = House.find_by_path(path) || House.new(path: path)
         infos_hash(path)
-        UpdateBook::MissingFields::FromHash.script.call(@house, infos)
+        @house.image_url = infos['image'].first[:path]
+
+        @house = UpdateBook::MissingFields::FromHash.script.call(@house, infos)
         characters_matching_house_url.each { |member| assign_member(@house, member) }
       end
     end

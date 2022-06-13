@@ -17,23 +17,31 @@ class Character < ApplicationRecord
     CleanImageUrl.script.call(self)
   end
 
+  def house
+    houses.first
+  end
+
   def self.houses_urls
     pluck(:house_url).uniq.compact
   end
 
   def wands
     all_wands = wand_owners&.map(&:wand)
-    all_wands&.push wand || [wand]
+    if all_wands.first.present?
+      all_wands&.push(wand).flatten
+    else
+      []
+    end
   end
 
   def self.generate_attribute_hash(infos)
-    array = infos.map do |k, v|
+    infos.map do |k, v|
       [[attribute_name(k).to_sym, v.first[:title]], ["#{attribute_name(k)}_url".to_sym, v.first[:path]]]
     end
-    array.map(&:to_h)
+         .map(&:to_h)
          .reduce(:merge)
          .compact
-         .reject { |e| e.include? '#' }
+         .reject { _2.include? '#' }
   end
 
   def self.attribute_name(key)

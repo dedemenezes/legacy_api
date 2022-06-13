@@ -8,6 +8,7 @@ module UpdateBook
           missing_attributes_hash(book, hash).each do |box_section_name, values|
             UpdateBook::MissingFields::WorkPlease.script.call(book, box_section_name, values.first)
           end
+          book
         end
       end
 

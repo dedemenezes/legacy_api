@@ -24,10 +24,12 @@ json.romances @character.romances
 json.boggart @character.boggart
 json.patronus @character.patronus
 json.animagus @character.animagus
-json.wand @character.wands do |wand|
-  json.id wand.id
-  json.name wand.name
-end
+# unless @character.wands.first.nil?
+  json.wand @character.wands do |wand|
+    json.id wand.id
+    json.name wand.name
+  end
+# end
 json.job @character.job
 json.house @character.house
 json.loyalty @character.loyalty
