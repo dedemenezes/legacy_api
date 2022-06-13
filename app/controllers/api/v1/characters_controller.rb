@@ -16,7 +16,7 @@ module Api
       def show
         @character = Character.find(params[:id])
 
-        render json: @character.to_json, status: 200
+        # render json: @character.to_json, status: 200
       end
     end
   end
