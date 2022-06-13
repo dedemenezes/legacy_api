@@ -33,6 +33,7 @@ rescue ActiveRecord::PendingMigrationError => e
   exit 1
 end
 
+require_relative 'support/vcr_setup'
 require 'factory_bot_rails'
 
 RSpec.configure do |config|
