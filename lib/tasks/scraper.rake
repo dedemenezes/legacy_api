@@ -48,6 +48,11 @@ namespace :scraper do
     Seeds::CharacterTypes.run
   end
 
+  desc 'Seed Houses'
+  task houses: :environment do
+    Seeds::Houses.new.run
+  end
+
   desc 'Seed everything. Scrape and Create all data available so far'
   task scrape_and_populate: :environment do
     Rake::Task['scraper:books'].execute

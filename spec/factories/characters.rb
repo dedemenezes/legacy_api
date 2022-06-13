@@ -65,5 +65,28 @@ FactoryBot.define do
   factory :dede, class: 'Character' do
     name { 'dede' }
     path { '/dede' }
+    house { 'Hufflepuff' }
+    house_url { '/wiki/Hufflepuff' }
+  end
+
+  factory :bamba, class: 'Character' do
+    name { 'bamba' }
+    path { '/bamba' }
+    house { 'Ravenclaw' }
+    house_url { '/wiki/Ravenclaw' }
+  end
+
+  factory :babi_char, class: 'Character' do
+    name { 'babi_char' }
+    path { '/babi_char' }
+    house { 'Slytherin' }
+    house_url { '/wiki/Slytherin' }
+  end
+
+  factory :muggle, class: 'Character' do
+    name { 'muggle' }
+    path { '/muggle' }
+    house { nil }
+    house_url { nil }
   end
 end

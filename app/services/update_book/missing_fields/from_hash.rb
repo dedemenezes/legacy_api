@@ -2,7 +2,7 @@
 
 module UpdateBook
   module MissingFields
-    module AsHash
+    module FromHash
       def self.script
         proc do |book, hash|
           missing_attributes_hash(book, hash).each do |box_section_name, values|

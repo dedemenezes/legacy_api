@@ -7,12 +7,18 @@ class Character < ApplicationRecord
   has_many :character_types, dependent: :destroy
   has_many :creature_types, through: :character_types
   has_many :pictures, as: :imageable, dependent: :destroy
+  has_many :members
+  has_many :houses, through: :members
 
   validates :name, :path, presence: true
   validates :name, uniqueness: { case_sensitive: false, scope: :path }
 
   before_validation do
     CleanImageUrl.script.call(self)
+  end
+
+  def self.houses_urls
+    pluck(:house_url).uniq.compact
   end
 
   def wands

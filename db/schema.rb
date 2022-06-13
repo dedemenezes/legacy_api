@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_12_162145) do
+ActiveRecord::Schema.define(version: 2022_06_13_091331) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -144,6 +144,32 @@ ActiveRecord::Schema.define(version: 2022_06_12_162145) do
     t.index ["creature_type_id"], name: "index_distinctions_on_creature_type_id"
   end
 
+  create_table "houses", force: :cascade do |t|
+    t.string "name"
+    t.string "path"
+    t.string "founder"
+    t.string "founder_url"
+    t.string "animal"
+    t.string "animal_url"
+    t.string "element"
+    t.string "element_url"
+    t.string "ghost"
+    t.string "ghost_url"
+    t.string "common_room"
+    t.string "common_room_url"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "members", force: :cascade do |t|
+    t.bigint "house_id", null: false
+    t.bigint "character_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["character_id"], name: "index_members_on_character_id"
+    t.index ["house_id"], name: "index_members_on_house_id"
+  end
+
   create_table "pictures", force: :cascade do |t|
     t.string "title"
     t.string "path"
@@ -212,6 +238,8 @@ ActiveRecord::Schema.define(version: 2022_06_12_162145) do
   add_foreign_key "character_types", "characters"
   add_foreign_key "character_types", "creature_types"
   add_foreign_key "distinctions", "creature_types"
+  add_foreign_key "members", "characters"
+  add_foreign_key "members", "houses"
   add_foreign_key "related_creature_types", "creature_types", column: "main_id"
   add_foreign_key "related_creature_types", "creature_types", column: "related_id"
   add_foreign_key "wand_masters", "characters"
