@@ -15,24 +15,27 @@ module Seeds
 
         @url = url
         next if CreatureType.find_by(path: @url)
-        information_scraper, creature_type = building_creature_type
-        next unless creature_type
-
-        information_scraper.informations['distinction']&.each do |distinction|
-          Distinction.create content: distinction[:title], creature_type: creature_type
-        end
-
-        puts creature_type.description if creature_type.distinctions.present?
-
-        if (information_scraper.informations.keys.include? 'image') && information_scraper.informations['image'].first[:path].present?
-          assign_creature_type_image(creature_type, information_scraper)
-        end
-
-        if information_scraper.informations.keys.include? 'related'
-          assign_related_types(information_scraper.informations['related'], creature_type)
-        end
+        generate_creature_type
       end
       puts "Done zo/\n"
+    end
+
+    def self.generate_creature_type
+      information_scraper, creature_type = building_creature_type
+      information_scraper.informations['distinction']&.each do |distinction|
+        Distinction.create content: distinction[:title], creature_type: creature_type
+      end
+
+      puts creature_type.description if creature_type.distinctions.present?
+
+      if (information_scraper.informations.keys.include? 'image') && information_scraper.informations['image'].first[:path].present?
+        assign_creature_type_image(creature_type, information_scraper)
+      end
+
+      if information_scraper.informations.keys.include? 'related'
+        related_type = assign_related_types(information_scraper.informations['related'], creature_type)
+      end
+      [information_scraper, related_type]
     end
 
     def self.building_creature_type
@@ -80,10 +83,11 @@ module Seeds
         related_type = CreatureType.find_by(path: type[:path])
         if related_type.nil?
           @url = type[:path]
-          _information_scraper, related_type = building_creature_type
+          _information_scraper, related_type = generate_creature_type
         end
         related_types = RelatedCreatureType.create main: creature_type, related: related_type
         p "#{related_types.main.name} assigned to #{related_types.related.name}"
+        return related_type
       end
     end
 

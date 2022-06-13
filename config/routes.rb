@@ -7,6 +7,7 @@ Rails.application.routes.draw do
       resources :characters, only: %i[index show]
       resources :wands, only: %i[index show]
       resources :creature_types, only: %i[index show]
+      resources :houses, only: %i[index show]
     end
   end
 end

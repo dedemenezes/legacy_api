@@ -48,6 +48,13 @@ namespace :scraper do
     Seeds::CharacterTypes.run
   end
 
+  desc 'Seed Houses'
+  task houses: :environment do
+    puts "scraping and seeding houses..."
+    Seeds::Houses.new.run
+    puts 'Done zo/'
+  end
+
   desc 'Seed everything. Scrape and Create all data available so far'
   task scrape_and_populate: :environment do
     Rake::Task['scraper:books'].execute
@@ -57,6 +64,7 @@ namespace :scraper do
     Rake::Task['scraper:wands'].execute
     Rake::Task['scraper:creature_types'].execute
     Rake::Task['scraper:character_types'].execute
+    Rake::Task['scraper:houses'].execute
   end
 
   desc 'Scraper default'

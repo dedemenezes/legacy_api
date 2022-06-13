@@ -13,4 +13,16 @@ RSpec.describe Character, type: :model do
       expect(subject.size).to eq(2)
     end
   end
+
+  describe '#houses_urls' do
+    it 'returns only houses path' do
+      create(:dede)
+      create(:bamba)
+      create(:babi_char)
+      create(:muggle)
+      expect(Character).to respond_to(:houses_urls)
+      expect(Character.houses_urls).to be_an(Array)
+      expect(Character.houses_urls.size).to eq(3)
+    end
+  end
 end

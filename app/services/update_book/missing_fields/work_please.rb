@@ -5,15 +5,15 @@ module UpdateBook
     # service too assign attributes into book
     module WorkPlease
       def self.script
-        proc do |book, attribute, value|
-          if book.respond_to? "#{attribute.gsub(' ', '_')}_url=".to_sym
-            book.send("#{attribute.gsub(' ', '_')}_url=".to_sym, value[:path])
+        proc do |any_instance, attribute, value|
+          if any_instance.respond_to? "#{attribute.gsub(' ', '_')}_url=".to_sym
+            any_instance.send("#{attribute.gsub(' ', '_')}_url=".to_sym, value[:path])
           end
 
-          if book.respond_to? "#{attribute.gsub(' ', '_')}=".to_sym
-            book.send("#{attribute.gsub(' ', '_')}=".to_sym, value[:title])
+          if any_instance.respond_to? "#{attribute.gsub(' ', '_')}=".to_sym
+            any_instance.send("#{attribute.gsub(' ', '_')}=".to_sym, value[:title])
           end
-          book.save!
+          any_instance.save!
         end
       end
     end

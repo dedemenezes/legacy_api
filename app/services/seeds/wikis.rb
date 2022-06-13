@@ -12,7 +12,7 @@ module Seeds
                       else
                         Scraper::ListScraper.new(doc: doc_builder.html_doc).unordered_list_from_parent_node
                       end
-        chars.reject.compact.map do |char|
+        chars.compact.map do |char|
           next unless AlreadyExist.instance?(Wiki, char[:path])
           next unless AlreadyExist.instance?(Wiki, char[:title])
 

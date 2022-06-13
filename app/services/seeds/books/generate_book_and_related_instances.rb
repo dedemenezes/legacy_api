@@ -15,7 +15,7 @@ module Seeds
             UpdateBook::AssignArtists.script.call(infos, type, @new_book)
           end
 
-          UpdateBook::MissingFields::AsHash.script.call(@new_book, infos)
+          UpdateBook::MissingFields::FromHash.script.call(@new_book, infos)
           @new_book
         end
       end
