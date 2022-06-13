@@ -2,5 +2,5 @@
 
 class Distinction < ApplicationRecord
   belongs_to :creature_type
-  validates :content, presence: true, uniqueness: { case_sensitive: false }
+  validates :content, presence: true
 end

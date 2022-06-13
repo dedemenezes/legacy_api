@@ -15,13 +15,10 @@ module Seeds
 
         @url = url
         next if CreatureType.find_by(path: @url)
-
         information_scraper, creature_type = building_creature_type
         next unless creature_type
 
         information_scraper.informations['distinction']&.each do |distinction|
-          next unless distinction
-
           Distinction.create content: distinction[:title], creature_type: creature_type
         end
 
