@@ -202,6 +202,7 @@ GEM
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.1.0)
+    vcr (6.1.0)
     websocket-driver (0.7.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
@@ -225,6 +226,7 @@ DEPENDENCIES
   spring
   standard
   tzinfo-data
+  vcr (~> 6.1)
 
 RUBY VERSION
    ruby 3.0.3p157

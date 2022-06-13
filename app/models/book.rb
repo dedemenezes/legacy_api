@@ -11,18 +11,21 @@ class Book < ApplicationRecord
   end
 
   def author
-    Artist.joins(:book_artists).find_by(book_artists: { book: self, role: :author })
+    # Artist.joins(:book_artists).find_by(book_artists: { book: self, role: :author })
+    book_artists.find_by(role: :author).artist
   end
 
   def cover_artists
-    Artist.joins(:book_artists).where(book_artists: { book: self, role: :cover_artist })
+    book_artists.where(role: :cover_artist).map(&:artist)
   end
 
   def interior_artists
-    Artist.joins(:book_artists).where(book_artists: { book: self, role: :interior })
+    book_artists.where(role: :interior).map(&:artist)
+    # Artist.joins(:book_artists).where(book_artists: { book: self, role: :interior })
   end
 
   def narrators
-    Artist.joins(:book_artists).where(book_artists: { book: self, role: :narrator })
+    book_artists.where(role: :narrator).map(&:artist)
+    # Artist.joins(:book_artists).where(book_artists: { book: self, role: :narrator })
   end
 end

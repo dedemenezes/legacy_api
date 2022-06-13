@@ -32,10 +32,4 @@ RSpec.describe UpdateBook::AssignArtists, type: :service do
       end
     end
   end
-
-  describe '#assign_artists' do
-    context 'cover artist' do
-      :cover_artist
-    end
-  end
 end
