@@ -14,14 +14,8 @@ module Seeds
         type_builder.infos_hash
       end
 
-      infos_hashs.compact.each do |infos_hash|
-        next unless infos_hash['related']
-
-        infos_hash['related'].each { |type| CreatureTypes::BuildRelatedCreatureType.script(infos_hash, type) }
-      end
-      puts 'Related Creature Types TOTAL '
-      puts 'VVVVVVVVVVVVVVVVVVVVVVVVVVVV'
-      puts RelatedCreatureType.count
+      infos_hashs.compact.each { |infos_hash| CreatureTypes::BuildRelatedCreatureTypes.new(infos_hash).script }
+      puts 'Done !!!'
     end
   end
 end
