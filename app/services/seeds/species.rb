@@ -17,17 +17,7 @@ module Seeds
       infos_hashs.compact.each do |infos_hash|
         next unless infos_hash['related']
 
-        infos_hash['related'].map do |type|
-          next if type[:path].match? /http/
-
-          creature_type = CreatureType.find_by_path(infos_hash['path'].first[:path])
-          related_type = CreatureType.find_by_path(type[:path])
-          related_type ||= CreatureTypes::BuildCreatureType.new(path: type[:path]).from_path
-          RelatedCreatureType.create!(
-            main: creature_type,
-            related: related_type
-          )
-        end
+        infos_hash['related'].each { |type| CreatureTypes::BuildRelatedCreatureType.script(infos_hash, type) }
       end
       puts 'Related Creature Types TOTAL '
       puts 'VVVVVVVVVVVVVVVVVVVVVVVVVVVV'
