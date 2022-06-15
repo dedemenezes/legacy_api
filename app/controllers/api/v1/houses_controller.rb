@@ -8,7 +8,7 @@ module Api
       end
 
       def show
-        @house = House.find(params[:id])
+        @house = House.find_by_name(params[:name].capitalize)
       end
     end
   end
