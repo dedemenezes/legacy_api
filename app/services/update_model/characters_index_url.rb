@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module UpdateBook
+module UpdateModel
   module CharactersIndexUrl
     def self.script
       proc do |book, doc|

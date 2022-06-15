@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module UpdateBook
+module UpdateModel
   module MissingFields
     # service too assign attributes into book
     module WorkPlease

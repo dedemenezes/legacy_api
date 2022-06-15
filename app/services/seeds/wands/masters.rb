@@ -4,7 +4,7 @@ module Seeds
   module Wands
     module Masters
       def self.run(infos, wand)
-        puts 'assigning master'
+        puts 'assigning master...'
         wand_master = WandMaster.new
         wand_master.assign_master(infos)
         wand_master.assign_wand(wand) if wand_master.changed?

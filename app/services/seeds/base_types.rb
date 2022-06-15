@@ -11,7 +11,7 @@ module Seeds
         base_type      = Scraper::InformationsScraper.new(doc: doc).scrape_information_type
         wiki.base_type = base_type
         wiki.save!
-        puts "#{wiki.title} #{wiki.base_type}"
+        puts "#{wiki.title} is a #{wiki.base_type}"
       end
       puts "Done zo/\n"
     end

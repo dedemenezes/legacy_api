@@ -12,8 +12,8 @@ module Seeds
         next unless AlreadyExist.instance?(Book, hash[:path])
 
         puts "Building book #{hash[:title]}"
-        GenerateBookAndRelatedInstances.script.call(hash)
-        # puts "#{book.title} ready!\n"
+        book = GenerateBookAndRelatedInstances.script.call(hash)
+        puts "#{book.title} ready!\n"
       end
       puts "Done zo/\n"
     end
