@@ -8,17 +8,20 @@ module Seeds
 
     def run(filter = nil)
       @paths = paths.first(filter) if filter
+      puts 'Seeding houses...'
       paths.each do |path|
         @house = House.find_by_path(path) || House.new(path: path)
         infos_hash(path)
         @house.image_url = infos['image'].first[:path]
 
-        @house = UpdateBook::MissingFields::FromHash.script.call(@house, infos)
+        @house = UpdateModel::MissingFields::FromHash.script.call(@house, infos)
         characters_matching_house_url.each { |member| assign_member(@house, member) }
+        puts "#{@house.name} created!"
       end
     end
 
     def assign_member(house, member)
+      puts "Assigning #{house.name} to #{member.name}.."
       Member.create! house: house, character: member
     end
 

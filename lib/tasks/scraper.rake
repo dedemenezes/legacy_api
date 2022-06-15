@@ -50,7 +50,7 @@ namespace :scraper do
 
   desc 'Seed Houses'
   task houses: :environment do
-    puts "scraping and seeding houses..."
+    puts 'scraping and seeding houses...'
     Seeds::Houses.new.run
     puts 'Done zo/'
   end
@@ -63,7 +63,7 @@ namespace :scraper do
     Rake::Task['scraper:characters'].execute
     Rake::Task['scraper:wands'].execute
     Rake::Task['scraper:creature_types'].execute
-    Rake::Task['scraper:character_types'].execute
+    # Rake::Task['scraper:character_types'].execute
     Rake::Task['scraper:houses'].execute
   end
 

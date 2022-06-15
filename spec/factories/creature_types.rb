@@ -11,4 +11,24 @@ FactoryBot.define do
     length { nil }
     mortality { 'Mortal' }
   end
+
+  factory :wolf, class: 'CreatureType' do
+    name { 'wolf' }
+    path { '/wiki/wolf' }
+  end
+
+  factory :dog, class: 'CreatureType' do
+    name { 'dog' }
+    path { '/wiki/dog' }
+  end
+
+  factory :ghost, class: 'CreatureType' do
+    name { 'ghost' }
+    path { '/wiki/Ghost' }
+  end
+
+  factory :wizardkind, class: 'CreatureType' do
+    name { 'wizardkind' }
+    path { '/wiki/Wizardkind' }
+  end
 end

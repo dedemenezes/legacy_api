@@ -34,9 +34,9 @@ rescue ActiveRecord::PendingMigrationError => e
 end
 
 
-require_relative 'support/builder'
 require_relative 'support/vcr_setup'
 require 'factory_bot_rails'
+require_relative 'support/builder'
 
 RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures

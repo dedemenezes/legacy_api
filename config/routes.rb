@@ -10,4 +10,6 @@ Rails.application.routes.draw do
       resources :houses, only: %i[index show]
     end
   end
+
+  get 'timer', to: 'timers#show', as: :timer
 end
