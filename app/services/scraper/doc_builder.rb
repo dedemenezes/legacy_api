@@ -15,8 +15,10 @@ module Scraper
     end
 
     def build_nokogiri_doc_from_url
-      response = Faraday.get("#{BASE_URL}#{@path}")
-      response = Faraday.get(response['location']) if response.status == 301
+    # response = Net::HTTP.get_response(URI("#{Scraper::DocBuilder::BASE_URL}#{url}"))
+    # response = Faraday.get("#{BASE_URL}#{@path}")
+    # response = Faraday.get(response['location']) if response.status == 301
+      response = Net::HTTP.get_response(URI("#{BASE_URL}#{@path}"))
       html_file = response.body
       @html_doc = Nokogiri::HTML(html_file)
       @html_doc

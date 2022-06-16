@@ -1,6 +1,6 @@
 FactoryBot.define do
-  factory :member do
-    house { nil }
-    character_references { "MyString" }
+  factory :harry_gryffindor, class: "Member" do
+    association :house, factory: :gryffindor
+    association :character, factory: :harry
   end
 end

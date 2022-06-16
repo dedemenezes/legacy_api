@@ -11,7 +11,7 @@ module Seeds
         infos['species']&.each do |type|
           creature_type = CreatureType.find_by_name_or_path(type)
           next unless creature_type
-          binding.pry if infos['species'].size > 1
+
           CharacterType.create(character: char, creature_type: creature_type)
           # puts "#{char.name} is...a #{char_type.creature_type.name.upcase}" if char_type
         end

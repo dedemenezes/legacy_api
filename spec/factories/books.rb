@@ -18,5 +18,6 @@ FactoryBot.define do
     followed_by_url { '/wiki/Harry_Potter_and_the_Chamber_of_Secrets' }
     preceded_by { nil }
     preceded_by_url { nil }
+    character_index_url { "/wiki/Harry_Potter_and_the_Philosopher%27s_Stone_(character_index)" }
   end
 end
