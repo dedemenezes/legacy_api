@@ -50,7 +50,6 @@ FactoryBot.define do
     patronus_url { '/wiki/Deer' }
     job { 'Head of British Auror Office' }
     job_url { '/wiki/British_Auror_Office' }
-    house { 'Gryffindor' }
     house_url { '/wiki/Gryffindor' }
     height { nil }
     animagus { nil }
