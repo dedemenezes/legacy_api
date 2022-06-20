@@ -34,7 +34,7 @@ module Scraper
       else
         list_items = @parser.information_list.search('li')
         list_items.each do |value|
-          @parser.doc - value
+          @parser.doc = value
           values << @parser.build_information_hash
         end
       end
