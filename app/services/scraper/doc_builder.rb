@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Scraper
-  # service to parse any page from harry potter fandom
+  # parse any page from harry potter fandom
   class DocBuilder
     BASE_URL = 'https://harrypotter.fandom.com'
     attr_writer :path
@@ -21,7 +21,6 @@ module Scraper
       response = Net::HTTP.get_response(URI("#{BASE_URL}#{@path}"))
       html_file = response.body
       @html_doc = Nokogiri::HTML(html_file)
-      @html_doc
     end
 
     def build_nokogiri_doc_from_file

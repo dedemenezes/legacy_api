@@ -4,7 +4,7 @@ module Scraper
   class TableScraper
     def initialize(attributes = {})
       @path = attributes[:path]
-      @html_doc = attributes[:doc] || get_doc
+      @html_doc = attributes[:doc]
       @character_indexes = []
     end
 
