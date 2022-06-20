@@ -7,7 +7,7 @@ class Character < ApplicationRecord
   has_many :character_types, dependent: :destroy
   has_many :creature_types, through: :character_types
   has_many :pictures, as: :imageable, dependent: :destroy
-  has_many :members
+  has_many :members, dependent: :destroy
   has_many :houses, through: :members
 
   validates :name, :path, presence: true
