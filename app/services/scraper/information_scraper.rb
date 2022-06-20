@@ -2,8 +2,10 @@
 
 module Scraper
   class InformationScraper
-    def initialize(doc)
-      @doc = doc
+    attr_writer :doc
+
+    def initialize(attributes = {})
+      @doc = attributes[:doc]
     end
 
     def build_information_hash

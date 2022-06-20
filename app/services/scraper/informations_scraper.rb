@@ -11,6 +11,7 @@ module Scraper
     def initialize(attributes = {})
       @doc = attributes[:doc]
       @informations = {}
+      @parser = Scraper::InformationScraper.new
     end
 
     def scrape_information_box
@@ -27,13 +28,14 @@ module Scraper
 
     def scrape_information_section(section)
       values = []
-      parser = Scraper::InformationScraper.new(section)
-      if parser.information_list.empty?
-        values << parser.build_information_hash
+      @parser.doc = section
+      if @parser.information_list.empty?
+        values << @parser.build_information_hash
       else
-        list_items = parser.information_list.search('li')
+        list_items = @parser.information_list.search('li')
         list_items.each do |value|
-          values << Scraper::InformationScraper.new(value).build_information_hash
+          @parser.doc - value
+          values << @parser.build_information_hash
         end
       end
       values
