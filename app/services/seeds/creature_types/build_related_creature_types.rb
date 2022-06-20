@@ -12,9 +12,7 @@ module Seeds
       def assign_related_types
         return unless @infos_hash['related']
 
-        @infos_hash['related'].each do |type|
-          assign_related_type(type)
-        end
+        @infos_hash['related'].each { |type| assign_related_type(type) }
       end
 
       def assign_related_type(type)

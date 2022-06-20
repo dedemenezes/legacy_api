@@ -13,10 +13,6 @@ class Character < ApplicationRecord
   validates :name, :path, presence: true
   validates :name, uniqueness: { case_sensitive: false, scope: :path }
 
-  before_validation do
-    CleanImageUrl.script.call(self)
-  end
-
   def house
     houses.first
   end
@@ -31,27 +27,6 @@ class Character < ApplicationRecord
       all_wands&.push(wand).flatten
     else
       []
-    end
-  end
-
-  def self.generate_attribute_hash(infos)
-    infos.map do |k, v|
-      [[attribute_name(k).to_sym, v.first[:title]], ["#{attribute_name(k)}_url".to_sym, v.first[:path]]]
-    end
-         .map(&:to_h)
-         .reduce(:merge)
-         .compact
-         .reject { _2.include? '#' }
-  end
-
-  def self.attribute_name(key)
-    key == 'alias' ? 'nickname' : key
-  end
-
-  def self.right_attributes(hash)
-    hash.select do |attribute, _|
-      attribute = attribute.to_s if attribute.instance_of?(Symbol)
-      new.attributes.keys.include? attribute
     end
   end
 end

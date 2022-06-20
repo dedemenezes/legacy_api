@@ -6,10 +6,6 @@ class Book < ApplicationRecord
 
   validates :title, uniqueness: { scope: :path, message: 'combination title and url already exist' }
 
-  before_validation do
-    CleanImageUrl.script.call(self)
-  end
-
   def author
     # Artist.joins(:book_artists).find_by(book_artists: { book: self, role: :author })
     book_artists.find_by(role: :author).artist
