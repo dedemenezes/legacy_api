@@ -14,6 +14,7 @@ module Seeds
                       else
                         Scraper::ListScraper.new(doc: doc_builder.html_doc).unordered_list_from_parent_node
                       end
+                      binding.pry
         amount      = chars.compact.map do |char|
           next unless AlreadyExist.instance?(Wiki, char[:path]) || AlreadyExist.instance?(Wiki, char[:title])
 
