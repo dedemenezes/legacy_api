@@ -8,7 +8,7 @@ module Seeds
         next unless wiki.base_type.nil?
 
         doc            = Scraper::DocBuilder.new(path: wiki.path).html_doc
-        base_type      = Scraper::InformationsScraper.new(doc: doc).scrape_information_type
+        base_type      = Parser::BoxInformation.new(doc: doc).scrape_information_type
         wiki.base_type = base_type
         wiki.save!
         puts "#{wiki.title} is a #{wiki.base_type}"

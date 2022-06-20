@@ -16,6 +16,7 @@ module Seeds
 
         @house = UpdateModel::MissingFields::FromHash.script.call(@house, infos)
         characters_matching_house_url.each { |member| assign_member(@house, member) }
+        @house.save!
         puts "#{@house.name} created!"
       end
     end
@@ -29,7 +30,7 @@ module Seeds
 
     def infos_hash(path)
       doc_builder = Scraper::Builder.using_net_and_uir(path)
-      parser = Scraper::InformationsScraper.new(doc: doc_builder.html_doc)
+      parser = Parser::BoxInformation.new(doc: doc_builder.html_doc)
       @infos = parser.scrape_information_box
     end
 

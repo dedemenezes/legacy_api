@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-module Scraper
+module Parser
   # service used to parse all information located inside the box in any show page from harry potter fandom.
   # each section name from this box will be a key into the return hash.
   # each section value from this box will be a hash ({title: ?, path: ?}).
   # { key1: [value1, value2], key2: [...], ... }
-  class InformationsScraper
+  class BoxInformation
     attr_reader :informations
 
     def initialize(attributes = {})

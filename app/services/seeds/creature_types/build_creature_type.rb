@@ -32,7 +32,7 @@ module Seeds
         # doc = Nokogiri::HTML(response.body)
         builder = Scraper::DocBuilder.new path: @path
         # builder.html_doc = doc
-        @information_parser = Scraper::InformationsScraper.new(doc: builder.html_doc)
+        @information_parser = Parser::BoxInformation.new(doc: builder.html_doc)
         @infos_hash = @information_parser.scrape_information_box
         @infos_hash['path'] = [{ path: @path }]
         @infos_hash
@@ -41,6 +41,7 @@ module Seeds
       def build_instance(url = @path)
         @creature_type = CreatureType.new(path: url)
         @creature_type = UpdateModel::MissingFields::FromHash.script.call(@creature_type, @infos_hash)
+        @creature_type.save!
         self
       end
 

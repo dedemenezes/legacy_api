@@ -16,6 +16,7 @@ module Seeds
           end
 
           UpdateModel::MissingFields::FromHash.script.call(@new_book, infos)
+          @new_book.save!
           @new_book
         end
       end
