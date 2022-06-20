@@ -28,10 +28,10 @@ module Seeds
       private
 
       def infos
-        response = Net::HTTP.get_response(URI("#{Scraper::DocBuilder::BASE_URL}#{@path}"))
-        doc = Nokogiri::HTML(response.body)
-        builder = Scraper::DocBuilder.new
-        builder.html_doc = doc
+        # response = Net::HTTP.get_response(URI("#{Scraper::DocBuilder::BASE_URL}#{@path}"))
+        # doc = Nokogiri::HTML(response.body)
+        builder = Scraper::DocBuilder.new path: @path
+        # builder.html_doc = doc
         @information_parser = Scraper::InformationsScraper.new(doc: builder.html_doc)
         @infos_hash = @information_parser.scrape_information_box
         @infos_hash['path'] = [{ path: @path }]
