@@ -16,22 +16,24 @@ module Parser
 
     def scrape_information_box
       @doc.search('[data-source]').each do |section|
-        values = scrape_information_section(section)
-
-        attribute = section.attr('data-source')
-        @informations[attribute] = values
+        parse_section_to_informations_hash(section)
       end
       # "pages"=>[{:title=>"223 ", :path=>nil}, {:title=>"309 ", :path=>nil}],
       informations['base type'] = [{ title: scrape_information_type, path: nil }]
       informations
     end
 
+    def parse_section_to_informations_hash(section)
+      attribute = section.attr('data-source')
+      @informations[attribute] = scrape_information_section(section)
+    end
+
     def scrape_information_section(section)
       values = []
       @parser.doc = section
       if @parser.information_in_list?
-        list_items = @parser.information_list.search('li')
-        list_items.each do |value|
+        # list_items = @parser.information_list.search('li')
+        @parser.list_items.each do |value|
           @parser.doc = value
           values << @parser.build_information_hash
         end
@@ -51,6 +53,12 @@ module Parser
       return '' if @doc.search(aside_section)&.search(h2)&.empty?
 
       @doc.search("#{aside_section} > #{h2}").first.text.strip
+    end
+
+    def scrape_section_by_name(name)
+      @doc.search("[data-source=#{name.downcase}]").each do |section|
+        parse_section_to_informations_hash(section)
+      end
     end
   end
 end

@@ -7,14 +7,19 @@ module Seeds
       houses_paths.each do |url|
         # scrape each url
         house_doc = Scraper::DocBuilder.new(path: url).html_doc
-        infos     = Parser::BoxInformation.new(doc: house_doc).scrape_information_box
+        parser     = Parser::BoxInformation.new(doc: house_doc)
+        infos = parser.scrape_information_box
+        # create each house
         house = House.new path: url
         UpdateModel::MissingFields::FromHash.script.call(house, infos)
         binding.pry
         house.save!
         puts "#{house.name} created!"
+
+        puts "Assigning members..."
+        members = parser.scrape_section_by_name("members")
+        
       end
-      # create each house
     end
   end
   # class Houses

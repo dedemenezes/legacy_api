@@ -43,5 +43,9 @@ module Parser
     def remove_unecessary_text(str)
       str.gsub(/(\[|\().+/, '')
     end
+
+    def list_items
+      information_list.search('li').map { |li| li }
+    end
   end
 end
