@@ -8,7 +8,6 @@ module Seeds
         # next unless AlreadyExist.instance?(Character, wiki.path)
 
         character = build_from_path(title: wiki.title, path: wiki.path)
-        binding.pry
       end
       puts "Done zo/\n"
     end
