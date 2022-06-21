@@ -19,11 +19,7 @@ module Seeds
         puts "#{house.name} created!"
 
         puts 'Assigning members...'
-        members = infos['members'].map do |member|
-          character = FindBy.name_or_path(Character, member)
-          character ||= Seeds::Characters.build_from_path(title: member[:title], path: member[:path])
-          Member.create character: character, house: house if character.present?
-        end
+        members = infos['members'].map { |member| Seeds::Members.run(house, member) }
         puts "#{house.name} has #{members.compact.size} members"
       end
     end
