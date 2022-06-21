@@ -5,12 +5,13 @@ class ApplicationRecord < ActiveRecord::Base
   SKIP_IMAGE_VALIDATION_TO = [
     Member,
     Artist,
-    BookArtist,
     CreatureType,
     Distinction,
     Picture,
     RelatedCreatureType,
-    Head
+    Head,
+    Wiki
+    # BookArtist
   ].freeze
 
   include CleanImageUrl
