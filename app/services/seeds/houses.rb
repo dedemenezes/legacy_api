@@ -10,6 +10,7 @@ module Seeds
         house_doc = Scraper::DocBuilder.new(path: url).html_doc
         parser    = Parser::BoxInformation.new(doc: house_doc)
         infos     = parser.scrape_information_box
+        binding.pry
         house     = FindBy.name_or_path(House, { path: url })
         unless house
           house = House.new path: url
