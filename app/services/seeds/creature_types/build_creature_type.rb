@@ -47,7 +47,7 @@ module Seeds
 
       def assign_distinctions
         @infos_hash['distinction']&.each do |distinction|
-          Distinction.create content: distinction[:title], creature_type: @creature_type
+          Distinction.create content: distinction[:title], record: @creature_type
         end
         self
       end
