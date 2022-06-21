@@ -51,7 +51,7 @@ namespace :scraper do
   desc 'Seed Houses'
   task houses: :environment do
     puts 'scraping and seeding houses...'
-    Seeds::Houses.new.run
+    Seeds::Houses.run
     puts 'Done zo/'
   end
 

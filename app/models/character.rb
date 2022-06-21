@@ -18,7 +18,7 @@ class Character < ApplicationRecord
   end
 
   def self.houses_urls
-    pluck(:house_url).uniq.compact
+    pluck(:house_url).uniq.compact.reject { |url| url.include?('#') }
   end
 
   def wands
