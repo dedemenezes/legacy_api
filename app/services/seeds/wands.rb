@@ -20,7 +20,6 @@ module Seeds
 
         Masters.run(infos, wand)
         Owners.run(infos, wand)
-        binding.pry
 
         puts "#{wand.name} seeded with information from #{wand.path}"
       end
