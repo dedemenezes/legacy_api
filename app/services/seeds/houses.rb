@@ -25,10 +25,16 @@ module Seeds
         puts 'Assigning heads...'
         headers = infos['head'].map do |header|
           char = FindBy.name_or_path(Character, header)
-          Head.create! header: char, house: house
+          Head.create! header: char, house: house if char
         end
         puts "#{house.name} had #{headers[...-1].map(&:header).map(&:name).join(', ')} and #{headers[-1].header.name} as house head so far."
 
+        # binding.pry
+        puts 'Assigning distinctions...'
+        distinctions = infos['traits'].map do |trait|
+          Distinction.find_by_content(trait[:title]) || Distinction.create!(content: trait[:title], record: house)
+        end
+        puts "#{house.name} traits are: #{distinctions[...-1].map(&:content).join(', ')} and #{distinctions[-1].content}"
       end
     end
   end

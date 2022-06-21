@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_21_040133) do
+ActiveRecord::Schema.define(version: 2022_06_21_045037) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -138,10 +138,13 @@ ActiveRecord::Schema.define(version: 2022_06_21_040133) do
 
   create_table "distinctions", force: :cascade do |t|
     t.string "content"
-    t.bigint "creature_type_id", null: false
+    t.bigint "creature_type_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "record_type"
+    t.bigint "record_id"
     t.index ["creature_type_id"], name: "index_distinctions_on_creature_type_id"
+    t.index ["record_type", "record_id"], name: "index_distinctions_on_record"
   end
 
   create_table "heads", force: :cascade do |t|
