@@ -60,5 +60,9 @@ module Parser
         parse_section_to_informations_hash(section)
       end
     end
+
+    def multiple_values_sections
+      informations.select { |_, values| values.count > 1 }
+    end
   end
 end

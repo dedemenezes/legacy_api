@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_20_211445) do
+ActiveRecord::Schema.define(version: 2022_06_21_040133) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -144,6 +144,15 @@ ActiveRecord::Schema.define(version: 2022_06_20_211445) do
     t.index ["creature_type_id"], name: "index_distinctions_on_creature_type_id"
   end
 
+  create_table "heads", force: :cascade do |t|
+    t.bigint "house_id", null: false
+    t.bigint "header_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["header_id"], name: "index_heads_on_header_id"
+    t.index ["house_id"], name: "index_heads_on_house_id"
+  end
+
   create_table "houses", force: :cascade do |t|
     t.string "name"
     t.string "path"
@@ -240,6 +249,8 @@ ActiveRecord::Schema.define(version: 2022_06_20_211445) do
   add_foreign_key "character_types", "characters"
   add_foreign_key "character_types", "creature_types"
   add_foreign_key "distinctions", "creature_types"
+  add_foreign_key "heads", "characters", column: "header_id"
+  add_foreign_key "heads", "houses"
   add_foreign_key "members", "characters"
   add_foreign_key "members", "houses"
   add_foreign_key "related_creature_types", "creature_types", column: "main_id"

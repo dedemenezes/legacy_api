@@ -9,6 +9,8 @@ class Character < ApplicationRecord
   has_many :pictures, as: :imageable, dependent: :destroy
   has_many :members, dependent: :destroy
   has_many :houses, through: :members
+  # has_many :head_as_header, class_name: 'Heads', foreign_key: :header_id, dependent: :destroy
+  # has_many :houses_as_head, through: :head_as_header
 
   validates :name, :path, presence: true
   validates :name, uniqueness: { case_sensitive: false, scope: :path }

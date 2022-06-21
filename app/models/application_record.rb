@@ -2,7 +2,16 @@
 
 class ApplicationRecord < ActiveRecord::Base
   self.abstract_class = true
-  SKIP_IMAGE_VALIDATION_TO = [Member, Artist, BookArtist, CreatureType, Distinction, Picture, RelatedCreatureType].freeze
+  SKIP_IMAGE_VALIDATION_TO = [
+    Member,
+    Artist,
+    BookArtist,
+    CreatureType,
+    Distinction,
+    Picture,
+    RelatedCreatureType,
+    Head
+  ].freeze
 
   include CleanImageUrl
 

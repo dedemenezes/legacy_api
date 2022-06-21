@@ -21,6 +21,14 @@ module Seeds
         puts 'Assigning members...'
         members = infos['members'].map { |member| Seeds::Members.run(house, member) }
         puts "#{house.name} has #{members.compact.size} members"
+
+        puts 'Assigning heads...'
+        headers = infos['head'].map do |header|
+          char = FindBy.name_or_path(Character, header)
+          Head.create! header: char, house: house
+        end
+        puts "#{house.name} had #{headers[...-1].map(&:header).map(&:name).join(', ')} and #{headers[-1].header.name} as house head so far."
+
       end
     end
   end
