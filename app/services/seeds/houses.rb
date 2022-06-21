@@ -1,24 +1,30 @@
 module Seeds
   module Houses
+    include FindBy
+
     def self.run
       # Gather houses url
       puts 'Seeding houses...'
       houses_paths = Character.houses_urls
       houses_paths.each do |url|
-        # scrape each url
         house_doc = Scraper::DocBuilder.new(path: url).html_doc
-        parser     = Parser::BoxInformation.new(doc: house_doc)
-        infos = parser.scrape_information_box
-        # create each house
-        house = House.new path: url
-        UpdateModel::MissingFields::FromHash.script.call(house, infos)
-        binding.pry
-        house.save!
+        parser    = Parser::BoxInformation.new(doc: house_doc)
+        infos     = parser.scrape_information_box
+        house     = FindBy.name_or_path(House, { path: url })
+        unless house
+          house = House.new path: url
+          UpdateModel::MissingFields::FromHash.script.call(house, infos)
+          house.save!
+        end
         puts "#{house.name} created!"
 
-        puts "Assigning members..."
-        members = parser.scrape_section_by_name("members")
-        
+        puts 'Assigning members...'
+        members = infos['members'].map do |member|
+          character = FindBy.name_or_path(Character, member)
+          character ||= Seeds::Characters.build_from_path(title: member[:title], path: member[:path])
+          Member.create character: character, house: house if character.present?
+        end
+        puts "#{house.name} has #{members.compact.size} members"
       end
     end
   end
