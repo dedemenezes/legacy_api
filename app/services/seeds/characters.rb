@@ -7,14 +7,19 @@ module Seeds
         puts "Building character #{wiki.title}"
         # next unless AlreadyExist.instance?(Character, wiki.path)
 
-        doc                   = Scraper::DocBuilder.new(path: wiki.path).html_doc
-        infos                 = Parser::BoxInformation.new(doc: doc).scrape_information_box
-        character = Character.new(name: wiki.title, path: wiki.path)
-        UpdateModel::MissingFields::FromHash.script.call(character, infos)
-        character.save!
+        character = build_from_path(title: wiki.title, path: wiki.path)
         binding.pry
       end
       puts "Done zo/\n"
+    end
+
+    def self.build_from_path(title:, path:)
+      doc       = Scraper::DocBuilder.new(path: path).html_doc
+      infos     = Parser::BoxInformation.new(doc: doc).scrape_information_box
+      character = Character.new(name: title, path: path)
+      UpdateModel::MissingFields::FromHash.script.call(character, infos)
+      character.save!
+      character
     end
   end
 end
