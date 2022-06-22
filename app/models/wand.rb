@@ -8,8 +8,4 @@ class Wand < ApplicationRecord
 
   validates :name, :path, presence: true
   validates :path, uniqueness: { scope: :name }
-
-  def self.has_association?(attribute)
-    %i[owners masters masters_url].include? attribute
-  end
 end
