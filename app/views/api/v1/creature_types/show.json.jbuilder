@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 json.id @creature_type.id
 json.name @creature_type.name
 json.eyes @creature_type.eyes

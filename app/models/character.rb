@@ -26,9 +26,10 @@ class Character < ApplicationRecord
   def wands
     all_wands = wand_owners&.map(&:wand)
     if all_wands.first.present?
-      all_wands&.push(wand).flatten
+      all_wands&.push(wand)
     else
-      []
+      all_wands = []
     end
+    all_wands.flatten
   end
 end

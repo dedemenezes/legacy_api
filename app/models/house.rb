@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class House < ApplicationRecord
   include CleanImageUrl
   validates :name, :path, presence: true

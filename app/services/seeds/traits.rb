@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Seeds
   module Traits
     def self.run(traits, house)

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Seeds
   module CreatureTypes
     class BuildCreatureType
@@ -14,9 +16,9 @@ module Seeds
         assign_creature_type_image
         begin
           @creature_type.save!
-        rescue => exception
+        rescue StandardError => e
           puts "#{@creature_type.errors.messages} beign fixed..."
-          name = @creature_type.path.match(/\/wiki\/(?<name>.+)/)[:name]
+          name = @creature_type.path.match(%r{/wiki/(?<name>.+)})[:name]
           puts name
           @creature_type.name = name
           p @creature_type
