@@ -10,8 +10,10 @@ class ApplicationRecord < ActiveRecord::Base
     Picture,
     RelatedCreatureType,
     Head,
+    BookArtist,
+    WandMaster,
+    WandOwner,
     Wiki
-    # BookArtist
   ].freeze
 
   include CleanImageUrl

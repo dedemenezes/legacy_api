@@ -19,7 +19,7 @@ module Scraper
     end
 
     def urls
-      @characters_index.map { |hash| hash[:path] }
+      @characters_index.compact.map { |hash| hash[:path] }
     end
   end
 end
