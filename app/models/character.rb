@@ -3,13 +3,12 @@
 class Character < ApplicationRecord
   has_one :wand_master, dependent: :destroy
   has_many :wand_owners, dependent: :destroy
-  # has_one :wand, through: :wand_master
   has_many :character_types, dependent: :destroy
   has_many :creature_types, through: :character_types
   has_many :pictures, as: :imageable, dependent: :destroy
   has_many :members, dependent: :destroy
   has_many :houses, through: :members
-  # has_many :head_as_header, class_name: 'Heads', foreign_key: :header_id, dependent: :destroy
+  has_many :head_as_header, class_name: 'Head', foreign_key: :header_id, dependent: :destroy
   # has_many :houses_as_head, through: :head_as_header
 
   validates :name, :path, presence: true
@@ -24,12 +23,8 @@ class Character < ApplicationRecord
   end
 
   def wands
-    all_wands = wand_owners&.map(&:wand)
-    if all_wands.first.present?
-      all_wands&.push(wand)
-    else
-      all_wands = []
-    end
-    all_wands.flatten
+    return nil if wand_master.nil? && wand_owners.empty?
+
+    [wand_master, wand_owners].flatten.map(&:wand)
   end
 end
