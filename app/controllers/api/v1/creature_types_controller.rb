@@ -4,7 +4,7 @@ module Api
   module V1
     class CreatureTypesController < ApplicationController
       def index
-        @creature_types = CreatureType.joins(:related_as_main).all
+        @creature_types = CreatureType.includes(:related_as_main).all
       end
 
       def show
