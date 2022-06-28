@@ -14,7 +14,7 @@ module Api
       end
 
       def show
-        @character = Character.find(params[:id])
+        @character = Character.includes(:wand_as_master, :wands_as_owner, :house).find(params[:id])
 
         # render json: @character.to_json, status: 200
       end
