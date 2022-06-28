@@ -11,7 +11,7 @@ module Parser
     def initialize(attributes = {})
       @doc = attributes[:doc]
       @informations = {}
-      @parser = Parser::BoxSection.new
+      @box_section = Parser::BoxSection.new
     end
 
     def scrape_information_box
@@ -29,18 +29,14 @@ module Parser
     end
 
     def scrape_information_section(section)
-      values = []
-      @parser.doc = section
-      if @parser.information_in_list?
-        # list_items = @parser.information_list.search('li')
-        @parser.list_items.each do |value|
-          @parser.doc = value
-          values << @parser.build_information_hash
-        end
-      else
-        values << @parser.build_information_hash
+      @box_section.doc = section
+      return [@box_section.build_information_hash] unless @box_section.information_in_list?
+
+      # list_items = @box_section.information_list.search('li')
+      @box_section.list_items.map do |value|
+        @box_section.doc = value
+        @box_section.build_information_hash
       end
-      values
     end
 
     def infos_titles_only
