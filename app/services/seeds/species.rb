@@ -8,7 +8,7 @@ module Seeds
       urls = urls.first(filter) if filter.present?
 
       infos_hashs = urls.map do |path|
-        next if CreatureType.find_by_path(path)
+        next if CreatureType.find_by_path(path) || path.include?('#')
 
         type_builder = CreatureTypes::BuildCreatureType.new(path: path)
         type_builder.from_path

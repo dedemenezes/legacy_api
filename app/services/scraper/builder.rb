@@ -1,6 +1,15 @@
+# frozen_string_literal: true
+
 module Scraper
-  module Builder
-    def self.using_net_and_uir(url)
+  class Builder
+    attr_reader :url, :doc
+
+    def initialize(url:)
+      @url = url
+      @doc = nokogiri_doc
+    end
+
+    def nokogiri_doc
       response = Net::HTTP.get_response(URI("#{Scraper::DocBuilder::BASE_URL}#{url}"))
       doc = Nokogiri::HTML(response.body)
       builder = Scraper::DocBuilder.new

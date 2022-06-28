@@ -8,11 +8,9 @@ module Scraper
     end
 
     def ordered_list_i_link
-      @urls = []
-      @doc.search('ol > li > i > a').each do |a_tag|
-        @urls << Scraper::HashBuilder.from_link(a_tag)
+      @doc.search('ol > li > i > a').map do |a_tag|
+        Scraper::HashBuilder.from_link(a_tag)
       end
-      @urls
     end
 
     def unordered_list_from_parent_node

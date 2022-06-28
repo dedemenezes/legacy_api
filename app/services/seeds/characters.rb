@@ -5,17 +5,20 @@ module Seeds
     def self.run
       Wiki.where(base_type: 'Biographical information').each do |wiki|
         puts "Building character #{wiki.title}"
-        next unless AlreadyExist.instance?(Character, wiki.path)
+        # next unless AlreadyExist.instance?(Character, wiki.path)
 
-        doc                   = Scraper::DocBuilder.new(path: wiki.path).html_doc
-        infos                 = Scraper::InformationsScraper.new(doc: doc).scrape_information_box
-
-        attributes            = Character.generate_attribute_hash(infos)
-        attributes[:path]     = wiki.path
-
-        Character.create!(Character.right_attributes(attributes))
+        character = build_from_path(title: wiki.title, path: wiki.path)
       end
       puts "Done zo/\n"
+    end
+
+    def self.build_from_path(title:, path:)
+      doc       = Scraper::DocBuilder.new(path: path).html_doc
+      infos     = Parser::BoxInformation.new(doc: doc).scrape_information_box
+      character = Character.new(name: title, path: path)
+      UpdateModel::MissingFields::FromHash.script.call(character, infos)
+      character.save!
+      character
     end
   end
 end

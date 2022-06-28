@@ -33,7 +33,6 @@ rescue ActiveRecord::PendingMigrationError => e
   exit 1
 end
 
-
 require_relative 'support/vcr_setup'
 require 'factory_bot_rails'
 require_relative 'support/builder'

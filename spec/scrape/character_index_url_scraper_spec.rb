@@ -17,7 +17,7 @@ RSpec.describe Scraper::CharacterIndexUrlScraper, type: :service do
       it 'returns correct url' do
         # doc = Scraper::DocBuilder.new(path: book.path).html_doc
         # doc = Nokogiri::HTML(Faraday.get("#{Scraper::DocBuilder::BASE_URL}/wiki/Harry_Potter_and_the_Philosopher%27s_Stone").body)
-        doc_builder = builder("/wiki/Harry_Potter_and_the_Philosopher%27s_Stone")
+        doc_builder = builder('/wiki/Harry_Potter_and_the_Philosopher%27s_Stone')
         cius = Scraper::CharacterIndexUrlScraper.new doc: doc_builder.html_doc
         actual = cius.scrape
         expect(actual).to eq('/wiki/Harry_Potter_and_the_Philosopher%27s_Stone_(character_index)')

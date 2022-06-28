@@ -7,51 +7,29 @@ class Character < ApplicationRecord
   has_many :character_types, dependent: :destroy
   has_many :creature_types, through: :character_types
   has_many :pictures, as: :imageable, dependent: :destroy
-  has_many :members
+  has_many :members, dependent: :destroy
   has_many :houses, through: :members
+  # has_many :head_as_header, class_name: 'Heads', foreign_key: :header_id, dependent: :destroy
+  # has_many :houses_as_head, through: :head_as_header
 
   validates :name, :path, presence: true
   validates :name, uniqueness: { case_sensitive: false, scope: :path }
-
-  before_validation do
-    CleanImageUrl.script.call(self)
-  end
 
   def house
     houses.first
   end
 
   def self.houses_urls
-    pluck(:house_url).uniq.compact
+    pluck(:house_url).uniq.compact.reject { |url| url.include?('#') }
   end
 
   def wands
     all_wands = wand_owners&.map(&:wand)
     if all_wands.first.present?
-      all_wands&.push(wand).flatten
+      all_wands&.push(wand)
     else
-      []
+      all_wands = []
     end
-  end
-
-  def self.generate_attribute_hash(infos)
-    infos.map do |k, v|
-      [[attribute_name(k).to_sym, v.first[:title]], ["#{attribute_name(k)}_url".to_sym, v.first[:path]]]
-    end
-         .map(&:to_h)
-         .reduce(:merge)
-         .compact
-         .reject { _2.include? '#' }
-  end
-
-  def self.attribute_name(key)
-    key == 'alias' ? 'nickname' : key
-  end
-
-  def self.right_attributes(hash)
-    hash.select do |attribute, _|
-      attribute = attribute.to_s if attribute.instance_of?(Symbol)
-      new.attributes.keys.include? attribute
-    end
+    all_wands.flatten
   end
 end

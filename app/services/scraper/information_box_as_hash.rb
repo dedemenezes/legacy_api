@@ -5,7 +5,7 @@ module Scraper
   module InformationBoxAsHash
     def self.script
       proc do |doc|
-        Scraper::InformationsScraper.new(doc: doc).scrape_information_box
+        Parser::BoxInformation.new(doc: doc).scrape_information_box
       end
     end
   end

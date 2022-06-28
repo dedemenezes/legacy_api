@@ -64,7 +64,7 @@ FactoryBot.define do
   factory :dede, class: 'Character' do
     name { 'dede' }
     path { '/dede' }
-    species_url { '/wiki/human'}
+    species_url { '/wiki/human' }
     house { 'Hufflepuff' }
     house_url { '/wiki/Hufflepuff' }
   end

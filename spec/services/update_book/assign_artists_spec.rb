@@ -20,7 +20,6 @@ RSpec.describe UpdateModel::AssignArtists, type: :service do
 
       it 'creates and assign new artist as author to a book' do
         expect(BookArtist.count).to eq(0)
-        expect(Artist.count).to eq(0)
 
         artist_hash = { title: 'JK Rowling', path: '/wiki/jk' }
         UpdateModel::AssignArtists.assign_artist(artist_hash, :author, Book.last)

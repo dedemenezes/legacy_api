@@ -32,11 +32,11 @@ gem 'faraday', '~> 2.3'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'pry-byebug'
   gem 'factory_bot_rails'
+  gem 'pry-byebug'
   gem 'rspec-rails'
-  gem 'vcr', '~> 6.1'
   gem 'standard'
+  gem 'vcr', '~> 6.1'
 end
 
 group :development do

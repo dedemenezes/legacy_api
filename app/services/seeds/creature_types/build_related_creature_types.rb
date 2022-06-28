@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Seeds
   module CreatureTypes
     class BuildRelatedCreatureTypes
@@ -12,13 +14,11 @@ module Seeds
       def assign_related_types
         return unless @infos_hash['related']
 
-        @infos_hash['related'].each do |type|
-          assign_related_type(type)
-        end
+        @infos_hash['related'].each { |type| assign_related_type(type) }
       end
 
       def assign_related_type(type)
-        return nil if type[:path].match? /http/
+        return nil if type[:path].match?(/http/)
 
         creature_type = CreatureType.find_by_path(@infos_hash['path'].first[:path])
         related_type = CreatureType.find_by_path(type[:path])

@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 
-module Scraper
-  class InformationScraper
-    def initialize(doc)
-      @doc = doc
+module Parser
+  class BoxSection
+    attr_accessor :doc
+
+    def initialize(attributes = {})
+      @doc = attributes[:doc]
     end
 
     def build_information_hash
@@ -13,20 +15,20 @@ module Scraper
     end
 
     def information_content
-      return @doc.text.strip if @doc.name == 'li'
+      return doc.text.strip if doc.name == 'li'
 
       item = information_value.text.strip
-      item = @doc.text.strip if item.empty?
-      item = @doc.search('img').attr('data-image-name').value if item.empty?
+      item = doc.text.strip if item.empty?
+      item = doc.search('img').attr('data-image-name').value if item.empty?
       item
     end
 
     def information_value
-      @doc.search('.pi-data-value')
+      doc.search('.pi-data-value')
     end
 
     def information_href
-      href = @doc.search('a').attr('href')
+      href = doc.search('a').attr('href')
       href&.value
     end
 
@@ -34,8 +36,16 @@ module Scraper
       information_value.search('ul')
     end
 
+    def information_in_list?
+      !information_list.empty?
+    end
+
     def remove_unecessary_text(str)
       str.gsub(/(\[|\().+/, '')
+    end
+
+    def list_items
+      information_list.search('li').map { |li| li }
     end
   end
 end

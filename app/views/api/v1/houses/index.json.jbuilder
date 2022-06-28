@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 json.array! @houses do |house|
   json.id house.id
   json.name house.name

@@ -11,10 +11,10 @@ module Seeds
         next unless AlreadyExist.instance?(Wand, url)
 
         doc               = Scraper::DocBuilder.new(path: url).html_doc
-        infos             = Scraper::InformationsScraper.new(doc: doc).scrape_information_box
-        attributes        = Wand.generate_attribute_hash(infos)
-        attributes[:path] = url
-        wand              = Wand.create!(attributes)
+        infos             = Parser::BoxInformation.new(doc: doc).scrape_information_box
+        wand = Wand.new(path: url)
+        UpdateModel::MissingFields::FromHash.script.call(wand, infos)
+        wand.save!
 
         puts "#{wand.name} created"
 

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 namespace :scraper do
-  desc 'Clean database before seed [DROP CREATE MIGRATE]'
+  desc 'Clean database before seed'
   task clean_db: :environment do
     puts 'Cleaning Database'
     Book.destroy_all
@@ -51,7 +51,7 @@ namespace :scraper do
   desc 'Seed Houses'
   task houses: :environment do
     puts 'scraping and seeding houses...'
-    Seeds::Houses.new.run
+    Seeds::Houses.run
     puts 'Done zo/'
   end
 
@@ -70,6 +70,14 @@ namespace :scraper do
   desc 'Scraper default'
   task clean_seed: :environment do
     Rake::Task['scraper:clean_db'].execute
+    Rake::Task['scraper:scrape_and_populate'].execute
+  end
+
+  desc 'Scraper default'
+  task dirty_seed: :environment do
+    Rake::Task['db:drop'].execute
+    Rake::Task['db:create'].execute
+    Rake::Task['db:migrate'].execute
     Rake::Task['scraper:scrape_and_populate'].execute
   end
 end

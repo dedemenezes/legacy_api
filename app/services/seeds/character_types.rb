@@ -7,7 +7,7 @@ module Seeds
 
       Character.all.each do |char|
         doc = Scraper::DocBuilder.new(path: char.path).html_doc
-        infos = Scraper::InformationsScraper.new(doc: doc).scrape_information_box
+        infos = Parser::BoxInformation.new(doc: doc).scrape_information_box
         infos['species']&.each do |type|
           creature_type = CreatureType.find_by_name_or_path(type)
           next unless creature_type
