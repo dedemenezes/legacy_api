@@ -59,14 +59,12 @@ module Seeds
       end
 
       def save_creature_type
-        begin
-          @creature_type.save!
-        rescue StandardError => e
-          puts "#{@creature_type.errors.messages} beign fixed..."
-          name = @creature_type.path.match(%r{/wiki/(?<name>.+)})[:name]
-          @creature_type.name = name
-          @creature_type.save!
-        end
+        @creature_type.save!
+      rescue StandardError => e
+        puts "#{@creature_type.errors.messages} beign fixed..."
+        name = @creature_type.path.match(%r{/wiki/(?<name>.+)})[:name]
+        @creature_type.name = name
+        @creature_type.save!
       end
     end
   end

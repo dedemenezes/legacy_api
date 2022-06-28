@@ -19,19 +19,15 @@ module Seeds
 
       def now
         @house = House.find_by(name: infos['name'].first[:title])
-        unless @house
-          @house = House.new path: @url
-          UpdateModel::MissingFields::FromHash.script.call(house, infos)
-          house.save!
-        end
+        return if @house
+
+        @house = House.new path: @url
+        UpdateModel::MissingFields::FromHash.script.call(house, infos)
+        house.save!
       end
 
       def done
-        puts "#{@house.name} created! containing: #{pluralize(house.members.count,
-                                                              'member')}, #{pluralize(house.heads.count,
-                                                                                      'header')}, #{pluralize(
-                                                                                        house.distinctions.count, 'trait'
-                                                                                      )}"
+        puts "#{house.name} created! containing: #{pluralize(house.members.count,'member')}, #{pluralize(house.heads.count, 'header')}, #{pluralize(house.distinctions.count, 'trait')}"
       end
 
       def assing_members
