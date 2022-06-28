@@ -30,7 +30,6 @@ module Parser
 
     def scrape_information_section(section)
       @box_section.doc = section
-      binding.pry
       return [@box_section.build_information_hash] unless @box_section.information_in_list?
 
       # list_items = @box_section.information_list.search('li')
