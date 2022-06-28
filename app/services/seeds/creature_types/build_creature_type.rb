@@ -12,7 +12,6 @@ module Seeds
       def from_path
         infos
         build_instance
-        binding.pry
         assign_distinctions
         assign_creature_type_image
         save_creature_type
