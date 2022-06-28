@@ -11,7 +11,6 @@ RSpec.describe Scraper::TableScraper, type: :service do
 
     describe '#all_urls_and_names' do
       # @table_scraper = Scraper::TableScraper.new path: '/wiki/Harry_Potter_and_the_Philosopher%27s_Stone_(character_index)'
-      actual =
 
       it 'returns a hash for each index' do
         expect(@table_scraper.all_urls_and_names.first).to be_a(Hash)
