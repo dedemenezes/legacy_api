@@ -9,4 +9,9 @@ FactoryBot.define do
     content { 'living on Earth' }
     record { CreatureType.find_by_name('Human') || create(:human) }
   end
+
+  factory :house_trait, class: 'Distinction' do
+    sequence(:content) { |n| "Trait #{n}" }
+    record { House.find_by_name("Gryffindor") || create(:gryffindor) }
+  end
 end
