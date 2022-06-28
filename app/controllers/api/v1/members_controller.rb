@@ -5,7 +5,7 @@ module Api
     class MembersController < ApplicationController
       def index
         @house = House.find_by_name(params[:house_name].capitalize)
-        @members = Member.where(house: @house)
+        @members = Member.includes(:character).where(house: @house)
       end
     end
   end

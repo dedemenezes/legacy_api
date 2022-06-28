@@ -4,13 +4,39 @@ require 'rails_helper'
 
 RSpec.describe Character, type: :model do
   describe '#wands' do
-    it 'returns all wands character is associated as master and/or owner' do
-      create(:wand_master)
-      create(:wand_owner)
-      subject = Character.last.wands
-      expect(subject).to be_an(Array)
-      expect(subject).to all(be_an(Wand))
-      expect(subject.size).to eq(2)
+    context 'no wands' do
+      it 'do not raise error' do
+        create(:harry)
+        @subject = Character.last.wands
+        expect { @subject }.not_to raise_error
+      end
+
+      it 'returns nil' do
+        create(:harry)
+        @subject = Character.last.wands
+        expect(@subject).to eq(nil)
+      end
+    end
+
+    context 'wand as master' do
+      it 'returns an array of wand' do
+        create(:harry)
+        create(:wand_master)
+        @subject = Character.last.wands
+        expect(@subject).to be_an(Array)
+        expect(@subject.first).to be_a(Wand)
+      end
+    end
+
+    context 'wand as master and owner' do
+      it 'returns all wands character is associated as master and owner' do
+        create(:harry)
+        create(:wand_master)
+        create(:wand_owner)
+        @subject = Character.last.wands
+        expect(@subject).to all(be_a(Wand))
+        expect(@subject.size).to eq(2)
+      end
     end
   end
 

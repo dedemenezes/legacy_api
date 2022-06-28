@@ -15,13 +15,12 @@ RSpec.describe Seeds::CreatureTypes::BuildCreatureType, type: :service do
       end
     end
 
-    describe '#assign_distinction' do
-      it 'assign distinctions to creature type' do
-        expect(Distinction.count).to eq(0)
-        @subject.infos
-        @subject.build_instance
-        # binding.pry
-      end
-    end
+    # describe '#assign_distinction' do
+    #   it 'assign distinctions to creature type' do
+    #     expect(Distinction.count).to eq(0)
+    #     @subject.infos
+    #     @subject.build_instance
+    #   end
+    # end
   end
 end

@@ -15,7 +15,7 @@ module Seeds
                         Scraper::ListScraper.new(doc: doc_builder.html_doc).unordered_list_from_parent_node
                       end
         amount      = chars.compact.map do |char|
-          next unless AlreadyExist.instance?(Wiki, char[:path]) || AlreadyExist.instance?(Wiki, char[:title])
+          next if AlreadyExist.instance?(Wiki, char[:path]) || AlreadyExist.instance?(Wiki, char[:title])
 
           Wiki.create char
         end.compact.count

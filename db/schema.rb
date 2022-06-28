@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_21_050619) do
+ActiveRecord::Schema.define(version: 2022_06_28_195734) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -121,6 +121,7 @@ ActiveRecord::Schema.define(version: 2022_06_21_050619) do
     t.string "hair_url"
     t.string "height_url"
     t.string "path"
+    t.string "wand"
   end
 
   create_table "creature_types", force: :cascade do |t|
