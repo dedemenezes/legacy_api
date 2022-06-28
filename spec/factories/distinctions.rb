@@ -12,6 +12,6 @@ FactoryBot.define do
 
   factory :house_trait, class: 'Distinction' do
     sequence(:content) { |n| "Trait #{n}" }
-    record { House.find_by_name("Gryffindor") || create(:gryffindor) }
+    record { House.find_by_name('Gryffindor') || create(:gryffindor) }
   end
 end
