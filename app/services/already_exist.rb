@@ -2,6 +2,6 @@
 
 class AlreadyExist
   def self.instance?(klass, url)
-    klass.find_by(path: url).nil?
+    klass.find_by(path: url).present?
   end
 end

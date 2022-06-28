@@ -8,7 +8,7 @@ module Seeds
       wands = RetrieveUrls.script(:character, :wand_url)
       wands.each do |url|
         puts "seeding #{url}"
-        next unless AlreadyExist.instance?(Wand, url)
+        next if AlreadyExist.instance?(Wand, url) || url.include?('#')
 
         doc               = Scraper::DocBuilder.new(path: url).html_doc
         infos             = Parser::BoxInformation.new(doc: doc).scrape_information_box

@@ -20,7 +20,6 @@ RSpec.describe Seeds::CreatureTypes::BuildCreatureType, type: :service do
         expect(Distinction.count).to eq(0)
         @subject.infos
         @subject.build_instance
-        # binding.pry
       end
     end
   end

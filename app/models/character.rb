@@ -3,7 +3,7 @@
 class Character < ApplicationRecord
   has_one :wand_master, dependent: :destroy
   has_many :wand_owners, dependent: :destroy
-  has_one :wand, through: :wand_master
+  # has_one :wand, through: :wand_master
   has_many :character_types, dependent: :destroy
   has_many :creature_types, through: :character_types
   has_many :pictures, as: :imageable, dependent: :destroy

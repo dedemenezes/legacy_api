@@ -5,7 +5,7 @@ module Seeds
     def self.run
       Wiki.where(base_type: 'Biographical information').each do |wiki|
         puts "Building character #{wiki.title}"
-        next unless AlreadyExist.instance?(Character, wiki.path)
+        next if AlreadyExist.instance?(Character, wiki.path)
 
         character = build_from_path(title: wiki.title, path: wiki.path)
       end
