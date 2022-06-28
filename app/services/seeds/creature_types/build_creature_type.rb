@@ -35,7 +35,7 @@ module Seeds
       def build_instance(url = @path)
         @creature_type = CreatureType.new(path: url)
         @creature_type = UpdateModel::MissingFields::FromHash.script.call(@creature_type, @infos_hash)
-        # @creature_type.save!
+        save_creature_type
         self
       end
 
