@@ -10,9 +10,7 @@ module Api
       end
 
       def show
-        @wand = Wand.find(params[:id])
-
-        render json: @wand.to_json, status: 200
+        @wand = Wand.includes(:wand_master, :wand_owners, :master, :owners).find(params[:id])
       end
     end
   end
