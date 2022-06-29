@@ -4,7 +4,7 @@ module Api
   module V1
     class HousesController < ApplicationController
       def index
-        @houses = House.includes(:members).order(:id)
+        @houses = House.order(:id)
       end
 
       def show
