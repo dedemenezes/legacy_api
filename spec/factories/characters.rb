@@ -65,34 +65,29 @@ FactoryBot.define do
     name { 'dede' }
     path { '/dede' }
     species_url { '/wiki/human' }
-    house { 'Hufflepuff' }
     house_url { '/wiki/Hufflepuff' }
   end
 
   factory :bamba, class: 'Character' do
     name { 'bamba' }
     path { '/bamba' }
-    house { 'Ravenclaw' }
     house_url { '/wiki/Ravenclaw' }
   end
 
   factory :babi_char, class: 'Character' do
     name { 'babi_char' }
     path { '/babi_char' }
-    house { 'Slytherin' }
     house_url { '/wiki/Slytherin' }
   end
 
   factory :muggle, class: 'Character' do
     name { 'muggle' }
     path { '/muggle' }
-    house { nil }
     house_url { nil }
   end
 
   factory :character do
     path { '/character' }
-    house { nil }
     house_url { nil }
   end
 end

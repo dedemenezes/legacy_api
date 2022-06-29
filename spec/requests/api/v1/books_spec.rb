@@ -27,7 +27,7 @@ RSpec.describe 'Api::V1::Books', type: :request do
         expect(json_response).to be_an(Array)
 
         actual = json_response.first.keys
-        expect(actual).to contain_exactly('author', 'id', 'image_url', 'release_date', 'title')
+        expect(actual).to contain_exactly('artists', 'id', 'image_url', 'release_date', 'title')
       end
     end
   end

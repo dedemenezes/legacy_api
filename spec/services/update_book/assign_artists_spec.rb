@@ -15,7 +15,6 @@ RSpec.describe UpdateModel::AssignArtists, type: :service do
         UpdateModel::AssignArtists.assign_artist(artist_hash, :author, Book.last)
         expect(BookArtist.count).to eq(1)
         expect(BookArtist.last.role).to eq('author')
-        expect(Book.last.author).to eq(Artist.last)
       end
 
       it 'creates and assign new artist as author to a book' do
@@ -27,7 +26,6 @@ RSpec.describe UpdateModel::AssignArtists, type: :service do
         expect(BookArtist.count).to eq(1)
         expect(Artist.count).to eq(1)
         expect(BookArtist.last.role).to eq('author')
-        expect(Book.last.author).to eq(Artist.last)
       end
     end
   end

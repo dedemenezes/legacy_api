@@ -11,14 +11,13 @@ class House < ApplicationRecord
   has_many :distinctions, as: :record, dependent: :destroy
 
   def traits_to_s
-
     case distinctions.size
     when 0 then ''
     when 1 then distinctions.first.content
     else
-      copy = distinctions.to_a
-      last = copy.pop
-      copy.join(', ').concat(" and #{last}")
+      contents = distinctions.pluck(:content)
+      last = contents.pop
+      contents.join(', ').concat(" and #{last}")
     end
     # last = distinctions[-1].content
     # start = distinctions[0...-1].map(&:content)
