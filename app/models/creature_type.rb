@@ -3,6 +3,7 @@
 class CreatureType < ApplicationRecord
   has_many :related_as_main, class_name: 'RelatedCreatureType', foreign_key: :main_id, dependent: :destroy
   has_many :related_as_related, class_name: 'RelatedCreatureType', foreign_key: :related_id, dependent: :destroy
+  has_many :relateds, through: :related_as_main, source: :related
   has_many :pictures, as: :imageable, dependent: :destroy
   has_many :distinctions, as: :record, dependent: :destroy
   has_many :character_types, dependent: :destroy

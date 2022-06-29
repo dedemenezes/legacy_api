@@ -12,11 +12,9 @@ json.distinctions @creature_type.distinctions do |distinction|
   json.id distinction.id
   json.content distinction.content
 end
-json.related_species do
-  @creature_type.related_as_main do |related_creature_type|
-    json.id related_creature_type.id
-    json.name related_creature_type.name
-  end
+json.related_species @creature_type.related_as_main do |related_creature_type|
+  json.id related_creature_type.related.id
+  json.name related_creature_type.related.name
 end
 # json.pictures @creature_type.pictures
 # json.characters @creature_type.characters

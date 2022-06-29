@@ -8,9 +8,7 @@ module Api
       end
 
       def show
-        @creature_type = CreatureType.find(params[:id])
-
-        render :show, status: 200
+        @creature_type = CreatureType.includes(:related_as_main, :relateds).find(params[:id])
       end
     end
   end
