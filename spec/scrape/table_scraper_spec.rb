@@ -10,7 +10,6 @@ RSpec.describe Scraper::TableScraper, type: :service do
     end
 
     describe '#all_urls_and_names' do
-
       it 'returns a hash for each index' do
         expect(@table_scraper.all_urls_and_names.first).to be_a(Hash)
         expect(@table_scraper.all_urls_and_names).to all(be_a(Hash))

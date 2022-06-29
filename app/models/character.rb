@@ -9,9 +9,8 @@ class Character < ApplicationRecord
   has_many :creature_types, through: :character_types
   has_many :pictures, as: :imageable, dependent: :destroy
   has_one :member, dependent: :destroy
-  has_one :house, through: :member
+  # has_one :house, through: :member
   has_many :head_as_header, class_name: 'Head', foreign_key: :header_id, dependent: :destroy
-  # has_many :houses_as_head, through: :head_as_header
 
   validates :name, :path, presence: true
   validates :name, uniqueness: { case_sensitive: false, scope: :path }
@@ -20,9 +19,12 @@ class Character < ApplicationRecord
     pluck(:house_url).uniq.compact.reject { |url| url.include?('#') }
   end
 
+  def house_name
+    member.house.name
+  end
+
   def wands
     return nil if wand_master.nil? && wand_owners.empty?
-
 
     [wand_as_master, wands_as_owner].flatten
   end

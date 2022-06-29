@@ -8,7 +8,7 @@ module Api
       end
 
       def show
-        @character = Character.includes(:wand_as_master, :wands_as_owner, :house).find(params[:id])
+        @character = Character.includes(:wand_as_master, :wands_as_owner).find(params[:id])
       end
     end
   end

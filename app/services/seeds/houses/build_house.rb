@@ -27,7 +27,11 @@ module Seeds
       end
 
       def done
-        puts "#{house.name} created! containing: #{pluralize(house.members.count,'member')}, #{pluralize(house.heads.count, 'header')}, #{pluralize(house.distinctions.count, 'trait')}"
+        puts "#{house.name} created! containing: #{pluralize(house.members.count,
+                                                             'member')}, #{pluralize(house.heads.count,
+                                                                                     'header')}, #{pluralize(
+                                                                                       house.distinctions.count, 'trait'
+                                                                                     )}"
       end
 
       def assing_members
