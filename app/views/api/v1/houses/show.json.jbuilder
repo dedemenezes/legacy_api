@@ -13,7 +13,4 @@ json.heads @house.heads do |head|
   json.id head.header.id
   json.name head.header.name
 end
-json.members @house.members do |member|
-  json.id member.character.id
-  json.name member.character.name
-end
+json.members @house.members.size
