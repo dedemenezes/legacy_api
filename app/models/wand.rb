@@ -8,4 +8,8 @@ class Wand < ApplicationRecord
 
   validates :name, :path, presence: true
   validates :path, uniqueness: { scope: :name }
+
+  def master?
+    master.present?
+  end
 end

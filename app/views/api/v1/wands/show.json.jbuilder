@@ -1,4 +1,4 @@
-json.ignore_nil!
+# json.ignore_nil!
 json.id @wand.id
 json.name @wand.name
 json.manufacturer @wand.manufacturer
@@ -9,8 +9,12 @@ json.length @wand.length
 json.characteristics @wand.characteristics
 json.image_url @wand.image_url
 json.master do
-  json.id @wand.master.id
-  json.name @wand.master.name
+  if @wand.master?
+    json.id @wand.master.id
+    json.name @wand.master.name
+  else
+    json.nil!
+  end
 end
 json.owners @wand.owners do |owner|
   json.id owner.id

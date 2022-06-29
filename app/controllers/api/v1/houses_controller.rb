@@ -8,7 +8,7 @@ module Api
       end
 
       def show
-        @house = House.includes(:characters, :headers, :distinctions).find_by_name(params[:name].capitalize)
+        @house = House.includes(heads: :header).find_by_name(params[:name].capitalize)
       end
     end
   end

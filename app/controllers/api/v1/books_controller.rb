@@ -4,11 +4,11 @@ module Api
   module V1
     class BooksController < ApplicationController
       def index
-        @books = Book.includes(:book_artists, :artists).all
+        @books = Book.includes(book_artists: :artist).all
       end
 
       def show
-        @book = Book.includes(:artists).find(params[:id])
+        @book = Book.includes(book_artists: :artist).find(params[:id])
       end
     end
   end

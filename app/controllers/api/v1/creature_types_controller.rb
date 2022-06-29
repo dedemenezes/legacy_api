@@ -8,7 +8,7 @@ module Api
       end
 
       def show
-        @creature_type = CreatureType.includes(:related_as_main, :relateds).find(params[:id])
+        @creature_type = CreatureType.includes(related_as_main: :related).find(params[:id])
       end
     end
   end
