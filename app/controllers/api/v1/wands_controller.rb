@@ -5,7 +5,7 @@ module Api
     class WandsController < ActionController::Base
       # add_views_paths
       def index
-        @wands = Wand.joins(:wand_master, :wand_owners).all
+        @wands = Wand.all
         # render json: @wands.to_json, status: 200
       end
 
