@@ -30,6 +30,8 @@ gem 'rack-cors'
 
 gem 'faraday', '~> 2.3'
 
+gem "pagy", "~> 5.10"
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'factory_bot_rails'

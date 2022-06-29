@@ -2,10 +2,11 @@
 
 module Api
   module V1
-    class WandsController < ActionController::Base
+    class WandsController < ApplicationController
       # add_views_paths
       def index
-        @wands = Wand.all
+        @pagy, @records = pagy(Wand.all)
+        render :index, { data: @records }
         # render json: @wands.to_json, status: 200
       end
 
