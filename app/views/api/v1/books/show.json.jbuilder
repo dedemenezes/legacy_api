@@ -4,21 +4,10 @@ json.ignore_nil!
 json.id @book.id
 json.title @book.title
 json.image_url @book.image_url
-json.cover_artists @book.cover_artists do |artist|
-  json.id artist.id
-  json.name artist.name
-end
-json.author do
-  json.id @book.author.id
-  json.name @book.author.name
-end
-json.interior_artists @book.interior_artists do |artist|
-  json.id artist.id
-  json.name artist.name
-end
-json.narrators @book.narrators do |artist|
-  json.id artist.id
-  json.name artist.name
+json.book_artists @book.book_artists do |book_artist|
+  json.id book_artist.artist.id
+  json.name book_artist.artist.name
+  json.role book_artist.role
 end
 json.pages @book.pages
 json.publisher @book.publisher
