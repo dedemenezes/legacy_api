@@ -4,7 +4,8 @@ module Api
   module V1
     class CharactersController < ApplicationController
       def index
-        @characters = Character.all
+        @pagy, @records = pagy(Character.all)
+        render :index, { data: @records }
       end
 
       def show
