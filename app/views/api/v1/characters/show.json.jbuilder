@@ -33,7 +33,7 @@ json.wand @character.wands do |wand|
 end
 # end
 json.job @character.job
-json.house @character.member.house
+json.house @character.hogwarts_house
 json.loyalty @character.loyalty
 json.feathers @character.feathers
 json.created_at @character.created_at
