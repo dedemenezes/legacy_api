@@ -26,6 +26,6 @@ class Character < ApplicationRecord
   def wands
     return nil if wand_master.nil? && wand_owners.empty?
 
-    [wand_as_master, wands_as_owner].flatten
+    [wand_as_master, wands_as_owner].flatten.compact
   end
 end
