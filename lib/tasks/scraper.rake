@@ -73,7 +73,7 @@ namespace :scraper do
     Rake::Task['scraper:scrape_and_populate'].execute
   end
 
-  desc 'Scraper default'
+  desc 'Drop DB, recreate and populate'
   task dirty_seed: :environment do
     Rake::Task['db:drop'].execute
     Rake::Task['db:create'].execute
