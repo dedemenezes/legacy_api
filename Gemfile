@@ -32,6 +32,8 @@ gem 'faraday', '~> 2.3'
 
 gem "pagy", "~> 5.10"
 
+gem 'appsignal', '~> 3.0', '>= 3.0.27'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'factory_bot_rails'
