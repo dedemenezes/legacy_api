@@ -38,3 +38,4 @@ development:
 production:
   <<: *defaults
   active: true
+  revision: "1.0.0"
