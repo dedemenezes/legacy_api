@@ -14,6 +14,12 @@ A RESTfull API for Harry Potter - [theboywholivedapi](www.theboywholivedapi.fun)
 
 <br/>
 
+## Documentation
+
+- [theboywholivedapi/documentation](www.theboywholivedapi.fun/documentation)
+
+<br/>
+
 ## Contributing &nbsp; [![with us](https://img.shields.io/badge/Contribute-with%20us-blue)](https?theboywholivedapi.herokuapp.com)
 
 All contributions are welcome: bug fixes, data contributions, recommendations.
