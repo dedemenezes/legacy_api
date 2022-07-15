@@ -8,7 +8,12 @@ module Api
       end
 
       def show
-        @house = House.includes(heads: :header).find_by_name(params[:name].capitalize)
+
+        @house =  if params[:name] =~ /^\d/
+                    House.includes(heads: :header).find(params[:name])
+                  else
+                    House.includes(heads: :header).find_by_name(params[:name].capitalize)
+                  end
       end
     end
   end
