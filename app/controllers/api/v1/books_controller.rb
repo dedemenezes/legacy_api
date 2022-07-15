@@ -10,7 +10,11 @@ module Api
       end
 
       def show
-        @book = Book.includes(book_artists: :artist).find(params[:id])
+        @book = if params[:id] =~ /^\d/
+                  Book.includes(book_artists: :artist).find(params[:id])
+                else
+                  Book.includes(book_artists: :artist).find_by_name(params[:id].capitalize)
+                end
       end
     end
   end
