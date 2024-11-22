@@ -7,6 +7,12 @@ module Scraper
       @url = attributes[:url]
     end
 
+    def self.header_links(doc)
+      doc.search('.mw-headline i a').map do |el|
+        Scraper::HashBuilder.from_link(el)
+      end
+    end
+
     def ordered_list_i_link
       @doc.search('ol > li > i > a').map do |a_tag|
         Scraper::HashBuilder.from_link(a_tag)
