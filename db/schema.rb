@@ -10,10 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_29_045247) do
+ActiveRecord::Schema.define(version: 2024_11_21_182955) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "appointments", force: :cascade do |t|
+    t.bigint "patient_id", null: false
+    t.bigint "physician_id", null: false
+    t.string "date"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["patient_id"], name: "index_appointments_on_patient_id"
+    t.index ["physician_id"], name: "index_appointments_on_physician_id"
+  end
 
   create_table "artists", force: :cascade do |t|
     t.string "name"
@@ -187,6 +197,18 @@ ActiveRecord::Schema.define(version: 2022_06_29_045247) do
     t.index ["house_id"], name: "index_members_on_house_id"
   end
 
+  create_table "patients", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "physicians", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "pictures", force: :cascade do |t|
     t.string "title"
     t.string "path"
@@ -197,6 +219,13 @@ ActiveRecord::Schema.define(version: 2022_06_29_045247) do
     t.index ["imageable_type", "imageable_id"], name: "index_pictures_on_imageable"
   end
 
+  create_table "posts", force: :cascade do |t|
+    t.string "content"
+    t.boolean "published", default: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "related_creature_types", force: :cascade do |t|
     t.bigint "main_id"
     t.bigint "related_id"
@@ -204,6 +233,21 @@ ActiveRecord::Schema.define(version: 2022_06_29_045247) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["main_id"], name: "index_related_creature_types_on_main_id"
     t.index ["related_id"], name: "index_related_creature_types_on_related_id"
+  end
+
+  create_table "spells", force: :cascade do |t|
+    t.string "image_url"
+    t.string "name"
+    t.string "incantation"
+    t.string "kind"
+    t.string "light"
+    t.string "effect"
+    t.string "base_type"
+    t.string "hand_url"
+    t.bigint "creator_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["creator_id"], name: "index_spells_on_creator_id"
   end
 
   create_table "wand_masters", force: :cascade do |t|
@@ -250,6 +294,8 @@ ActiveRecord::Schema.define(version: 2022_06_29_045247) do
     t.string "base_type"
   end
 
+  add_foreign_key "appointments", "patients"
+  add_foreign_key "appointments", "physicians"
   add_foreign_key "book_artists", "artists"
   add_foreign_key "book_artists", "books"
   add_foreign_key "character_types", "characters"
@@ -261,6 +307,7 @@ ActiveRecord::Schema.define(version: 2022_06_29_045247) do
   add_foreign_key "members", "houses"
   add_foreign_key "related_creature_types", "creature_types", column: "main_id"
   add_foreign_key "related_creature_types", "creature_types", column: "related_id"
+  add_foreign_key "spells", "wikis", column: "creator_id"
   add_foreign_key "wand_masters", "characters"
   add_foreign_key "wand_masters", "wands"
   add_foreign_key "wand_owners", "characters"

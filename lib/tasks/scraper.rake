@@ -1,18 +1,6 @@
 # frozen_string_literal: true
 
 namespace :scraper do
-  desc 'Clean database before seed'
-  task clean_db: :environment do
-    puts 'Cleaning Database'
-    Book.destroy_all
-    Artist.destroy_all
-    Wiki.destroy_all
-    Character.destroy_all
-    Wand.destroy_all
-    CreatureType.destroy_all
-    puts 'DB Clean'
-  end
-
   desc 'Seed books'
   task books: :environment do
     Seeds::Books.run
@@ -55,6 +43,13 @@ namespace :scraper do
     puts 'Done zo/'
   end
 
+  desc 'Seed Spells'
+  task spells: :environment do
+    puts 'scraping and seeding spells...'
+    Seeds::Spells.run
+    puts 'Done zo/'
+  end
+
   desc 'Seed everything. Scrape and Create all data available so far'
   task scrape_and_populate: :environment do
     Rake::Task['scraper:books'].execute
@@ -65,12 +60,25 @@ namespace :scraper do
     Rake::Task['scraper:creature_types'].execute
     # Rake::Task['scraper:character_types'].execute
     Rake::Task['scraper:houses'].execute
+    Rake::Task['scraper:spells'].execute
   end
 
   desc 'Scraper default'
   task clean_seed: :environment do
     Rake::Task['scraper:clean_db'].execute
     Rake::Task['scraper:scrape_and_populate'].execute
+  end
+
+  desc 'Clean database before seed'
+  task clean_db: :environment do
+    puts 'Cleaning Database'
+    Book.destroy_all
+    Artist.destroy_all
+    Wiki.destroy_all
+    Character.destroy_all
+    Wand.destroy_all
+    CreatureType.destroy_all
+    puts 'DB Clean'
   end
 
   desc 'Drop DB, recreate and populate'
